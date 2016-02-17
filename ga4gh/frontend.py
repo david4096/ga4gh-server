@@ -25,7 +25,7 @@ import requests
 import ga4gh
 import ga4gh.backend as backend
 import ga4gh.datamodel as datamodel
-import ga4gh.protocol as protocol
+from serverStatus import ServerStatus
 import ga4gh.exceptions as exceptions
 import ga4gh.datarepo as datarepo
 
@@ -65,85 +65,7 @@ class NoConverter(werkzeug.routing.BaseConverter):
 app.url_map.converters['no'] = NoConverter
 
 
-class ServerStatus(object):
-    """
-    Generates information about the status of the server for display
-    """
-    def __init__(self):
-        self.startupTime = datetime.datetime.now()
 
-    def getConfiguration(self):
-        """
-        Returns a list of configuration (key, value) tuples
-        that are useful for users to view on an information page.
-        Note that we should be careful here not to leak sensitive
-        information. For example, keys and paths of data files should
-        not be returned.
-        """
-        # TODO what other config keys are appropriate to export here?
-        keys = [
-            'DEBUG', 'REQUEST_VALIDATION', 'RESPONSE_VALIDATION',
-            'DEFAULT_PAGE_SIZE', 'MAX_RESPONSE_LENGTH',
-        ]
-        return [(k, app.config[k]) for k in keys]
-
-    def getPreciseUptime(self):
-        """
-        Returns the server precisely.
-        """
-        return self.startupTime.strftime("%H:%M:%S %d %b %Y")
-
-    def getNaturalUptime(self):
-        """
-        Returns the uptime in a human-readable format.
-        """
-        return humanize.naturaltime(self.startupTime)
-
-    def getProtocolVersion(self):
-        """
-        Returns the GA4GH protocol version we support.
-        """
-        return protocol.version
-
-    def getServerVersion(self):
-        """
-        Returns the software version of this server.
-        """
-        return ga4gh.__version__
-
-    def getUrls(self):
-        """
-        Returns the list of (httpMethod, URL) tuples that this server
-        supports.
-        """
-        app.urls.sort()
-        return app.urls
-
-    def getDatasets(self):
-        """
-        Returns the list of datasetIds for this backend
-        """
-        return app.backend.getDataRepository().getDatasets()
-
-    def getVariantSets(self, datasetId):
-        """
-        Returns the list of variant sets for the dataset
-        """
-        return app.backend.getDataRepository().getDataset(
-            datasetId).getVariantSets()
-
-    def getReadGroupSets(self, datasetId):
-        """
-        Returns the list of ReadGroupSets for the dataset
-        """
-        return app.backend.getDataRepository().getDataset(
-            datasetId).getReadGroupSets()
-
-    def getReferenceSets(self):
-        """
-        Returns the list of ReferenceSets for this server.
-        """
-        return app.backend.getDataRepository().getReferenceSets()
 
 
 def reset():
@@ -173,7 +95,7 @@ def configure(configFile=None, baseConfig="ProductionConfig",
         app.config["FILE_HANDLE_CACHE_MAX_SIZE"])
     # Setup CORS
     cors.CORS(app, allow_headers='Content-Type')
-    app.serverStatus = ServerStatus()
+    app.serverStatus = ServerStatus(app)
     # Allocate the backend
     # We use URLs to specify the backend. Currently we have file:// URLs (or
     # URLs with no scheme) for the FileSystemBackend, and special empty:// and

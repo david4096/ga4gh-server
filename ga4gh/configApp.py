@@ -5,6 +5,7 @@ import requests
 import flask
 import flask.ext.cors as cors
 import urlparse
+import socket
 
 import oic
 import oic.oauth2

@@ -16,12 +16,29 @@
     "tags": [
         {
             "name": "variants",
-            "description": "Variant endpoints",
+            "description": "Variants",
+            "externalDocs": {
+                "description": "Find out more",
+                "url": "documentation site"
+            }
+        },
+        {
+            "name": "reads",
+            "description": "Reads",
+            "externalDocs": {
+                "description": "Find out more",
+                "url": "documentation site"
+            }
+        },
+        {
+            "name": "references",
+            "description": "References",
             "externalDocs": {
                 "description": "Find out more",
                 "url": "documentation site"
             }
         }
+        
     ],
     "schemes": [
         "http"
@@ -60,7 +77,7 @@
         "/referencesets/{id}": {
             "get": {
                 "tags": [
-                    "referencesets"
+                    "references"
                 ],
                 "description": "Returns reference sets for a given ID",
                 "summary": "Find reference sets by ID",
@@ -90,7 +107,7 @@
         "/references/{id}/bases": {
             "get": {
                 "tags": [
-                    "referencebases"
+                    "references"
                 ],
                 "description": "Returns reference bases for a given ID",
                 "summary": "Find reference bases by ID",
@@ -120,7 +137,7 @@
         "/callsets/search": {
             "post": {
                 "tags": [
-                    "callsets"
+                    "variants"
                 ],
                 "summary": "Search for callsets",
                 "description": "",
@@ -158,7 +175,7 @@
         "/readgroupsets/search": {
             "post": {
                 "tags": [
-                    "readgroupset"
+                    "reads"
                 ],
                 "summary": "Search for readgroupsets",
                 "description": "",
@@ -234,7 +251,7 @@
         "/referencesets/search": {
             "post": {
                 "tags": [
-                    "referenceset"
+                    "references"
                 ],
                 "summary": "Search for referencesets",
                 "description": "",
@@ -272,7 +289,7 @@
         "/references/search": {
             "post": {
                 "tags": [
-                    "reference"
+                    "references"
                 ],
                 "summary": "Search for references",
                 "description": "",
@@ -310,7 +327,7 @@
         "/variantsets/search": {
             "post": {
                 "tags": [
-                    "variantset"
+                    "variants"
                 ],
                 "summary": "Search for variantsets",
                 "description": "",
@@ -378,7 +395,7 @@
         "/variantsets/{id}": {
             "get": {
                 "tags": [
-                    "variantsets"
+                    "variants"
                 ],
                 "description": "Returns variantsets for a given ID",
                 "summary": "Find variantsets by ID",
@@ -408,7 +425,7 @@
         "/readgroupsets/{id}": {
             "get": {
                 "tags": [
-                    "readgroupsets"
+                    "reads"
                 ],
                 "description": "Returns readgroupset for a given ID",
                 "summary": "Find readgroupset by ID",
@@ -438,7 +455,7 @@
         "/readgroups/{id}": {
             "get": {
                 "tags": [
-                    "readgroups"
+                    "reads"
                 ],
                 "description": "Returns readgroups for a given ID",
                 "summary": "Find readgroups by ID",
@@ -468,7 +485,7 @@
         "/callsets/{id}": {
             "get": {
                 "tags": [
-                    "callsets"
+                    "variants"
                 ],
                 "description": "Returns callset for a given ID",
                 "summary": "Find callsets by ID",
@@ -510,7 +527,7 @@
                     "200": {
                         "description": "dataset response",
                         "schema": {
-                            "$ref": "#/definitions/DataSet"
+                            "$ref": "#/definitions/Dataset"
                         }
                     }
                 }
@@ -528,7 +545,7 @@
         "/variantannotationsets/{id}": {
             "get": {
                 "tags": [
-                    "variantannotationsets"
+                    "variants"
                 ],
                 "description": "Returns variant annotation set for a given ID",
                 "summary": "Find variant annotation sets by ID",
@@ -596,7 +613,7 @@
         "/variantannotationsets/search": {
             "post": {
                 "tags": [
-                    "variantannotationsets"
+                    "variants"
                 ],
                 "summary": "Search for variantannotationsets",
                 "description": "",
@@ -634,7 +651,7 @@
         "/variantannotations/search": {
             "post": {
                 "tags": [
-                    "variantannotations"
+                    "variants"
                 ],
                 "summary": "Search for variantannotations",
                 "description": "",
@@ -690,7 +707,7 @@
                         "description": "Search request",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/DataSet"
+                            "$ref": "#/definitions/Dataset"
                         }
                     }
                 ],
@@ -710,7 +727,7 @@
         "/genotypephenotype/search": {
             "post": {
                 "tags": [
-                    "genotypephenotype"
+                    "g2p"
                 ],
                 "summary": "Search for genotypephenotype",
                 "description": "",
@@ -748,7 +765,7 @@
         "/phenotypeassociationsets/search": {
             "post": {
                 "tags": [
-                    "phenotypeassociationsets"
+                    "g2p"
                 ],
                 "summary": "Search for phenotypeassociationsets",
                 "description": "",
@@ -1244,7 +1261,7 @@
                 }
             }
         },
-        "DataSet": {
+        "Dataset": {
             "type": "object",
             "required": [
                 "id",

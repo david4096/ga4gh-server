@@ -9,12 +9,14 @@ from __future__ import unicode_literals
 
 import argparse
 import logging
+import operator
 import unittest
 import unittest.loader
 import unittest.suite
 
 import requests
 
+import ga4gh
 import ga4gh.backend as backend
 import ga4gh.client as client
 import ga4gh.converters as converters
@@ -23,6 +25,7 @@ import ga4gh.configtest as configtest
 import ga4gh.exceptions as exceptions
 import ga4gh.datarepo as datarepo
 import ga4gh.repo_manager as repo_manager
+import ga4gh.protocol as protocol
 
 
 # the maximum value of a long type in avro = 2**63 - 1
@@ -40,9 +43,49 @@ AVRO_LONG_MAX = 2**31 - 1
 ##############################################################################
 
 
+class SortedHelpFormatter(argparse.HelpFormatter):
+    """
+    An argparse HelpFormatter that sorts the flags and subcommands
+    in alphabetical order
+    """
+    def add_arguments(self, actions):
+        """
+        Sort the flags alphabetically
+        """
+        actions = sorted(
+            actions, key=operator.attrgetter('option_strings'))
+        super(SortedHelpFormatter, self).add_arguments(actions)
+
+    def _iter_indented_subactions(self, action):
+        """
+        Sort the subcommands alphabetically
+        """
+        try:
+            get_subactions = action._get_subactions
+        except AttributeError:
+            pass
+        else:
+            self._indent()
+            if isinstance(action, argparse._SubParsersAction):
+                for subaction in sorted(
+                        get_subactions(), key=lambda x: x.dest):
+                    yield subaction
+            else:
+                for subaction in get_subactions():
+                    yield subaction
+            self._dedent()
+
+
 def addSubparser(subparsers, subcommand, description):
     parser = subparsers.add_parser(
         subcommand, description=description, help=description)
+    return parser
+
+
+def createArgumentParser(description):
+    parser = argparse.ArgumentParser(
+        description=description,
+        formatter_class=SortedHelpFormatter)
     return parser
 
 
@@ -70,12 +113,12 @@ def addServerOptions(parser):
     parser.add_argument(
         "--dont-use-reloader", default=False, action="store_true",
         help="Don't use the flask reloader")
+    addVersionArgument(parser)
     addDisableUrllibWarningsArgument(parser)
 
 
 def getServerParser():
-    parser = argparse.ArgumentParser(
-        description="GA4GH reference server")
+    parser = createArgumentParser("GA4GH reference server")
     addServerOptions(parser)
     return parser
 
@@ -403,11 +446,12 @@ class AnnotationFormatterMixin(object):
             print(
                 variantAnnotation.id, variantAnnotation.variantId,
                 variantAnnotation.variantAnnotationSetId,
-                variantAnnotation.created, sep="\t", end="\t")
+                variantAnnotation.createDateTime, sep="\t", end="\t")
             for effect in variantAnnotation.transcriptEffects:
                 print(effect.alternateBases, sep="|", end="|")
                 for so in effect.effects:
                     print(so.term, sep="&", end="|")
+                    print(so.id, sep="&", end="|")
                 print(effect.hgvsAnnotation.transcript,
                       effect.hgvsAnnotation.protein, sep="|", end="\t")
             print()
@@ -458,37 +502,36 @@ class SearchVariantAnnotationsRunner(
         self._start = args.start
         self._end = args.end
 
-        if args.featureIds == []:
-            self._featureIds = []
-        else:
-            self._featureIds = args.featureIds.split(",")
-
-        if args.effects == []:
+        if args.effects == "":
             self._effects = []
         else:
-            self._effects = args.effects.split(",")
+            self._effects = []
+            for eff in args.effects.split(","):
+                term = protocol.OntologyTerm()
+                term.id = eff
+                self._effects.append(term)
 
     def _run(self, variantAnnotationSetId):
         iterator = self._client.searchVariantAnnotations(
             variantAnnotationSetId=variantAnnotationSetId,
             referenceName=self._referenceName, referenceId=self._referenceId,
             start=self._start, end=self._end,
-            featureIds=self._featureIds, effects=self._effects)
+            effects=self._effects)
         self._output(iterator)
 
-    def getAllAnnotaionSets(self):
+    def getAllAnnotationSets(self):
         """
         Returns all variant annotation sets on the server.
         """
-        for dataset in self.getAllDatasets():
+        for variantSet in self.getAllVariantSets():
             iterator = self._client.searchVariantAnnotationSets(
-                datasetId=dataset.id)
-            for variantSet in iterator:
-                yield variantSet
+                variantSetId=variantSet.id)
+            for variantAnnotationSet in iterator:
+                yield variantAnnotationSet
 
     def run(self):
         if self._variantAnnotationSetId is None:
-            for annotationSet in self.getAllAnnotaionSets():
+            for annotationSet in self.getAllAnnotationSets():
                 self._run(annotationSet.id)
         else:
             self._run(self._variantAnnotationSetId)
@@ -654,6 +697,16 @@ def addDisableUrllibWarningsArgument(parser):
         help="Disable urllib3 warnings")
 
 
+def addVersionArgument(parser):
+    # TODO argparse strips newlines from version output
+    versionString = (
+        "GA4GH Server Version {}\n"
+        "(Protocol Version {})".format(
+            ga4gh.__version__, protocol.version))
+    parser.add_argument(
+        "--version", version=versionString, action="version")
+
+
 def addVariantSearchOptions(parser):
     """
     Adds common options to a variant searches command line parser.
@@ -675,7 +728,6 @@ def addAnnotationsSearchOptions(parser):
     addReferenceIdArgument(parser)
     addStartArgument(parser)
     addEndArgument(parser)
-    addFeatureIdsArgument(parser)
     addEffectsArgument(parser)
     addPageSizeArgument(parser)
 
@@ -686,10 +738,15 @@ def addVariantSetIdArgument(parser):
         help="The variant set id to search over")
 
 
+def addVariantSetIdMandatoryArgument(parser):
+    parser.add_argument(
+        "variantSetId", help="The variant set id to search over")
+
+
 def addAnnotationSetIdArgument(parser):
     parser.add_argument(
         "--variantAnnotationSetId", "-V", default=None,
-        help="The annotation set id to search over")
+        help="The variant annotation set id to search over")
 
 
 def addReferenceNameArgument(parser):
@@ -723,7 +780,7 @@ def addFeatureIdsArgument(parser):
 
 def addEffectsArgument(parser):
     parser.add_argument(
-        "--effects", "-effs", default=[],
+        "--effects", "-effs", default="",
         help="""Return annotations having any of these effects.
             Pass in IDs as a comma separated list (no spaces).
             """)
@@ -814,6 +871,7 @@ def addClientGlobalOptions(parser):
         "--key", "-k", default='invalid',
         help="Auth Key. Found on server index page.")
     addDisableUrllibWarningsArgument(parser)
+    addVersionArgument(parser)
 
 
 def addHelpParser(subparsers):
@@ -847,8 +905,8 @@ def addVariantSetsSearchParser(subparsers):
 def addVariantAnnotationSearchParser(subparsers):
     parser = subparsers.add_parser(
         "variantannotations-search",
-        description="Search for variant annotaions",
-        help="Search for variantAnnotaions.")
+        description="Search for variant annotations",
+        help="Search for variant annotations.")
     parser.set_defaults(runner=SearchVariantAnnotationsRunner)
     addUrlArgument(parser)
     addOutputFormatArgument(parser)
@@ -865,7 +923,7 @@ def addVariantAnnotationSetsSearchParser(subparsers):
     addOutputFormatArgument(parser)
     addUrlArgument(parser)
     addPageSizeArgument(parser)
-    addVariantSetIdArgument(parser)
+    addVariantSetIdMandatoryArgument(parser)
     return parser
 
 
@@ -1026,8 +1084,7 @@ def addReferencesBasesListParser(subparsers):
 
 
 def getClientParser():
-    parser = argparse.ArgumentParser(
-        description="GA4GH reference client")
+    parser = createArgumentParser("GA4GH reference client")
     addClientGlobalOptions(parser)
     subparsers = parser.add_subparsers(title='subcommands',)
     addHelpParser(subparsers)
@@ -1105,10 +1162,9 @@ def addOutputFileArgument(parser):
 
 
 def getGa2VcfParser():
-    parser = argparse.ArgumentParser(
-        description=(
-            "GA4GH VCF conversion tool. Converts variant information "
-            "stored in a GA4GH repository into VCF format."))
+    parser = createArgumentParser((
+        "GA4GH VCF conversion tool. Converts variant information "
+        "stored in a GA4GH repository into VCF format."))
     addClientGlobalOptions(parser)
     addOutputFileArgument(parser)
     addUrlArgument(parser)
@@ -1163,8 +1219,7 @@ class Ga2SamRunner(SearchReadsRunner):
 
 
 def getGa2SamParser():
-    parser = argparse.ArgumentParser(
-        description="GA4GH SAM conversion tool")
+    parser = createArgumentParser("GA4GH SAM conversion tool")
     addClientGlobalOptions(parser)
     addUrlArgument(parser)
     parser.add_argument(
@@ -1218,14 +1273,16 @@ class SimplerResult(unittest.TestResult):
 
 def configtest_main(parser=None):
     if parser is None:
-        parser = argparse.ArgumentParser(
-            description="GA4GH server configuration validator")
+        parser = createArgumentParser(
+            "GA4GH server configuration validator")
     parser.add_argument(
         "--config", "-c", default='DevelopmentConfig', type=str,
         help="The configuration to use")
     parser.add_argument(
         "--config-file", "-f", type=str, default=None,
         help="The configuration file to use")
+    addVersionArgument(parser)
+
     args = parser.parse_args()
     configStr = 'ga4gh.serverconfig:{0}'.format(args.config)
 
@@ -1322,9 +1379,10 @@ class CheckRunner(AbstractRepoCommandRunner):
 
     def __init__(self, args):
         super(CheckRunner, self).__init__(args)
+        self.doConsistencyCheck = not args.skipConsistencyCheck
 
     def run(self):
-        self.repoManager.check()
+        self.repoManager.check(self.doConsistencyCheck)
 
 
 class ListRunner(AbstractRepoCommandRunner):
@@ -1362,6 +1420,26 @@ class AddDatasetRunner(AbstractRepoDatasetCommandRunner):
 
     def run(self):
         self.repoManager.addDataset(self.datasetName)
+
+
+class AddOntologyMapRunner(AbstractRepoAddMoveCommandRunner):
+
+    def __init__(self, args):
+        super(AddOntologyMapRunner, self).__init__(args)
+
+    def run(self):
+        self.repoManager.addOntologyMap(self.filePath, self.moveMode)
+
+
+class RemoveOntologyMapRunner(AbstractRepoCommandRunner):
+
+    def __init__(self, args):
+        super(RemoveOntologyMapRunner, self).__init__(args)
+        self.ontologyMapName = args.ontologyMapName
+
+    def run(self):
+        def func(): self.repoManager.removeOntologyMap(self.ontologyMapName)
+        self.confirmRun(func, 'ontology map {}'.format(self.ontologyMapName))
 
 
 class RemoveDatasetRunner(AbstractRepoDatasetCommandRunner):
@@ -1452,6 +1530,12 @@ def addRepoArgument(subparser):
         "repoPath", help="the file path of the data repository")
 
 
+def addSkipConsistencyCheckArgument(subparser):
+    subparser.add_argument(
+        "-s", "--skipConsistencyCheck", action='store_true', default=False,
+        help="skip the data repo consistency check")
+
+
 def addForceArgument(subparser):
     subparser.add_argument(
         "-f", "--force", action='store_true',
@@ -1461,6 +1545,12 @@ def addForceArgument(subparser):
 def addDatasetNameArgument(subparser):
     subparser.add_argument(
         "datasetName", help="the name of the dataset to create/modify")
+
+
+def addOntologyNameArgument(subparser):
+    subparser.add_argument(
+        "ontologyMapName",
+        help="the name of the ontology map to create/modify")
 
 
 def addReadGroupSetNameArgument(subparser):
@@ -1496,12 +1586,13 @@ def addReferenceSetMetadataArguments(subparser):
 
 
 def getRepoParser():
-    parser = argparse.ArgumentParser(
-        description="GA4GH data repository management tool")
+    parser = createArgumentParser(
+        "GA4GH data repository management tool")
     subparsers = parser.add_subparsers(title='subcommands',)
     parser.add_argument(
         "--loud", default=False, action="store_true",
         help="propagate exceptions from RepoManager")
+    addVersionArgument(parser)
 
     initParser = addSubparser(
         subparsers, "init", "Initialize a data repository")
@@ -1512,6 +1603,7 @@ def getRepoParser():
         subparsers, "check", "Check to see if repo is well-formed")
     checkParser.set_defaults(runner=CheckRunner)
     addRepoArgument(checkParser)
+    addSkipConsistencyCheckArgument(checkParser)
 
     listParser = addSubparser(
         subparsers, "list", "List the contents of the repo")
@@ -1565,6 +1657,22 @@ def getRepoParser():
     addDatasetNameArgument(addReadGroupSetParser)
     addFilePathArgument(addReadGroupSetParser)
     addMoveModeArgument(addReadGroupSetParser)
+
+    addOntologyMapParser = addSubparser(
+        subparsers, "add-ontologymap",
+        "Add an ontology map to the repo")
+    addOntologyMapParser.set_defaults(runner=AddOntologyMapRunner)
+    addRepoArgument(addOntologyMapParser)
+    addFilePathArgument(addOntologyMapParser)
+    addMoveModeArgument(addOntologyMapParser)
+
+    removeOntologyMapParser = addSubparser(
+        subparsers, "remove-ontologymap",
+        "Remove an ontology map from the repo")
+    removeOntologyMapParser.set_defaults(runner=RemoveOntologyMapRunner)
+    addRepoArgument(removeOntologyMapParser)
+    addOntologyNameArgument(removeOntologyMapParser)
+    addForceArgument(removeOntologyMapParser)
 
     removeReadGroupSetParser = addSubparser(
         subparsers, "remove-readgroupset",

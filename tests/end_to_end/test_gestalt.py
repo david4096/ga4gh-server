@@ -15,17 +15,31 @@ from __future__ import unicode_literals
 import server_test
 import client
 
+import ga4gh.datamodel as datamodel
+import tests.paths as paths
+
 
 class TestGestalt(server_test.ServerTest):
     """
     An end-to-end test of the client and server
     """
     def testEndToEnd(self):
-        self.simulatedDatasetId = "c2ltdWxhdGVkRGF0YXNldDA"
-        self.simulatedVariantSetId = "c2ltdWxhdGVkRGF0YXNldDA6c2ltVnMw"
-        self.simulatedReadGroupId = "c2ltdWxhdGVkRGF0YXNldDA6c2ltUmdzMDpyZzA"
-        self.simulatedReferenceSetId = "cmVmZXJlbmNlU2V0MA"
-        self.simulatedReferenceId = "cmVmZXJlbmNlU2V0MDpzcnMw"
+        self.simulatedDatasetId = datamodel.DatasetCompoundId.obfuscate(
+            paths.simulatedDatasetId)
+        self.simulatedVariantSetId = \
+            datamodel.VariantSetCompoundId.obfuscate(
+                paths.simulatedVariantSetId)
+        self.simulatedReadGroupId = datamodel.ReadGroupCompoundId.obfuscate(
+            paths.simulatedReadGroupId)
+        self.simulatedReferenceSetId = \
+            datamodel.ReferenceSetCompoundId.obfuscate(
+                paths.simulatedReferenceSetId)
+        self.simulatedReferenceId = \
+            datamodel.ReferenceCompoundId.obfuscate(
+                paths.simulatedReferenceId)
+        self.simulatedVariantAnnotationSetId = \
+            datamodel.VariantAnnotationSetCompoundId.obfuscate(
+                paths.simulatedVariantAnnotationSetId)
         self.client = client.ClientForTesting(self.server.getUrl())
         self.runVariantsRequest()
         self.assertLogsWritten()
@@ -79,6 +93,12 @@ class TestGestalt(server_test.ServerTest):
             self.client,
             "variants-search",
             "-s 0 -e 2 -V {}".format(self.simulatedVariantSetId))
+
+    def runVariantAnnotationsRequest(self):
+        self.runClientCmd(
+            self.client,
+            "variantannotations-search",
+            "{}".format(self.simulatedVariantAnnotationSetId))
 
     def runReadsRequest(self):
         args = "--readGroupIds {} --referenceId {}".format(

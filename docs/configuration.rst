@@ -173,6 +173,11 @@ An example layout might look like::
                     sample2.bam.bai
                     # More BAMS
 
+.. note:: Any change to the data repository (using the repository manager or
+    otherwise) requires a restart of the server to be picked up by the
+    server.  The server does not detect changes in the data repository
+    while running.
+
 ------------------
 Repository manager
 ------------------
@@ -277,6 +282,30 @@ Removes a given reference set from a given data repository.
 .. code-block:: bash
 
     $ ga4gh_repo remove-referenceset path/to/datarepo aReferenceSet
+
+++++++++++++++++
+add-ontologymap
+++++++++++++++++
+
+Adds an Ontology Map, which maps identifiers to ontology terms, to 
+the repository. Ontology maps are tab delimited files with an
+identifier/term pair per row.
+
+
+.. code-block:: bash
+
+    $ ga4gh_repo add-ontologymap path/to/datarepo path/to/aOntoMap.txt
+
+++++++++++++++++++++
+remove-ontologymap
+++++++++++++++++++++
+
+Removes a given Ontology Map from a given data repository.
+
+.. code-block:: bash
+
+    $ ga4gh_repo remove-ontologymap path/to/datarepo aOntoMap
+
 
 +++++++++++++++++
 add-readgroupset

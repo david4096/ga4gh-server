@@ -15,30 +15,25 @@
     "host": "localhost:8000",
     "tags": [
         {
-            "name": "variants",
-            "description": "Variants",
+            "name": "Variants",
+            "description": "Variant endpoints",
             "externalDocs": {
                 "description": "Find out more",
                 "url": "documentation site"
             }
         },
         {
-            "name": "reads",
-            "description": "Reads",
-            "externalDocs": {
-                "description": "Find out more",
-                "url": "documentation site"
-            }
+            "name": "Reads",
+            "description": "Reads endpoints"
         },
         {
-            "name": "references",
-            "description": "References",
-            "externalDocs": {
-                "description": "Find out more",
-                "url": "documentation site"
-            }
+            "name": "References",
+            "description": "Reference endpoints"
+        },
+        {
+            "name": "Datasets",
+            "description": "Dataset endpoints"
         }
-        
     ],
     "schemes": [
         "http"
@@ -47,7 +42,7 @@
         "/references/{id}": {
             "get": {
                 "tags": [
-                    "references"
+                    "References"
                 ],
                 "description": "Returns references for a given ID",
                 "summary": "Find references by ID",
@@ -77,7 +72,7 @@
         "/referencesets/{id}": {
             "get": {
                 "tags": [
-                    "references"
+                    "References"
                 ],
                 "description": "Returns reference sets for a given ID",
                 "summary": "Find reference sets by ID",
@@ -107,7 +102,7 @@
         "/references/{id}/bases": {
             "get": {
                 "tags": [
-                    "references"
+                    "References"
                 ],
                 "description": "Returns reference bases for a given ID",
                 "summary": "Find reference bases by ID",
@@ -137,7 +132,7 @@
         "/callsets/search": {
             "post": {
                 "tags": [
-                    "variants"
+                    "Variants"
                 ],
                 "summary": "Search for callsets",
                 "description": "",
@@ -155,13 +150,16 @@
                         "description": "Search request",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/CallSet"
+                            "$ref": "#/definitions/SearchCallSetsRequest"
                         }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Success"
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/SearchCallSetsResponse"
+                        }
                     },
                     "400": {
                         "description": "Bad request"
@@ -175,7 +173,7 @@
         "/readgroupsets/search": {
             "post": {
                 "tags": [
-                    "reads"
+                    "Reads"
                 ],
                 "summary": "Search for readgroupsets",
                 "description": "",
@@ -193,13 +191,16 @@
                         "description": "Search request",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/ReadGroupSet"
+                            "$ref": "#/definitions/SearchReadGroupSetsRequest"
                         }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Success"
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/SearchReadGroupSetsResponse"
+                        }
                     },
                     "400": {
                         "description": "Bad request"
@@ -213,7 +214,7 @@
         "/reads/search": {
             "post": {
                 "tags": [
-                    "reads"
+                    "Reads"
                 ],
                 "summary": "Search for reads",
                 "description": "",
@@ -237,7 +238,10 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Success"
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/SearchReadsResponse"
+                        }
                     },
                     "400": {
                         "description": "Bad request"
@@ -251,7 +255,7 @@
         "/referencesets/search": {
             "post": {
                 "tags": [
-                    "references"
+                    "References"
                 ],
                 "summary": "Search for referencesets",
                 "description": "",
@@ -269,13 +273,16 @@
                         "description": "Search request",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/ReferenceSet"
+                            "$ref": "#/definitions/SearchReferenceSetsRequest"
                         }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Success"
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/SearchReferenceSetsResponse"
+                        }
                     },
                     "400": {
                         "description": "Bad request"
@@ -289,7 +296,7 @@
         "/references/search": {
             "post": {
                 "tags": [
-                    "references"
+                    "References"
                 ],
                 "summary": "Search for references",
                 "description": "",
@@ -307,13 +314,16 @@
                         "description": "Search request",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/Reference"
+                            "$ref": "#/definitions/SearchReferencesRequest"
                         }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Success"
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/SearchReferencesResponse"
+                        }
                     },
                     "400": {
                         "description": "Bad request"
@@ -327,7 +337,7 @@
         "/variantsets/search": {
             "post": {
                 "tags": [
-                    "variants"
+                    "Variants"
                 ],
                 "summary": "Search for variantsets",
                 "description": "",
@@ -345,13 +355,16 @@
                         "description": "Search request",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/VariantSet"
+                            "$ref": "#/definitions/SearchVariantSetsRequest"
                         }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Success"
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/SearchVariantSetsResponse"
+                        }
                     },
                     "400": {
                         "description": "Bad request"
@@ -365,7 +378,7 @@
         "/variants/{id}": {
             "get": {
                 "tags": [
-                    "variants"
+                    "Variants"
                 ],
                 "description": "Returns variant for a given ID",
                 "summary": "Find variants by ID",
@@ -395,7 +408,7 @@
         "/variantsets/{id}": {
             "get": {
                 "tags": [
-                    "variants"
+                    "Variants"
                 ],
                 "description": "Returns variantsets for a given ID",
                 "summary": "Find variantsets by ID",
@@ -425,7 +438,7 @@
         "/readgroupsets/{id}": {
             "get": {
                 "tags": [
-                    "reads"
+                    "Reads"
                 ],
                 "description": "Returns readgroupset for a given ID",
                 "summary": "Find readgroupset by ID",
@@ -455,7 +468,7 @@
         "/readgroups/{id}": {
             "get": {
                 "tags": [
-                    "reads"
+                    "Reads"
                 ],
                 "description": "Returns readgroups for a given ID",
                 "summary": "Find readgroups by ID",
@@ -485,7 +498,7 @@
         "/callsets/{id}": {
             "get": {
                 "tags": [
-                    "variants"
+                    "Variants"
                 ],
                 "description": "Returns callset for a given ID",
                 "summary": "Find callsets by ID",
@@ -515,7 +528,7 @@
         "/datasets/{id}": {
             "get": {
                 "tags": [
-                    "datasets"
+                    "Datasets"
                 ],
                 "description": "Returns dataset for a given ID",
                 "summary": "Find datasets by ID",
@@ -545,7 +558,7 @@
         "/variantannotationsets/{id}": {
             "get": {
                 "tags": [
-                    "variants"
+                    "Variants"
                 ],
                 "description": "Returns variant annotation set for a given ID",
                 "summary": "Find variant annotation sets by ID",
@@ -575,7 +588,7 @@
         "/variants/search": {
             "post": {
                 "tags": [
-                    "variants"
+                    "Variants"
                 ],
                 "summary": "Search for variants",
                 "description": "",
@@ -593,13 +606,16 @@
                         "description": "Search request",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/Variant"
+                            "$ref": "#/definitions/SearchVariantsRequest"
                         }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Success"
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/SearchVariantsResponse"
+                        }
                     },
                     "400": {
                         "description": "Bad request"
@@ -613,7 +629,7 @@
         "/variantannotationsets/search": {
             "post": {
                 "tags": [
-                    "variants"
+                    "Variants"
                 ],
                 "summary": "Search for variantannotationsets",
                 "description": "",
@@ -651,7 +667,7 @@
         "/variantannotations/search": {
             "post": {
                 "tags": [
-                    "variants"
+                    "Variants"
                 ],
                 "summary": "Search for variantannotations",
                 "description": "",
@@ -669,13 +685,16 @@
                         "description": "Search request",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/VariantAnnotation"
+                            "$ref": "#/definitions/SearchVariantAnnotationsRequest"
                         }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Success"
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/SearchVariantAnnotationsResponse"
+                        }
                     },
                     "400": {
                         "description": "Bad request"
@@ -689,7 +708,7 @@
         "/datasets/search": {
             "post": {
                 "tags": [
-                    "datasets"
+                    "Datasets"
                 ],
                 "summary": "Search for datasets",
                 "description": "",
@@ -707,95 +726,22 @@
                         "description": "Search request",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/Dataset"
+                            "$ref": "#/definitions/SearchDatasetsRequest"
                         }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Success"
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/SearchDatasetsResponse"
+                        }
                     },
                     "400": {
                         "description": "Bad request"
                     },
                     "404": {
                         "description": "The specified Data Set ID was not found"
-                    }
-                }
-            }
-        },
-        "/genotypephenotype/search": {
-            "post": {
-                "tags": [
-                    "g2p"
-                ],
-                "summary": "Search for genotypephenotype",
-                "description": "",
-                "operationId": "searchGenotypePhenotype",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "in": "body",
-                        "name": "body",
-                        "description": "Search request",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/SearchGenotypePhenotypeRequest"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success"
-                    },
-                    "400": {
-                        "description": "Bad request"
-                    },
-                    "404": {
-                        "description": "The specified Genotpye Phenotype Set ID was not found"
-                    }
-                }
-            }
-        },
-        "/phenotypeassociationsets/search": {
-            "post": {
-                "tags": [
-                    "g2p"
-                ],
-                "summary": "Search for phenotypeassociationsets",
-                "description": "",
-                "operationId": "searchPenotypeAssociationSets",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "in": "body",
-                        "name": "body",
-                        "description": "Search request",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/PhenotypeAssociationSet"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success"
-                    },
-                    "400": {
-                        "description": "Bad request"
-                    },
-                    "404": {
-                        "description": "The specified Phenotype Association Set ID was not found"
                     }
                 }
             }
@@ -854,10 +800,7 @@
                 "id",
                 "name",
                 "md5checksum",
-                "ncbiTaxonId",
                 "description",
-                "assemblyId",
-                "sourceURI",
                 "sourceAccessions",
                 "isDerived"
             ],
@@ -872,7 +815,7 @@
                     "type": "string"
                 },
                 "ncbiTaxonId": {
-                    "type": "integer"
+                    "type": "string"
                 },
                 "description": {
                     "type": "string"
@@ -1061,6 +1004,85 @@
                 }
             }
         },
+        "SearchCallSetsRequest": {
+            "type": "object",
+            "required": [
+                "variantSetId"
+            ],
+            "properties": {
+                "variantSetId": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "pageSize": {
+                    "type": "integer"
+                },
+                "pageToken": {
+                    "type": "string"
+                }
+            }
+        },
+        "SearchCallSetsResponse": {
+            "type": "object",
+            "required": [
+                "callSets",
+                "nextPageToken"
+            ],
+            "properties": {
+                "callSets": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/CallSet"
+                    }
+                },
+                "nextPageToken": {
+                    "type": "string"
+                }
+            }
+        },
+        "SearchReadGroupSetsRequest": {
+            "type": "object",
+            "required": [
+                "datasetId",
+                "name",
+                "pageSize",
+                "pageToken"
+            ],
+            "properties": {
+                "datasetId": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "pageSize": {
+                    "type": "integer"
+                },
+                "pageToken": {
+                    "type": "string"
+                }
+            }
+        },
+        "SearchReadGroupSetsResponse": {
+            "type": "object",
+            "required": [
+                "readGroupSets",
+                "nextPageToken"
+            ],
+            "properties": {
+                "readGroupSets": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ReadGroupSet"
+                    }
+                },
+                "nextPageToken": {
+                    "type": "string"
+                }
+            }
+        },
         "ReadStats": {
             "type": "object",
             "properties": {
@@ -1079,16 +1101,7 @@
             "type": "object",
             "required": [
                 "id",
-                "datasetId",
-                "name",
-                "description",
-                "sampleId",
-                "experiment",
-                "predictedInsertSize",
-                "created",
-                "updated",
                 "programs",
-                "referenceSetId",
                 "info"
             ],
             "properties": {
@@ -1146,9 +1159,6 @@
             "type": "object",
             "required": [
                 "id",
-                "datasetId",
-                "name",
-                "stats",
                 "readGroups"
             ],
             "properties": {
@@ -1175,15 +1185,157 @@
                 }
             }
         },
+        "Strand": {
+            "type": "string",
+            "enum": [
+                "NEG_STRAND",
+                "POS_STRAND"
+            ]
+        },
+        "Position": {
+            "type": "object",
+            "required": [
+                "referenceName",
+                "position",
+                "strand"
+            ],
+            "properties": {
+                "referenceName": {
+                    "type": "string"
+                },
+                "position": {
+                    "type": "integer"
+                },
+                "strand": {
+                    "$ref": "#/definitions/Strand"
+                }
+            }
+        },
+        "CigarOperation": {
+            "type": "string",
+            "enum": [
+                "ALIGNMENT_MATCH",
+                "INSERT",
+                "DELETE",
+                "SKIP",
+                "CLIP_SOFT",
+                "CLIP_HARD",
+                "PAD",
+                "SEQUENCE_MATCH",
+                "SEQUENCE_MISMATCH"
+            ]
+        },
+        "CigarUnit": {
+            "type": "object",
+            "required": [
+                "operation",
+                "operationLength"
+            ],
+            "properties": {
+                "operation": {
+                    "$ref": "#/definitions/CigarOperation"
+                },
+                "operationLength": {
+                    "type": "integer"
+                },
+                "referenceSequence": {
+                    "type": "string"
+                }
+            }
+        },
+        "LinearAlignment": {
+            "type": "object",
+            "required": [
+                "position",
+                "cigar"
+            ],
+            "properties": {
+                "position": {
+                    "$ref": "#/definitions/Position"
+                },
+                "mappingQuality": {
+                    "type": "integer"
+                },
+                "cigar": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/CigarUnit"
+                    }
+                }
+            }
+        },
+        "ReadAlignment": {
+            "type": "object",
+            "required": [
+                "readGroupId",
+                "fragmentName",
+                "alignedQuality",
+                "info"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "readGroupId": {
+                    "type": "string"
+                },
+                "fragmentName": {
+                    "type": "string"
+                },
+                "improperPlacement": {
+                    "type": "boolean"
+                },
+                "duplicateFragment": {
+                    "type": "boolean"
+                },
+                "failedVendorQualityChecks": {
+                    "type": "boolean"
+                },
+                "numberReads": {
+                    "type": "integer"
+                },
+                "fragmentLength": {
+                    "type": "integer"
+                },
+                "readNumber": {
+                    "type": "integer"
+                },
+                "alignment": {
+                    "$ref": "#/definitions/LinearAlignment"
+                },
+                "secondaryAlignment": {
+                    "type": "boolean"
+                },
+                "supplementaryAlignment": {
+                    "type": "boolean"
+                },
+                "alignedSequence": {
+                    "type": "string"
+                },
+                "alignedQuality": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "nextMatePosition": {
+                    "$ref": "#/definitions/Position"
+                },
+                "info": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "SearchReadsRequest": {
             "type": "object",
             "required": [
-                "readGroupIds",
-                "referenceId",
-                "start",
-                "end",
-                "pageSize",
-                "pageToken"
+                "readGroupIds"
             ],
             "properties": {
                 "readGroupIds": {
@@ -1196,10 +1348,12 @@
                     "type": "string"
                 },
                 "start": {
-                    "type": "integer"
+                    "type": "integer",
+                    "format": "int64"
                 },
                 "end": {
-                    "type": "integer"
+                    "type": "integer",
+                    "format": "int64"
                 },
                 "pageSize": {
                     "type": "integer"
@@ -1209,55 +1363,218 @@
                 }
             }
         },
-        "SearchGenotypePhenotypeRequest": {
+        "SearchReadsResponse": {
             "type": "object",
             "required": [
-                "phenotypeAssociationSetId",
-                "feature",
-                "phenotype",
-                "evidence"
+                "alignments",
+                "nextPageToken"
             ],
             "properties": {
-                "phenotypeAssociationSetId": {
-                    "type": "string"
+                "alignments": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ReadAlignment"
+                    }
                 },
-                "feature": {
-                    "type": "string"
-                },
-                "phenotype": {
-                    "type": "string"
-                },
-                "evidence": {
+                "nextPageToken": {
                     "type": "string"
                 }
             }
         },
-        "PhenotypeAssociationSet": {
+        "SearchReferencesRequest": {
             "type": "object",
             "required": [
-                "id",
-                "name",
-                "datasetId",
-                "info"
+                "referenceSetId"
             ],
             "properties": {
-                "id": {
+                "referenceSetId": {
                     "type": "string"
                 },
-                "name": {
+                "md5checksum": {
                     "type": "string"
                 },
+                "accession": {
+                    "type": "string"
+                },
+                "pageSize": {
+                    "type": "integer"
+                },
+                "pageToken": {
+                    "type": "string"
+                }
+            }
+        },
+        "SearchReferencesResponse": {
+            "type": "object",
+            "required": [
+                "references"
+            ],
+            "properties": {
+                "references": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Reference"
+                    }
+                },
+                "nextPageToken": {
+                    "type": "string"
+                }
+            }
+        },
+        "SearchReferenceSetsRequest": {
+            "type": "object",
+            "properties": {
+                "md5checksum": {
+                    "type": "string"
+                },
+                "accession": {
+                    "type": "string"
+                },
+                "assemblyId": {
+                    "type": "string"
+                },
+                "pageSize": {
+                    "type": "integer"
+                },
+                "pageToken": {
+                    "type": "string"
+                }
+            }
+        },
+        "SearchReferenceSetsResponse": {
+            "type": "object",
+            "required": [
+                "referenceSets"
+            ],
+            "properties": {
+                "referenceSets": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ReferenceSet"
+                    }
+                },
+                "nextPageToken": {
+                    "type": "string"
+                }
+            }
+        },
+        "SearchVariantSetsRequest": {
+            "type": "object",
+            "required": [
+                "datasetId"
+            ],
+            "properties": {
                 "datasetId": {
                     "type": "string"
                 },
-                "info": {
-                    "type": "object",
-                    "additionalProperties": {
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        }
+                "pageSize": {
+                    "type": "integer"
+                },
+                "pageToken": {
+                    "type": "string"
+                }
+            }
+        },
+        "SearchVariantSetsResponse": {
+            "type": "object",
+            "required": [
+                "variantSets"
+            ],
+            "properties": {
+                "variantSets": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/VariantSet"
                     }
+                },
+                "nextPageToken": {
+                    "type": "string"
+                }
+            }
+        },
+        "SearchVariantAnnotationsRequest": {
+            "type": "object",
+            "required": [
+                "variantannotationSetId",
+                "start",
+                "end"
+            ],
+            "properties": {
+                "variantannotationSetId": {
+                    "type": "string"
+                },
+                "referenceName": {
+                    "type": "string"
+                },
+                "referenceId": {
+                    "type": "string"
+                },
+                "start": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "end": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "effects": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/OntologyTerm"
+                    }
+                },
+                "pageSize": {
+                    "type": "integer"
+                },
+                "pageToken": {
+                    "type": "string"
+                }
+            }
+        },
+        "SearchVariantAnnotationsResponse": {
+            "type": "object",
+            "required": [
+                "variantAnnotations",
+                "nextPageToken"
+            ],
+            "properties": {
+                "variantAnnotations": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/VariantAnnotation"
+                    }
+                },
+                "nextPageToken": {
+                    "type": "string"
+                }
+            }
+        },
+        "SearchDatasetsRequest": {
+            "type": "object",
+            "properties": {
+                "pageSize": {
+                    "type": "integer"
+                },
+                "pageToken": {
+                    "type": "string"
+                }
+            }
+        },
+        "SearchDatasetsResponse": {
+            "type": "object",
+            "required": [
+                "datasets",
+                "nextPageToken"
+            ],
+            "properties": {
+                "datasets": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Dataset"
+                    }
+                },
+                "nextPageToken": {
+                    "type": "string"
                 }
             }
         },
@@ -1355,11 +1672,7 @@
             "type": "object",
             "required": [
                 "id",
-                "name",
-                "description",
-                "createDateTime",
                 "updateDateTime",
-                "type",
                 "software",
                 "info"
             ],
@@ -1402,10 +1715,7 @@
         "OntologyTerm": {
             "type": "object",
             "required": [
-                "id",
-                "term",
-                "sourceName",
-                "sourceVersion"
+                "id"
             ],
             "properties": {
                 "id": {
@@ -1424,11 +1734,6 @@
         },
         "HGVSAnnotation": {
             "type": "object",
-            "required": [
-                "genomic",
-                "transcript",
-                "protein"
-            ],
             "properties": {
                 "genomic": {
                     "type": "string"
@@ -1444,17 +1749,16 @@
         "AlleleLocation": {
             "type": "object",
             "required": [
-                "start",
-                "end",
-                "referenceSequence",
-                "alternateSequence"
+                "start"
             ],
             "properties": {
                 "start": {
-                    "type": "integer"
+                    "type": "integer",
+                    "format": "int64"
                 },
                 "end": {
-                    "type": "integer"
+                    "type": "integer",
+                    "format": "int64"
                 },
                 "referenceSequence": {
                     "type": "string"
@@ -1467,9 +1771,7 @@
         "AnalysisResult": {
             "type": "object",
             "required": [
-                "analysisId",
-                "result",
-                "score"
+                "analysisId"
             ],
             "properties": {
                 "analysisId": {
@@ -1488,13 +1790,9 @@
             "required": [
                 "id",
                 "featureId",
-                "alternateBases",
                 "effects",
                 "hgvsAnnotation",
-                "cDNALocation",
-                "CDSLocation",
-                "proteinLocation",
-                "analysisResult"
+                "analysisResults"
             ],
             "properties": {
                 "id": {
@@ -1527,34 +1825,11 @@
                 "proteinLocation": {
                     "$ref": "#/definitions/AlleleLocation"
                 },
-                "analysisResult": {
+                "analysisResults": {
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/AnalysisResult"
                     }
-                }
-            }
-        },
-        "VariantAnnotationSet": {
-            "type": "object",
-            "required": [
-                "id",
-                "variantSetId",
-                "name",
-                "analysis"
-            ],
-            "properties": {
-                "id": {
-                    "type": "string"
-                },
-                "variantSetId": {
-                    "type": "string"
-                },
-                "name": {
-                    "type": "string"
-                },
-                "analysis": {
-                    "$ref": "#/definitions/Analysis"
                 }
             }
         },
@@ -1564,7 +1839,6 @@
                 "id",
                 "variantId",
                 "variantAnnotationSetId",
-                "createDateTime",
                 "transcriptEffects",
                 "info"
             ],
@@ -1598,11 +1872,72 @@
                 }
             }
         },
+        "VariantAnnotationSet": {
+            "type": "object",
+            "required": [
+                "id",
+                "variantSetId",
+                "analysis"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "variantSetId": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "analysis": {
+                    "$ref": "#/definitions/Analysis"
+                }
+            }
+        },
+        "SearchVariantsRequest": {
+            "type": "object",
+            "required": [
+                "variantSetId",
+                "referenceName",
+                "start",
+                "end"
+            ],
+            "properties": {
+                "variantSetId": {
+                    "type": "string"
+                },
+                "callSetIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "referenceName": {
+                    "type": "string"
+                },
+                "start": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "end": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "pageSize": {
+                    "type": "integer"
+                },
+                "pageToken": {
+                    "type": "string"
+                }
+            }
+        },
+        "SearchVariantsResponse": {},
         "Variant": {
             "type": "object",
             "required": [
                 "id",
                 "variantSetId",
+                "names",
                 "referenceName",
                 "start",
                 "end",
@@ -1625,19 +1960,23 @@
                     }
                 },
                 "created": {
-                    "type": "integer"
+                    "type": "integer",
+                    "format": "int64"
                 },
                 "updated": {
-                    "type": "integer"
+                    "type": "integer",
+                    "format": "int64"
                 },
                 "referenceName": {
                     "type": "string"
                 },
                 "start": {
-                    "type": "integer"
+                    "type": "integer",
+                    "format": "int64"
                 },
                 "end": {
-                    "type": "integer"
+                    "type": "integer",
+                    "format": "int64"
                 },
                 "referenceBases": {
                     "type": "string"

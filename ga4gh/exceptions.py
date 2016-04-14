@@ -162,6 +162,14 @@ class DatamodelValidationException(BadRequestException):
     """
 
 
+class ReadGroupSetNotMappedToReferenceSetException(BadRequestException):
+
+    def __init__(self, readGroupSetId):
+        self.message = (
+            "ReadGroupSet '{}' is not mapped to any referenceSet".format(
+                readGroupSetId))
+
+
 class NotFoundException(RuntimeException):
     """
     The superclass of all exceptions in which some resource was not
@@ -336,6 +344,32 @@ class DatasetNameNotFoundException(NotFoundException):
     """
     def __init__(self, name):
         self.message = "Dataset with name '{0}' not found".format(name)
+
+
+class FeatureSetNotFoundException(NotFoundException):
+    def __init__(self, featureSetId):
+        self.message = (
+            "FeatureSet with id '{0}' not found".format(featureSetId))
+
+
+class ParentIncompatibleWithFeatureSet(BadRequestException):
+    def __init__(self):
+        self.message = (
+            "Parent feature incompatible with requested Feature Set."
+        )
+
+
+class FeatureSetNotSpecifiedException(BadRequestException):
+    def __init__(self):
+        self.message = (
+            "One of featureSetId or parentId must be supplied."
+        )
+
+
+class SequenceAnnotationNotFoundException(NotFoundException):
+    def __init__(self, name):
+        self.message = (
+            "SequenceAnnotation with name '{0}' not found".format(name))
 
 
 class DataException(BaseServerException):

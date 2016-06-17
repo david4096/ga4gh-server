@@ -61,6 +61,42 @@ class TestSequenceAnnotations(unittest.TestCase):
             path, request, protocol.SearchFeatureSetsResponse)
         return responseData.feature_sets
 
+    def testSearchFeatureAttributes(self):
+        featureSets = self.getAllFeatureSets()
+        ran = False
+        for featureSet in featureSets:
+            ran = True
+            # find a feature
+            path = "features/search"
+            featureSetId = featureSet.id
+            request = protocol.SearchFeaturesRequest()
+            request.feature_set_id = featureSetId
+            request.start = 0
+            request.end = 2**16
+            request.page_size = 1
+            request.reference_name = "chr1"
+            responseData = self.sendSearchRequest(
+                path, request, protocol.SearchFeaturesResponse)
+            request.feature_set_id = featureSetId
+            for feature in responseData.features:
+                for key in feature.attributes.vals:
+                    # Make a request for each key with a bad value
+                    request.attributes[key] = "NOT A GOOD VALUE"
+                    request.page_size = 100
+                    innerResponse = self.sendSearchRequest(
+                        path, request, protocol.SearchFeaturesResponse)
+                    for innerFeature in innerResponse.features:
+                        self.assertNotEqual(innerFeature.id, feature.id)
+                    request.attributes[key] = feature.attributes.vals[key].values[0].string_value
+                    innerResponse = self.sendSearchRequest(
+                        path, request, protocol.SearchFeaturesResponse)
+                    found = False
+                    for innerFeature in innerResponse.features:
+                        if innerFeature.id == feature.id:
+                            found = True
+                    self.assertTrue(found)
+        self.assertTrue(ran)
+
     def testSearchFeatures(self):
         featureSets = self.getAllFeatureSets()
         for featureSet in featureSets:

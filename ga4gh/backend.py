@@ -10,6 +10,10 @@ import ga4gh.datamodel as datamodel
 import ga4gh.exceptions as exceptions
 import ga4gh.protocol as protocol
 
+import itertools
+
+import json
+import google.protobuf.json_format as json_format
 
 def _parseIntegerArgument(args, key, defaultValue):
     """
@@ -695,14 +699,36 @@ class Backend(object):
         responseBuilder = protocol.SearchResponseBuilder(
             responseClass, request.page_size, self._maxResponseLength)
         nextPageToken = None
-        for obj, nextPageToken in objectGenerator(request):
+        first = True
+        objects = objectGenerator(request)
+        objects2 = objectGenerator(request)
+        try:
+            obj, nextPageToken = objects.next()
+            objects2.next()
+        except StopIteration:
+            obj = None
+            nextPageToken = None
+        while not responseBuilder.isFull() and obj is not None:
             responseBuilder.addValue(obj)
-            if responseBuilder.isFull():
-                break
-        responseBuilder.setNextPageToken(nextPageToken)
-        responseString = responseBuilder.getSerializedResponse()
+            if first:
+                first = False
+                yield '{{"{}": ['.format(responseBuilder._valueListName) + protocol.toJson(obj)
+            else:
+                yield ", " + protocol.toJson(obj)
+            try:
+                obj2, np2 = objects2.next()
+            except StopIteration:
+                obj2 = None
+                np2 = None
+            if responseBuilder.isFull() or obj2 is None:
+                yield '], "nextPageToken": "{}"}}'.format(nextPageToken)
+            try:
+                obj, nextPageToken = objects.next()
+            except StopIteration:
+                obj = None
+                nextPageToken = None
         self.endProfile()
-        return responseString
+
 
     def runListReferenceBases(self, id_, requestArgs):
         """

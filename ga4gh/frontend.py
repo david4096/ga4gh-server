@@ -298,11 +298,11 @@ def configure(configFile=None, baseConfig="ProductionConfig",
             app.oidcClient.store_registration_info(response)
 
 
-def getFlaskResponse(responseString, httpStatus=200):
+def getFlaskResponse(responseFn, httpStatus=200):
     """
     Returns a Flask response object for the specified data and HTTP status.
     """
-    return flask.Response(responseString, status=httpStatus, mimetype=MIMETYPE)
+    return flask.Response(flask.stream_with_context(responseFn), status=httpStatus, mimetype=MIMETYPE)
 
 
 def handleHttpPost(request, endpoint):

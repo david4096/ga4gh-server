@@ -1,0 +1,3806 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "ga4gh/all_service.proto",
+    "version": "0.6.0a8"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/biosamples/search": {
+      "post": {
+        "summary": "`POST /biosamples/search` must accept a JSON version of\n`SearchBioSamplesRequest` as the post body and will return a JSON version\nof `SearchBioSamplesResponse`.",
+        "operationId": "SearchBioSamples",
+        "responses": {
+          "200": {
+            "description": "Description",
+            "schema": {
+              "$ref": "#/definitions/ga4ghSearchBioSamplesResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ga4ghSearchBioSamplesRequest"
+            }
+          }
+        ],
+        "tags": [
+          "BioMetadataService"
+        ]
+      }
+    },
+    "/biosamples/{bioSampleId}": {
+      "get": {
+        "summary": "Gets a `BioSample` by ID.\n`GET /biosamples/{id}` will return a JSON version of `BioSample`.",
+        "operationId": "GetBioSample",
+        "responses": {
+          "200": {
+            "description": "Description",
+            "schema": {
+              "$ref": "#/definitions/ga4ghBioSample"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "bioSampleId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "tags": [
+          "BioMetadataService"
+        ]
+      }
+    },
+    "/callsets/search": {
+      "post": {
+        "summary": "Gets a list of call sets matching the search criteria.",
+        "description": "`POST /callsets/search` must accept a JSON version of\n`SearchCallSetsRequest` as the post body and will return a JSON version of\n`SearchCallSetsResponse`.",
+        "operationId": "SearchCallSets",
+        "responses": {
+          "200": {
+            "description": "Description",
+            "schema": {
+              "$ref": "#/definitions/ga4ghSearchCallSetsResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ga4ghSearchCallSetsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "VariantService"
+        ]
+      }
+    },
+    "/callsets/{callSetId}": {
+      "get": {
+        "summary": "Gets a `CallSet` by ID.",
+        "description": "`GET /callsets/{id}` will return a JSON version of `CallSet`.",
+        "operationId": "GetCallSet",
+        "responses": {
+          "200": {
+            "description": "Description",
+            "schema": {
+              "$ref": "#/definitions/ga4ghCallSet"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "callSetId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "tags": [
+          "VariantService"
+        ]
+      }
+    },
+    "/datasets/search": {
+      "post": {
+        "summary": "Gets a list of `Dataset` matching the search criteria.",
+        "description": "`POST /datasets/search` must accept a JSON version of\n`SearchDatasetsRequest` as the post body and will return a JSON\nversion of `SearchDatasetsResponse`.",
+        "operationId": "SearchDatasets",
+        "responses": {
+          "200": {
+            "description": "Description",
+            "schema": {
+              "$ref": "#/definitions/ga4ghSearchDatasetsResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ga4ghSearchDatasetsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "MetadataService"
+        ]
+      }
+    },
+    "/datasets/{datasetId}": {
+      "get": {
+        "summary": "Gets a `Dataset` by ID.",
+        "description": "`GET /datasets/{datasetId}` will return a JSON version of\n`Dataset`.",
+        "operationId": "GetDataset",
+        "responses": {
+          "200": {
+            "description": "Description",
+            "schema": {
+              "$ref": "#/definitions/ga4ghDataset"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "datasetId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "tags": [
+          "MetadataService"
+        ]
+      }
+    },
+    "/expressionlevels/search": {
+      "post": {
+        "summary": "'POST /expressionlevels/search' must accept JSON version of\n'SearchExpressionLevelsRequest' as the post body and will return a JSON\nversion of 'SearchExpressionLevelsResponse'.",
+        "operationId": "SearchExpressionLevels",
+        "responses": {
+          "200": {
+            "description": "Description",
+            "schema": {
+              "$ref": "#/definitions/ga4ghSearchExpressionLevelsResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ga4ghSearchExpressionLevelsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "RnaQuantificationService"
+        ]
+      }
+    },
+    "/expressionlevels/{expressionLevelId}": {
+      "get": {
+        "summary": "Gets a `ExpressionLevel` by ID.\n`GET /expressionlevels/{id}` will return a JSON version of\n`ExpressionLevel`.",
+        "operationId": "GetExpressionLevel",
+        "responses": {
+          "200": {
+            "description": "Description",
+            "schema": {
+              "$ref": "#/definitions/ga4ghExpressionLevel"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "expressionLevelId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "tags": [
+          "RnaQuantificationService"
+        ]
+      }
+    },
+    "/featurephenotypeassociations/search": {
+      "post": {
+        "summary": "Gets a list of genotype-phenotype assoications accessible through the API.\n`POST /featurephenotypeassociations/search` must accept a JSON version of\n`SearchPhenotypesRequest` as the post body and will return a JSON version\nof `SearchPhenotypeAssociationSetsResponse`.",
+        "operationId": "SearchPhenotypeAssociations",
+        "responses": {
+          "200": {
+            "description": "Description",
+            "schema": {
+              "$ref": "#/definitions/ga4ghSearchGenotypePhenotypeResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ga4ghSearchGenotypePhenotypeRequest"
+            }
+          }
+        ],
+        "tags": [
+          "GenotypePhenotypeService"
+        ]
+      }
+    },
+    "/features/search": {
+      "post": {
+        "summary": "Gets a list of `Feature` matching the search criteria.",
+        "description": "`POST /features/search` must accept a JSON version of\n`SearchFeaturesRequest` as the post body and will return a JSON version of\n`SearchFeaturesResponse`.",
+        "operationId": "SearchFeatures",
+        "responses": {
+          "200": {
+            "description": "Description",
+            "schema": {
+              "$ref": "#/definitions/ga4ghSearchFeaturesResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ga4ghSearchFeaturesRequest"
+            }
+          }
+        ],
+        "tags": [
+          "SequenceAnnotationService"
+        ]
+      }
+    },
+    "/features/{featureId}": {
+      "get": {
+        "summary": "Gets a `org.ga4gh.models.Feature` by ID.",
+        "description": "`GET /features/{id}` will return a JSON version of `Feature`.",
+        "operationId": "GetFeature",
+        "responses": {
+          "200": {
+            "description": "Description",
+            "schema": {
+              "$ref": "#/definitions/ga4ghFeature"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "featureId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "tags": [
+          "SequenceAnnotationService"
+        ]
+      }
+    },
+    "/featuresets/search": {
+      "post": {
+        "summary": "Gets a list of `FeatureSet` matching the search criteria.",
+        "description": "`POST /featuresets/search` must accept a JSON version of\n`SearchFeatureSetsRequest` as the post body and will return a JSON version\nof `SearchFeatureSetsResponse`.",
+        "operationId": "SearchFeatureSets",
+        "responses": {
+          "200": {
+            "description": "Description",
+            "schema": {
+              "$ref": "#/definitions/ga4ghSearchFeatureSetsResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ga4ghSearchFeatureSetsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "SequenceAnnotationService"
+        ]
+      }
+    },
+    "/featuresets/{featureSetId}": {
+      "get": {
+        "summary": "Gets a `FeatureSet` by ID.",
+        "description": "`GET /featuresets/{id}` will return a JSON version of `FeatureSet`.",
+        "operationId": "GetFeatureSet",
+        "responses": {
+          "200": {
+            "description": "Description",
+            "schema": {
+              "$ref": "#/definitions/ga4ghFeatureSet"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "featureSetId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "tags": [
+          "SequenceAnnotationService"
+        ]
+      }
+    },
+    "/individuals/search": {
+      "post": {
+        "summary": "Gets a list of Individuals accessible through the API.\n`POST /individuals/search` must accept a JSON version of\n`SearchIndividualsRequest` as the post body and will return a JSON version\nof `SearchIndividualsResponse`.",
+        "operationId": "SearchIndividuals",
+        "responses": {
+          "200": {
+            "description": "Description",
+            "schema": {
+              "$ref": "#/definitions/ga4ghSearchIndividualsResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ga4ghSearchIndividualsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "BioMetadataService"
+        ]
+      }
+    },
+    "/individuals/{individualId}": {
+      "get": {
+        "summary": "Gets an `Individual` by ID.\n`GET /individuals/{id}` will return a JSON version of `Individual`.",
+        "operationId": "GetIndividual",
+        "responses": {
+          "200": {
+            "description": "Description",
+            "schema": {
+              "$ref": "#/definitions/ga4ghIndividual"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "individualId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "tags": [
+          "BioMetadataService"
+        ]
+      }
+    },
+    "/phenotypeassociationsets/search": {
+      "post": {
+        "summary": "Gets a list of association sets accessible through the API.\n`POST /phenotypeassociationsets/search` must accept a JSON version of\n`SearchPhenotypeAssociationSetsRequest` as the post body and will return a JSON version\nof `SearchPhenotypeAssociationSetsResponse`.",
+        "operationId": "SearchPhenotypeAssociationSets",
+        "responses": {
+          "200": {
+            "description": "Description",
+            "schema": {
+              "$ref": "#/definitions/ga4ghSearchPhenotypeAssociationSetsResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ga4ghSearchPhenotypeAssociationSetsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "GenotypePhenotypeService"
+        ]
+      }
+    },
+    "/phenotypes/search": {
+      "post": {
+        "summary": "Gets a list of phenotypes accessible through the API.\n`POST /phenotypes/search` must accept a JSON version of\n`SearchPhenotypesRequest` as the post body and will return a JSON version\nof `SearchPhenotypeAssociationSetsResponse`.",
+        "operationId": "SearchPhenotype",
+        "responses": {
+          "200": {
+            "description": "Description",
+            "schema": {
+              "$ref": "#/definitions/ga4ghSearchPhenotypesResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ga4ghSearchPhenotypesRequest"
+            }
+          }
+        ],
+        "tags": [
+          "GenotypePhenotypeService"
+        ]
+      }
+    },
+    "/readgroupsets/search": {
+      "post": {
+        "summary": "Gets a list of `ReadGroupSet` matching the search criteria.",
+        "description": "`POST /readgroupsets/search` must accept a JSON version of\n`SearchReadGroupSetsRequest` as the post body and will return a JSON\nversion of `SearchReadGroupSetsResponse` . Only readgroups that\nmatch an optionally supplied bioSampleId will be included in the\nresponse.",
+        "operationId": "SearchReadGroupSets",
+        "responses": {
+          "200": {
+            "description": "Description",
+            "schema": {
+              "$ref": "#/definitions/ga4ghSearchReadGroupSetsResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ga4ghSearchReadGroupSetsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ReadService"
+        ]
+      }
+    },
+    "/readgroupsets/{readGroupSetId}": {
+      "get": {
+        "summary": "Gets a `ReadGroupSet` by ID.",
+        "description": "`GET /readgroupsets/{readGroupSetId}` will return a JSON version of\n`ReadGroupSet`.",
+        "operationId": "GetReadGroupSet",
+        "responses": {
+          "200": {
+            "description": "Description",
+            "schema": {
+              "$ref": "#/definitions/ga4ghReadGroupSet"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "readGroupSetId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "tags": [
+          "ReadService"
+        ]
+      }
+    },
+    "/reads/search": {
+      "post": {
+        "summary": "Gets a list of `ReadAlignment` s for one or more `ReadGroup` s.",
+        "description": "`searchReads` operates over a genomic coordinate space of reference sequence\nand position defined by the `Reference` s to which the requested `ReadGroup` s are\naligned.\n\nIf a target positional range is specified, search returns all reads whose\nalignment to the reference genome *overlap* the range. A query which specifies\nonly read group IDs yields all reads in those read groups, including unmapped\nreads.\n\nAll reads returned (including reads on subsequent pages) are ordered by genomic\ncoordinate (by reference sequence, then position). Reads with equivalent genomic\ncoordinates are returned in an unspecified order. This order must be consistent\nfor a given repository, such that two queries for the same content (regardless\nof page size) yield reads in the same order across their respective streams of\npaginated responses.\n\n`POST /reads/search` must accept a JSON version of `SearchReadsRequest` as\nthe post body and will return a JSON version of `SearchReadsResponse`.",
+        "operationId": "SearchReads",
+        "responses": {
+          "200": {
+            "description": "Description",
+            "schema": {
+              "$ref": "#/definitions/ga4ghSearchReadsResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ga4ghSearchReadsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ReadService"
+        ]
+      }
+    },
+    "/references/search": {
+      "post": {
+        "summary": "Gets a list of `Reference` matching the search criteria.",
+        "description": "`POST /references/search` must accept a JSON version of\n`SearchReferencesRequest` as the post body and will return a JSON\nversion of `SearchReferencesResponse`.",
+        "operationId": "SearchReferences",
+        "responses": {
+          "200": {
+            "description": "Description",
+            "schema": {
+              "$ref": "#/definitions/ga4ghSearchReferencesResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ga4ghSearchReferencesRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ReferenceService"
+        ]
+      }
+    },
+    "/references/{referenceId}": {
+      "get": {
+        "summary": "Gets a `Reference` by ID.",
+        "description": "`GET /references/{referenceId}` will return a JSON version of\n`Reference`.",
+        "operationId": "GetReference",
+        "responses": {
+          "200": {
+            "description": "Description",
+            "schema": {
+              "$ref": "#/definitions/ga4ghReference"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "referenceId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "tags": [
+          "ReferenceService"
+        ]
+      }
+    },
+    "/references/{referenceId}/bases": {
+      "post": {
+        "summary": "Lists `Reference` bases by ID and optional range.",
+        "description": "`POST /listreferencebases` will return a JSON version of\n`ListReferenceBasesResponse`.",
+        "operationId": "ListReferenceBases",
+        "responses": {
+          "200": {
+            "description": "Description",
+            "schema": {
+              "$ref": "#/definitions/ga4ghListReferenceBasesResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "referenceId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ga4ghListReferenceBasesRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ReferenceService"
+        ]
+      }
+    },
+    "/referencesets/search": {
+      "post": {
+        "summary": "Gets a list of `ReferenceSet` matching the search criteria.",
+        "description": "`POST /referencesets/search` must accept a JSON version of\n`SearchReferenceSetsRequest` as the post body and will return a JSON\nversion of `SearchReferenceSetsResponse`.",
+        "operationId": "SearchReferenceSets",
+        "responses": {
+          "200": {
+            "description": "Description",
+            "schema": {
+              "$ref": "#/definitions/ga4ghSearchReferenceSetsResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ga4ghSearchReferenceSetsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ReferenceService"
+        ]
+      }
+    },
+    "/referencesets/{referenceSetId}": {
+      "get": {
+        "summary": "Gets a `ReferenceSet` by ID.",
+        "description": "`GET /referencesets/{referenceSetId}` will return a JSON version of\n`ReferenceSet`.",
+        "operationId": "GetReferenceSet",
+        "responses": {
+          "200": {
+            "description": "Description",
+            "schema": {
+              "$ref": "#/definitions/ga4ghReferenceSet"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "referenceSetId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "tags": [
+          "ReferenceService"
+        ]
+      }
+    },
+    "/rnaquantifications/search": {
+      "post": {
+        "summary": "Gets a list of 'RnaQuantification' matching the search criteria.\n'POST /rnaquantifications/search' must accept JSON version of\n'SearchRnaQuantificationsRequest' as the post body and will return a JSON\nversion of 'SearchRnaQuantificationResponse'.",
+        "operationId": "SearchRnaQuantifications",
+        "responses": {
+          "200": {
+            "description": "Description",
+            "schema": {
+              "$ref": "#/definitions/ga4ghSearchRnaQuantificationsResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ga4ghSearchRnaQuantificationsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "RnaQuantificationService"
+        ]
+      }
+    },
+    "/rnaquantifications/{rnaQuantificationId}": {
+      "get": {
+        "summary": "Gets a `RnaQuantification` by ID.\n`GET /rnaquantifications/{id}` will return a JSON version of\n`RnaQuantification`.",
+        "operationId": "GetRnaQuantification",
+        "responses": {
+          "200": {
+            "description": "Description",
+            "schema": {
+              "$ref": "#/definitions/ga4ghRnaQuantification"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "rnaQuantificationId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "tags": [
+          "RnaQuantificationService"
+        ]
+      }
+    },
+    "/rnaquantificationsets/search": {
+      "post": {
+        "summary": "Gets a list of 'RnaQuantificationSet' matching the search criteria.\n'POST /rnaquantificationsets/search' must accept JSON version of\n'SearchRnaQuantificationSetRequest' as the post body and will return a JSON\nversion of 'SearchRnaQuantificationSetResponse'.",
+        "operationId": "SearchRnaQuantificationSets",
+        "responses": {
+          "200": {
+            "description": "Description",
+            "schema": {
+              "$ref": "#/definitions/ga4ghSearchRnaQuantificationSetsResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ga4ghSearchRnaQuantificationSetsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "RnaQuantificationService"
+        ]
+      }
+    },
+    "/rnaquantificationsets/{rnaQuantificationSetId}": {
+      "get": {
+        "summary": "Gets a `RnaQuantificationSet` by ID.\n`GET /rnaquantificationsets/{id}` will return a JSON version of\n`RnaQuantificationSet`.",
+        "operationId": "GetRnaQuantificationSet",
+        "responses": {
+          "200": {
+            "description": "Description",
+            "schema": {
+              "$ref": "#/definitions/ga4ghRnaQuantificationSet"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "rnaQuantificationSetId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "tags": [
+          "RnaQuantificationService"
+        ]
+      }
+    },
+    "/variantannotations/search": {
+      "post": {
+        "summary": "Gets a list of `VariantAnnotation` messages matching the search criteria.",
+        "description": "This allows the mining of allele-specific annotations on a VariantSet by\neither a region or by a set of genomic features. Where a region is supplied\nannotation of all alleles vs all features in the region is returned. Where\na set of features is supplied, only annotations against these features\n(matching on featuretype and id) are returned and other overlapping\nfeatures are ignored.\n\n`variantannotationsets/search` returns information on the input to the\nannotation. This will be a VariantSet and the reference data and software\nversions used in calculating the annotation. It is essential this\ninformation is exhaustive.\n\n`POST /variantannotations/search` must accept a JSON version of\n`SearchVariantAnnotationsRequest` as the post body and will return a JSON\nversion of `SearchVariantAnnotationsResponse`.",
+        "operationId": "SearchVariantAnnotations",
+        "responses": {
+          "200": {
+            "description": "Description",
+            "schema": {
+              "$ref": "#/definitions/ga4ghSearchVariantAnnotationsResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ga4ghSearchVariantAnnotationsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AlleleAnnotationService"
+        ]
+      }
+    },
+    "/variantannotationset/{variantAnnotationSetId}": {
+      "get": {
+        "summary": "Gets an `VariantAnnotationSet` by ID.",
+        "description": "`GET /variantannotationsets/{variantAnnotationSetId}` will return a JSON\nversion of `VariantAnnotationSet`.",
+        "operationId": "GetVariantAnnotationSet",
+        "responses": {
+          "200": {
+            "description": "Description",
+            "schema": {
+              "$ref": "#/definitions/ga4ghVariantAnnotationSet"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "variantAnnotationSetId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "tags": [
+          "AlleleAnnotationService"
+        ]
+      }
+    },
+    "/variantannotationsets/search": {
+      "post": {
+        "summary": "Returns a list of available variant annotation sets.",
+        "description": "`POST /variantannotationsets/search` must accept a JSON version of\n`SearchVariantAnnotationSetsRequest` as the post body and will return a\nJSON version of `SearchVariantAnnotationSetsResponse`.",
+        "operationId": "SearchVariantAnnotationSets",
+        "responses": {
+          "200": {
+            "description": "Description",
+            "schema": {
+              "$ref": "#/definitions/ga4ghSearchVariantAnnotationSetsResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ga4ghSearchVariantAnnotationSetsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AlleleAnnotationService"
+        ]
+      }
+    },
+    "/variants/search": {
+      "post": {
+        "summary": "Gets a list of `Variant` matching the search criteria.",
+        "description": "`POST /variants/search` must accept a JSON version of\n`SearchVariantsRequest` as the post body and will return a JSON version of\n`SearchVariantsResponse`.",
+        "operationId": "SearchVariants",
+        "responses": {
+          "200": {
+            "description": "Description",
+            "schema": {
+              "$ref": "#/definitions/ga4ghSearchVariantsResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ga4ghSearchVariantsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "VariantService"
+        ]
+      }
+    },
+    "/variants/{variantId}": {
+      "post": {
+        "summary": "Gets a `Variant` by ID.",
+        "description": "`GET /variants/{id}` will return a JSON version of `Variant`.",
+        "operationId": "GetVariant",
+        "responses": {
+          "200": {
+            "description": "Description",
+            "schema": {
+              "$ref": "#/definitions/ga4ghVariant"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "variantId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "tags": [
+          "VariantService"
+        ]
+      }
+    },
+    "/variantsets/search": {
+      "post": {
+        "summary": "Gets a list of `VariantSet` matching the search criteria.",
+        "description": "`POST /variantsets/search` must accept a JSON version of\n`SearchVariantSetsRequest` as the post body and will return a JSON version\nof `SearchVariantSetsResponse`.",
+        "operationId": "SearchVariantSets",
+        "responses": {
+          "200": {
+            "description": "Description",
+            "schema": {
+              "$ref": "#/definitions/ga4ghSearchVariantSetsResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ga4ghSearchVariantSetsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "VariantService"
+        ]
+      }
+    },
+    "/variantsets/{variantSetId}": {
+      "get": {
+        "summary": "Gets a `VariantSet` by ID.",
+        "description": "`GET /variantsets/{variantSetId}` will return a JSON version of\n`VariantSet`.",
+        "operationId": "GetVariantSet",
+        "responses": {
+          "200": {
+            "description": "Description",
+            "schema": {
+              "$ref": "#/definitions/ga4ghVariantSet"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "variantSetId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "tags": [
+          "VariantService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "AttributesAttributeValue": {
+      "type": "object",
+      "properties": {
+        "external_identifier": {
+          "$ref": "#/definitions/ga4ghExternalIdentifier"
+        },
+        "ontology_term": {
+          "$ref": "#/definitions/ga4ghOntologyTerm"
+        },
+        "string_value": {
+          "type": "string",
+          "format": "string"
+        }
+      }
+    },
+    "AttributesAttributeValueList": {
+      "type": "object",
+      "properties": {
+        "values": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AttributesAttributeValue"
+          }
+        }
+      }
+    },
+    "CigarUnitOperation": {
+      "type": "string",
+      "enum": [
+        "OPERATION_UNSPECIFIED",
+        "ALIGNMENT_MATCH",
+        "INSERT",
+        "DELETE",
+        "SKIP",
+        "CLIP_SOFT",
+        "CLIP_HARD",
+        "PAD",
+        "SEQUENCE_MATCH",
+        "SEQUENCE_MISMATCH"
+      ],
+      "default": "OPERATION_UNSPECIFIED",
+      "description": "Describes the different types of CIGAR alignment operations that exist.\nUsed wherever CIGAR alignments are used.\n\n - ALIGNMENT_MATCH: An alignment match indicates that a sequence can be aligned to the\nreference without evidence of an INDEL. Unlike the\n`SEQUENCE_MATCH` and `SEQUENCE_MISMATCH` operators,\nthe `ALIGNMENT_MATCH` operator does not indicate whether the\nreference and read sequences are an exact match. This operator is\nequivalent to SAM's `M`.\n - INSERT: The insert operator indicates that the read contains evidence of bases\nbeing inserted into the reference. This operator is equivalent to SAM's\n`I`.\n - DELETE: The delete operator indicates that the read contains evidence of bases\nbeing deleted from the reference. This operator is equivalent to SAM's\n`D`.\n - SKIP: The skip operator indicates that this read skips a long segment of the\nreference, but the bases have not been deleted. This operator is commonly\nused when working with RNA-seq data, where reads may skip long segments\nof the reference between exons. This operator is equivalent to SAM's\n`N`.\n - CLIP_SOFT: The soft clip operator indicates that bases at the start/end of a read\nhave not been considered during alignment. This may occur if the majority\nof a read maps, except for low quality bases at the start/end of a read.\nThis operator is equivalent to SAM's `S`. Bases that are soft\nclipped will still be stored in the read.\n - CLIP_HARD: The hard clip operator indicates that bases at the start/end of a read\nhave been omitted from this alignment. This may occur if this linear\nalignment is part of a chimeric alignment, or if the read has been\ntrimmed (for example, during error correction or to trim poly-A tails for\nRNA-seq). This operator is equivalent to SAM's `H`.\n - PAD: The pad operator indicates that there is padding in an alignment. This\noperator is equivalent to SAM's `P`.\n - SEQUENCE_MATCH: This operator indicates that this portion of the aligned sequence exactly\nmatches the reference. This operator is equivalent to SAM's `=`.\n - SEQUENCE_MISMATCH: This operator indicates that this portion of the aligned sequence is an\nalignment match to the reference, but a sequence mismatch. This can\nindicate a SNP or a read error. This operator is equivalent to SAM's\n`X`."
+    },
+    "ga4ghAlleleLocation": {
+      "type": "object",
+      "properties": {
+        "alternateSequence": {
+          "type": "string",
+          "format": "string",
+          "title": "Alternate sequence in feature (this should be the codon at CDS level)"
+        },
+        "end": {
+          "type": "integer",
+          "format": "int32",
+          "title": "Relative end position of the allele in this coordinate system"
+        },
+        "referenceSequence": {
+          "type": "string",
+          "format": "string",
+          "title": "Reference sequence in feature (this should be the codon at CDS level)"
+        },
+        "start": {
+          "type": "integer",
+          "format": "int32",
+          "title": "Relative start position of the allele in this coordinate system"
+        }
+      },
+      "title": "An allele location record holds the location of an allele relative to a non -\ngenomic coordinate system such as a CDS or protein and holds the reference\nand alternate sequence where appropriate"
+    },
+    "ga4ghAnalysis": {
+      "type": "object",
+      "properties": {
+        "created": {
+          "type": "string",
+          "format": "string",
+          "description": "The time at which this record was created, in ISO 8601 format."
+        },
+        "description": {
+          "type": "string",
+          "format": "string"
+        },
+        "id": {
+          "type": "string",
+          "format": "string",
+          "description": "Formats of id | name | description | accessions are described in the\ndocumentation on general attributes and formats."
+        },
+        "info": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/protobufListValue"
+          },
+          "description": "A map of additional analysis information."
+        },
+        "name": {
+          "type": "string",
+          "format": "string"
+        },
+        "software": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "string"
+          },
+          "description": "The software run to generate this analysis."
+        },
+        "type": {
+          "type": "string",
+          "format": "string",
+          "description": "The type of analysis."
+        },
+        "updated": {
+          "type": "string",
+          "format": "string",
+          "description": "The time at which this record was last updated, in ISO 8601 format."
+        }
+      },
+      "description": "An analysis contains an interpretation of one or several experiments. (e.g.\nSNVs, copy number variations, methylation status) together with information\nabout the methodology used."
+    },
+    "ga4ghAnalysisResult": {
+      "type": "object",
+      "properties": {
+        "analysisId": {
+          "type": "string",
+          "format": "string",
+          "title": "The ID of the analysis record for this result"
+        },
+        "result": {
+          "type": "string",
+          "format": "string",
+          "title": "The text-based result for this analysis"
+        },
+        "score": {
+          "type": "integer",
+          "format": "int32",
+          "title": "The numeric score for this analysis"
+        }
+      },
+      "description": "An AnalysisResult record holds the output of a prediction package such as\nSIFT on a specific allele."
+    },
+    "ga4ghAttributes": {
+      "type": "object",
+      "properties": {
+        "vals": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/AttributesAttributeValueList"
+          }
+        }
+      },
+      "description": "Type defining a collection of attributes associated with various protocol\nrecords. Each attribute is a name that maps to an array of one or more\nvalues. Values can be strings, external identifiers, or ontology terms Values\nshould be split into the array elements instead of using a separator syntax\nthat needs to parsed."
+    },
+    "ga4ghBioSample": {
+      "type": "object",
+      "properties": {
+        "created": {
+          "type": "string",
+          "format": "string",
+          "description": "The :ref:`ISO 8601\u003cmetadata_date_time\u003e` time at which this BioSample record\nwas created."
+        },
+        "datasetId": {
+          "type": "string",
+          "format": "string",
+          "description": "The ID of the dataset this BioSample belongs to."
+        },
+        "description": {
+          "type": "string",
+          "format": "string",
+          "description": "The biosample's description. This attribute contains human readable text.\nThe \"description\" attributes should not contain any structured data."
+        },
+        "disease": {
+          "$ref": "#/definitions/ga4ghOntologyTerm",
+          "description": "OntologyTerm describing the primary disease associated with this BioSample."
+        },
+        "id": {
+          "type": "string",
+          "format": "string",
+          "description": "The BioSample :ref:`id \u003capidesign_object_ids\u003e`. This is unique in the\ncontext of the server instance."
+        },
+        "individualId": {
+          "type": "string",
+          "format": "string",
+          "description": "The individual this biosample was derived from."
+        },
+        "info": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/protobufListValue"
+          },
+          "description": "A map of additional information."
+        },
+        "name": {
+          "type": "string",
+          "format": "string",
+          "description": "The BioSample's name This is a label or symbolic identifier for the biosample."
+        },
+        "updated": {
+          "type": "string",
+          "format": "string",
+          "description": "The :ref:`ISO 8601\u003cmetadata_date_time\u003e` time at which this BioSample record was updated."
+        }
+      }
+    },
+    "ga4ghCall": {
+      "type": "object",
+      "properties": {
+        "callSetId": {
+          "type": "string",
+          "format": "string",
+          "description": "The ID of the call set this variant call belongs to.\n\nIf this field is not present, the ordering of the call sets from a\n`SearchCallSetsRequest` over this `VariantSet` is guaranteed to match\nthe ordering of the calls on this `Variant`.\nThe number of results will also be the same."
+        },
+        "callSetName": {
+          "type": "string",
+          "format": "string",
+          "description": "The name of the call set this variant call belongs to.\nIf this field is not present, the ordering of the call sets from a\n`SearchCallSetsRequest` over this `VariantSet` is guaranteed to match\nthe ordering of the calls on this `Variant`.\nThe number of results will also be the same."
+        },
+        "genotype": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "description": "The genotype of this variant call.\n\nA 0 value represents the reference allele of the associated `Variant`. Any\nother value is a 1-based index into the alternate alleles of the associated\n`Variant`.\n\nIf a variant had a referenceBases field of \"T\", an alternateBases\nvalue of [\"A\", \"C\"], and the genotype was [2, 1], that would mean the call\nrepresented the heterozygous value \"CA\" for this variant. If the genotype\nwas instead [0, 1] the represented value would be \"TA\". Ordering of the\ngenotype values is important if the phaseset field is present."
+        },
+        "genotypeLikelihood": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "format": "double"
+          },
+          "description": "The genotype likelihoods for this variant call. Each array entry\nrepresents how likely a specific genotype is for this call as\nlog10(P(data | genotype)), analogous to the GL tag in the VCF spec. The\nvalue ordering is defined by the GL tag in the VCF spec."
+        },
+        "info": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/protobufListValue"
+          },
+          "description": "A map of additional variant call information."
+        },
+        "phaseset": {
+          "type": "string",
+          "format": "string",
+          "description": "If this field is populated, this variant call's genotype ordering implies\nthe phase of the bases and is consistent with any other variant calls on\nthe same contig which have the same phaseset string."
+        }
+      },
+      "description": "A `Call` represents the determination of genotype with respect to a\nparticular `Variant`.\n\nIt may include associated information such as quality\nand phasing. For example, a call might assign a probability of 0.32 to\nthe occurrence of a SNP named rs1234 in a call set with the name NA12345."
+    },
+    "ga4ghCallSet": {
+      "type": "object",
+      "properties": {
+        "bioSampleId": {
+          "type": "string",
+          "format": "string",
+          "description": "The BioSample the call set data was generated from."
+        },
+        "created": {
+          "type": "string",
+          "format": "int64",
+          "description": "The date this call set was created in milliseconds from the epoch."
+        },
+        "id": {
+          "type": "string",
+          "format": "string",
+          "description": "The call set ID."
+        },
+        "info": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/protobufListValue"
+          },
+          "description": "A map of additional call set information."
+        },
+        "name": {
+          "type": "string",
+          "format": "string",
+          "description": "The call set name."
+        },
+        "updated": {
+          "type": "string",
+          "format": "int64",
+          "description": "The time at which this call set was last updated in\nmilliseconds from the epoch."
+        },
+        "variantSetIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "string"
+          },
+          "description": "The IDs of the variant sets this call set has calls in."
+        }
+      },
+      "description": "A CallSet is a collection of calls that were generated by the same analysis\nof the same sample."
+    },
+    "ga4ghCigarUnit": {
+      "type": "object",
+      "properties": {
+        "operation": {
+          "$ref": "#/definitions/CigarUnitOperation"
+        },
+        "operationLength": {
+          "type": "string",
+          "format": "int64",
+          "description": "The number of genomic bases that the operation runs for. Required."
+        },
+        "referenceSequence": {
+          "type": "string",
+          "format": "string",
+          "description": "`referenceSequence` is only used at mismatches\n(`SEQUENCE_MISMATCH`) and deletions (`DELETE`).\nFilling this field replaces SAM's MD tag. If the relevant information is\nnot available, this field is unset."
+        }
+      },
+      "description": "A single CIGAR operation."
+    },
+    "ga4ghDataset": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string",
+          "format": "string",
+          "description": "Additional, human-readable information on the dataset."
+        },
+        "id": {
+          "type": "string",
+          "format": "string",
+          "description": "The dataset's id, locally unique to the server instance."
+        },
+        "info": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/protobufListValue"
+          },
+          "description": "A map of additional dataset information."
+        },
+        "name": {
+          "type": "string",
+          "format": "string",
+          "description": "The name of the dataset."
+        }
+      },
+      "description": "A Dataset is a collection of related data of multiple types.\nData providers decide how to group data into datasets.\nSee [Metadata API](../api/metadata.html) for a more detailed discussion."
+    },
+    "ga4ghExperiment": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string",
+          "format": "string",
+          "description": "A description of the experiment."
+        },
+        "id": {
+          "type": "string",
+          "format": "string",
+          "title": "The experiment ID"
+        },
+        "info": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/protobufListValue"
+          },
+          "description": "A map of additional experiment information."
+        },
+        "instrumentDataFile": {
+          "type": "string",
+          "format": "string",
+          "title": "The data file generated by the instrument.\nTODO: This isn't actually a file is it?\nShould this be `instrumentData` instead?"
+        },
+        "instrumentModel": {
+          "type": "string",
+          "format": "string",
+          "description": "The instrument model used as part of this experiment.\nThis maps to sequencing technology in BAM."
+        },
+        "library": {
+          "type": "string",
+          "format": "string",
+          "description": "The name of the library used as part of this experiment."
+        },
+        "libraryLayout": {
+          "type": "string",
+          "format": "string",
+          "description": "The configuration of sequenced reads. (e.g. Single or Paired)."
+        },
+        "messageCreateTime": {
+          "type": "string",
+          "format": "string",
+          "title": "The time at which this message was created.\nFormat: ISO 8601, YYYY-MM-DDTHH:MM:SS.SSS (e.g. 2015-02-10T00:03:42.123Z)"
+        },
+        "messageUpdateTime": {
+          "type": "string",
+          "format": "string",
+          "title": "The time at which this message was last updated.\nFormat: ISO 8601, YYYY-MM-DDTHH:MM:SS.SSS (e.g. 2015-02-10T00:03:42.123Z)"
+        },
+        "molecule": {
+          "type": "string",
+          "format": "string",
+          "title": "The molecule examined in this experiment. (e.g. genomics DNA, total RNA)"
+        },
+        "name": {
+          "type": "string",
+          "format": "string",
+          "description": "The name of the experiment."
+        },
+        "platformUnit": {
+          "type": "string",
+          "format": "string",
+          "description": "The platform unit used as part of this experiment. This is a\nflowcell-barcode\nor slide unique identifier."
+        },
+        "runTime": {
+          "type": "string",
+          "format": "string",
+          "title": "The time at which this experiment was performed.\nGranularity here is variable (e.g. date only).\nFormat: ISO 8601, YYYY-MM-DDTHH:MM:SS (e.g. 2015-02-10T00:03:42)"
+        },
+        "selection": {
+          "type": "string",
+          "format": "string",
+          "title": "The method used to enrich the target. (e.g. immunoprecipitation, size\nfractionation, MNase digestion)"
+        },
+        "sequencingCenter": {
+          "type": "string",
+          "format": "string",
+          "description": "The sequencing center used as part of this experiment."
+        },
+        "strategy": {
+          "type": "string",
+          "format": "string",
+          "title": "The experiment technique or strategy applied to the sample.\n(e.g. whole genome sequencing, RNA-seq, RIP-seq)"
+        }
+      },
+      "description": "An experimental preparation of a sample."
+    },
+    "ga4ghExpressionLevel": {
+      "type": "object",
+      "properties": {
+        "confIntervalHigh": {
+          "type": "number",
+          "format": "float",
+          "description": "Upper bound of the confidence interval on the expression value."
+        },
+        "confIntervalLow": {
+          "type": "number",
+          "format": "float",
+          "description": "Lower bound of the confidence interval on the expression value."
+        },
+        "expression": {
+          "type": "number",
+          "format": "float",
+          "description": "Numerical expression value."
+        },
+        "featureId": {
+          "type": "string",
+          "format": "string",
+          "title": "Id of the feature"
+        },
+        "id": {
+          "type": "string",
+          "format": "string",
+          "title": "Expression ID"
+        },
+        "isNormalized": {
+          "type": "boolean",
+          "format": "boolean",
+          "description": "True if the expression value is a normalized value."
+        },
+        "name": {
+          "type": "string",
+          "format": "string",
+          "title": "Name"
+        },
+        "rawReadCount": {
+          "type": "number",
+          "format": "float",
+          "description": "The number of reads mapped to this feature."
+        },
+        "rnaQuantificationId": {
+          "type": "string",
+          "format": "string",
+          "title": "The associated RnaQuantification"
+        },
+        "score": {
+          "type": "number",
+          "format": "float",
+          "description": "Weighted score for the expression value."
+        },
+        "units": {
+          "$ref": "#/definitions/ga4ghExpressionUnit",
+          "description": "The units of the expression value if one is given."
+        }
+      },
+      "description": "The actual numerical quantification for each feature."
+    },
+    "ga4ghExpressionUnit": {
+      "type": "string",
+      "enum": [
+        "EXPRESSION_UNIT_UNSPECIFIED",
+        "FPKM",
+        "TPM"
+      ],
+      "default": "EXPRESSION_UNIT_UNSPECIFIED"
+    },
+    "ga4ghExternalIdentifier": {
+      "type": "object",
+      "properties": {
+        "database": {
+          "type": "string",
+          "format": "string",
+          "description": "The source of the identifier, e.g. `Ensembl`."
+        },
+        "identifier": {
+          "type": "string",
+          "format": "string",
+          "description": "The ID defined by the external database, e.g. `ENST00000000000`."
+        },
+        "version": {
+          "type": "string",
+          "format": "string",
+          "description": "The version of the object or the database, e.g. `78`."
+        }
+      },
+      "title": "Identifier from a public database"
+    },
+    "ga4ghFeature": {
+      "type": "object",
+      "properties": {
+        "attributes": {
+          "$ref": "#/definitions/ga4ghAttributes",
+          "description": "Name/value attributes of the annotation.  Attribute names follow the GFF3\nnaming convention of reserved names starting with an upper cases character,\nand user-define names start with lower-case.  Most GFF3 pre-defined\nattributes apply, the exceptions are ID and Parent, which are defined as\nfields. Additional, the following attributes are added:\n  * Score - the GFF3 score column\n  * Phase - the GFF3 phase column for CDS features."
+        },
+        "childIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "string"
+          },
+          "description": "Ordered array of Child Ids of this node. Since not all child nodes are\nordered by genomic coordinates, this can't always be reconstructed from\nparent_id's of the children alone."
+        },
+        "end": {
+          "type": "string",
+          "format": "int64",
+          "description": "The end position (exclusive), resulting in [start, end) closed-open\ninterval. This is typically calculated by `start +\nreference_bases.length`."
+        },
+        "featureSetId": {
+          "type": "string",
+          "format": "string",
+          "description": "Identifier for the containing feature set."
+        },
+        "featureType": {
+          "$ref": "#/definitions/ga4ghOntologyTerm",
+          "description": "Feature that is annotated by this region.  Normally, this will be a term\nin the Sequence Ontology."
+        },
+        "geneSymbol": {
+          "type": "string",
+          "format": "string",
+          "description": "The gene symbol the feature occurs on. This field may be\nreplaced with a more generic representation in a future version."
+        },
+        "id": {
+          "type": "string",
+          "format": "string",
+          "description": "Id of this annotation node."
+        },
+        "name": {
+          "type": "string",
+          "format": "string",
+          "description": "An optional name to provide for the feature."
+        },
+        "parentId": {
+          "type": "string",
+          "format": "string",
+          "description": "Parent Id of this node. Set to empty string if node has no parent."
+        },
+        "referenceName": {
+          "type": "string",
+          "format": "string",
+          "description": "The reference on which this feature occurs (e.g. `chr20` or `X`)."
+        },
+        "start": {
+          "type": "string",
+          "format": "int64",
+          "description": "The start position at which this feature occurs (0-based). This\ncorresponds to the first base of the string of reference bases. Genomic\npositions are non-negative integers less than reference length. Features\nspanning the join of circular genomes are represented as two features one\non each side of the join (position 0)."
+        },
+        "strand": {
+          "$ref": "#/definitions/ga4ghStrand",
+          "description": "The strand on which the feature is present."
+        }
+      },
+      "description": "Node in the annotation graph that annotates a contiguous region of a\nsequence."
+    },
+    "ga4ghFeaturePhenotypeAssociation": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string",
+          "format": "string",
+          "description": "A textual description of the association."
+        },
+        "environmentalContexts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ga4ghEnvironmentalContext"
+          },
+          "title": "The context in which the phenotype arises.\nMultiple contexts can be specified - these are assumed to all hold together"
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ga4ghEvidence"
+          },
+          "description": "The evidence for this specific instance of association between the\nfeatures and the phenotype."
+        },
+        "featureIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "string"
+          },
+          "description": "The set of features of the organism that bears the phenotype.\nThis could be as complete as a full complement of variants,\nor as minimal as the confirmed variants that are known causation\nfor the annotated phenotype.\nExamples of features could be variations at the nucleotide level,\nlarge rearrangements at the chromosome level, or relevant epigenetic\nmarkers.  Relevant genomic feature types are suggested to be\nthose typed in the Sequence Ontology (SO).\nThe feature set can have only one item, and must not be null."
+        },
+        "id": {
+          "type": "string",
+          "format": "string",
+          "description": "A unique identifier for the association."
+        },
+        "info": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/protobufListValue"
+          },
+          "description": "Additional annotation data in key-value pairs."
+        },
+        "phenotype": {
+          "$ref": "#/definitions/ga4ghPhenotypeInstance",
+          "description": "The phenotypic component of this association."
+        },
+        "phenotypeAssociationSetId": {
+          "type": "string",
+          "format": "string",
+          "description": "The ID of the PhenotypeAssociationSet this FeaturePhenotypeAssociation\nbelongs to."
+        }
+      },
+      "description": "An association between one or more genomic features and a phenotype.\nThe instance of association allows us to link a feature to a phenotype,\nmultiple times, each bearing potentially different levels of confidence,\nsuch as resulting from alternative experiments and analysis."
+    },
+    "ga4ghFeatureSet": {
+      "type": "object",
+      "properties": {
+        "datasetId": {
+          "type": "string",
+          "format": "string",
+          "description": "The ID of the dataset this annotation set belongs to."
+        },
+        "id": {
+          "type": "string",
+          "format": "string",
+          "description": "The ID of this annotation set."
+        },
+        "info": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/protobufListValue"
+          },
+          "description": "Remaining structured metadata key-value pairs."
+        },
+        "name": {
+          "type": "string",
+          "format": "string",
+          "description": "The display name for this annotation set."
+        },
+        "referenceSetId": {
+          "type": "string",
+          "format": "string",
+          "description": "The ID of the reference set which defines the coordinate-space for this\nset of annotations."
+        },
+        "sourceUri": {
+          "type": "string",
+          "format": "string",
+          "description": "The source URI describing the file from which this annotation set was\ngenerated, if any."
+        }
+      },
+      "description": "A set of sequence features annotations."
+    },
+    "ga4ghGetBioSampleRequest": {
+      "type": "object",
+      "properties": {
+        "bioSampleId": {
+          "type": "string",
+          "format": "string",
+          "title": "The ID of the biosample requested"
+        }
+      },
+      "description": "This request maps to the URL `GET /biosamples/{bioSampleId}`."
+    },
+    "ga4ghGetCallSetRequest": {
+      "type": "object",
+      "properties": {
+        "callSetId": {
+          "type": "string",
+          "format": "string",
+          "description": "The ID of the `CallSet` to be retrieved."
+        }
+      },
+      "description": "This request maps to the URL `GET /callsets/{callSetId}`."
+    },
+    "ga4ghGetDatasetRequest": {
+      "type": "object",
+      "properties": {
+        "datasetId": {
+          "type": "string",
+          "format": "string",
+          "description": "The ID of the `Dataset` to be retrieved."
+        }
+      },
+      "description": "This request maps to the URL `GET /datasets/{datasetId}`."
+    },
+    "ga4ghGetExpressionLevelRequest": {
+      "type": "object",
+      "properties": {
+        "expressionLevelId": {
+          "type": "string",
+          "format": "string",
+          "description": "The ID of the `ExpressionLevel`."
+        }
+      }
+    },
+    "ga4ghGetFeatureRequest": {
+      "type": "object",
+      "properties": {
+        "featureId": {
+          "type": "string",
+          "format": "string",
+          "description": "The ID of the `Feature` to be retrieved."
+        }
+      },
+      "description": "This request maps to the URL `GET /features/{id}`."
+    },
+    "ga4ghGetFeatureSetRequest": {
+      "type": "object",
+      "properties": {
+        "featureSetId": {
+          "type": "string",
+          "format": "string",
+          "description": "The ID of the `FeatureSet` to be retrieved."
+        }
+      },
+      "description": "This request maps to the URL `GET /featuresets/{id}`."
+    },
+    "ga4ghGetIndividualRequest": {
+      "type": "object",
+      "properties": {
+        "individualId": {
+          "type": "string",
+          "format": "string",
+          "title": "The ID of the individual requested"
+        }
+      },
+      "description": "This request maps to the URL `GET /individuals/{individualId}`."
+    },
+    "ga4ghGetReadGroupSetRequest": {
+      "type": "object",
+      "properties": {
+        "readGroupSetId": {
+          "type": "string",
+          "format": "string",
+          "description": "The ID of the `ReadGroupSet` to be retrieved."
+        }
+      },
+      "description": "This request maps to the URL `GET /readgroupsets/{readGroupSetId}`."
+    },
+    "ga4ghGetReferenceRequest": {
+      "type": "object",
+      "properties": {
+        "referenceId": {
+          "type": "string",
+          "format": "string",
+          "description": "The ID of the `Reference` to be retrieved."
+        }
+      },
+      "description": "This request maps to the URL `GET /references/{referenceId}`."
+    },
+    "ga4ghGetReferenceSetRequest": {
+      "type": "object",
+      "properties": {
+        "referenceSetId": {
+          "type": "string",
+          "format": "string",
+          "description": "The ID of the `ReferenceSet` to be retrieved."
+        }
+      },
+      "description": "This request maps to the URL `GET /referencesets/{referenceSetId}`."
+    },
+    "ga4ghGetRnaQuantificationRequest": {
+      "type": "object",
+      "properties": {
+        "rnaQuantificationId": {
+          "type": "string",
+          "format": "string",
+          "description": "The ID of the `RnaQuantification`."
+        }
+      }
+    },
+    "ga4ghGetRnaQuantificationSetRequest": {
+      "type": "object",
+      "properties": {
+        "rnaQuantificationSetId": {
+          "type": "string",
+          "format": "string",
+          "description": "The ID of the `RnaQuantificationSet`."
+        }
+      }
+    },
+    "ga4ghGetVariantAnnotationSetRequest": {
+      "type": "object",
+      "properties": {
+        "variantAnnotationSetId": {
+          "type": "string",
+          "format": "string",
+          "description": "The ID of the `VariantAnnotationSet` to be retrieved."
+        }
+      },
+      "description": "This request maps to the URL `GET /variantannotationsets/{id}`."
+    },
+    "ga4ghGetVariantRequest": {
+      "type": "object",
+      "properties": {
+        "variantId": {
+          "type": "string",
+          "format": "string",
+          "description": "The ID of the `Variant` to be retrieved."
+        }
+      },
+      "description": "This request maps to the URL `GET /variants/{id}`."
+    },
+    "ga4ghGetVariantSetRequest": {
+      "type": "object",
+      "properties": {
+        "variantSetId": {
+          "type": "string",
+          "format": "string",
+          "description": "The ID of the `VariantSet` to be retrieved."
+        }
+      },
+      "description": "This request maps to the URL `GET /variantsets/{id}`."
+    },
+    "ga4ghHGVSAnnotation": {
+      "type": "object",
+      "properties": {
+        "genomic": {
+          "type": "string",
+          "format": "string"
+        },
+        "protein": {
+          "type": "string",
+          "format": "string"
+        },
+        "transcript": {
+          "type": "string",
+          "format": "string"
+        }
+      },
+      "description": "A HGVSAnnotation record holds Human Genome Variation Society descriptions of\nthe sequence change with respect to genomic, transcript and protein\nsequences. See: http:// www.hgvs.org/mutnomen/recs.html.\nDescriptions should be provided at genomic level\n - Descriptions at transcript level should be provided when the allele\n   lies within a transcript\n - Descriptions at protein level should be provided when the allele\n   lies within the translated sequence or stop codon."
+    },
+    "ga4ghIndividual": {
+      "type": "object",
+      "properties": {
+        "created": {
+          "type": "string",
+          "format": "string",
+          "description": "The :ref:`ISO 8601\u003cmetadata_date_time\u003e` time at which this Individual's record\nwas created."
+        },
+        "datasetId": {
+          "type": "string",
+          "format": "string",
+          "description": "The ID of the dataset this Individual belongs to."
+        },
+        "description": {
+          "type": "string",
+          "format": "string",
+          "description": "The Individual's description. This attribute contains human readable text.\nThe \"description\" attributes should not contain any structured data."
+        },
+        "id": {
+          "type": "string",
+          "format": "string",
+          "description": "The Individual's :ref:`id \u003capidesign_object_ids\u003e`. This is unique in the\ncontext of the server instance."
+        },
+        "info": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/protobufListValue"
+          },
+          "description": "A map of additional information."
+        },
+        "name": {
+          "type": "string",
+          "format": "string",
+          "description": "The Individual's name. This is a label or symbolic identifier for the individual."
+        },
+        "sex": {
+          "$ref": "#/definitions/ga4ghOntologyTerm",
+          "title": "The genetic sex of this individual.\nUse `null` when unknown or not applicable.\nRecommended: PATO http://purl.obolibrary.org/obo/PATO_0020001; PATO_0020002"
+        },
+        "species": {
+          "$ref": "#/definitions/ga4ghOntologyTerm",
+          "title": "For a representation of an NCBI Taxon ID as an OntologyTerm, see\nNCBITaxon Ontology\n  http://www.obofoundry.org/ontology/ncbitaxon.html\nFor example, 'Homo sapiens' has the ID 9606. The NCBITaxon ontology ID for\nthis is NCBITaxon:9606, which has the URI\nhttp://purl.obolibrary.org/obo/NCBITaxon_9606"
+        },
+        "updated": {
+          "type": "string",
+          "format": "string",
+          "description": "The :ref:`ISO 8601\u003cmetadata_date_time\u003e` time at which this Individual record\nwas updated."
+        }
+      }
+    },
+    "ga4ghLinearAlignment": {
+      "type": "object",
+      "properties": {
+        "cigar": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ga4ghCigarUnit"
+          },
+          "description": "Represents the local alignment of this sequence (alignment matches, indels,\netc)\nversus the reference."
+        },
+        "mappingQuality": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The mapping quality of this alignment, meaning the likelihood that the read\nmaps to this position.\n\nSpecifically, this is -10 log10 Pr(mapping position is wrong), rounded to\nthe nearest integer."
+        },
+        "position": {
+          "$ref": "#/definitions/ga4ghPosition",
+          "description": "The position of this alignment."
+        }
+      },
+      "description": "A linear alignment describes the alignment of a read to a Reference, using a\nposition and CIGAR array."
+    },
+    "ga4ghListReferenceBasesRequest": {
+      "type": "object",
+      "properties": {
+        "end": {
+          "type": "string",
+          "format": "int64",
+          "description": "The end position (0-based, exclusive) of this query. Defaults\nto the length of this `Reference`."
+        },
+        "pageToken": {
+          "type": "string",
+          "format": "string",
+          "description": "The continuation token, which is used to page through large result sets.\nTo get the next page of results, set this parameter to the value of\n`nextPageToken` from the previous response."
+        },
+        "referenceId": {
+          "type": "string",
+          "format": "string",
+          "description": "The ID of the `Reference` to be retrieved."
+        },
+        "start": {
+          "type": "string",
+          "format": "int64",
+          "description": "The start position (0-based) of this query. Defaults to 0.\nGenomic positions are non-negative integers less than reference length.\nRequests spanning the join of circular genomes are represented as\ntwo requests one on each side of the join (position 0)."
+        }
+      },
+      "description": "This request retrieves a region of a reference genome when sent to \nthe `/listreferencebases` endpoint."
+    },
+    "ga4ghListReferenceBasesResponse": {
+      "type": "object",
+      "properties": {
+        "nextPageToken": {
+          "type": "string",
+          "format": "string",
+          "description": "The continuation token, which is used to page through large result sets.\nProvide this value in a subsequent request to return the next page of\nresults. This field will be empty if there aren't any additional results."
+        },
+        "offset": {
+          "type": "string",
+          "format": "int64",
+          "description": "The offset position (0-based) of the given sequence from the start of this\n`Reference`. This value will differ for each page in a paginated request."
+        },
+        "sequence": {
+          "type": "string",
+          "format": "string",
+          "description": "A substring of the bases that make up this reference. Bases are represented\nas IUPAC-IUB codes; this string matches the regexp `[ACGTMRWSYKVHDBN]*`."
+        }
+      },
+      "description": "The response from `POST /listreferencebases` expressed as JSON."
+    },
+    "ga4ghOntologyTerm": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "string",
+          "description": "Ontology source identifier - the identifier, a CURIE (preferred) or PURL\nfor an ontology source e.g. http://purl.obolibrary.org/obo/hp.obo It\ndiffers from the standard GA4GH schema's :ref:`id \u003capidesign_object_ids\u003e`\nin that it is a URI pointing to an information resource outside of the\nscope of the schema or its resource implementation."
+        },
+        "sourceName": {
+          "type": "string",
+          "format": "string",
+          "title": "Ontology source name - the name of ontology from which the term is obtained\ne.g. 'Human Phenotype Ontology'"
+        },
+        "sourceVersion": {
+          "type": "string",
+          "format": "string",
+          "description": "Ontology source version - the version of the ontology from which the\nOntologyTerm is obtained; e.g. 2.6.1. There is no standard for ontology\nversioning and some frequently released ontologies may use a datestamp, or\nbuild number."
+        },
+        "term": {
+          "type": "string",
+          "format": "string",
+          "description": "Ontology term - the representation the id is pointing to."
+        }
+      },
+      "title": "An ontology term describing an attribute. (e.g. the phenotype attribute\n'polydactyly' from HPO)"
+    },
+    "ga4ghPhenotypeAssociationSet": {
+      "type": "object",
+      "properties": {
+        "datasetId": {
+          "type": "string",
+          "format": "string",
+          "description": "The ID of the dataset this phenotype association set belongs to."
+        },
+        "id": {
+          "type": "string",
+          "format": "string",
+          "description": "The phenotype association set ID."
+        },
+        "info": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/protobufListValue"
+          },
+          "description": "Optional additional information for this phenotype association set."
+        },
+        "name": {
+          "type": "string",
+          "format": "string",
+          "description": "The phenotype association set name."
+        }
+      },
+      "description": "The top level container for phenotype association data."
+    },
+    "ga4ghPhenotypeInstance": {
+      "type": "object",
+      "properties": {
+        "ageOfOnset": {
+          "$ref": "#/definitions/ga4ghOntologyTerm",
+          "title": "HPO is recommended, for example, subclasses of\nhttp://www.human-phenotype-ontology.org/hpoweb/showterm?id=HP:0011007\nTODO: also allow quantitative recording?"
+        },
+        "description": {
+          "type": "string",
+          "format": "string",
+          "description": "A textual description of the phenotype. This is used to complement the\nstructured phenotype description in the type field."
+        },
+        "id": {
+          "type": "string",
+          "format": "string",
+          "description": "The Phenotype ID."
+        },
+        "info": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/protobufListValue"
+          },
+          "description": "Additional annotation data in key-value pairs."
+        },
+        "qualifier": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ga4ghOntologyTerm"
+          },
+          "title": "PATO is recommended.  Often this qualifier might be for abnormal/normal,\nor severity.\nFor example, severe: http://purl.obolibrary.org/obo/PATO_0000396\nor abnormal: http://purl.obolibrary.org/obo/PATO_0000460"
+        },
+        "type": {
+          "$ref": "#/definitions/ga4ghOntologyTerm",
+          "title": "HPO is recommended"
+        }
+      },
+      "title": "An association to a phenotype and related information.\nThis record is intended primarily to be used in conjunction with variants, but\nthe record can also be composed with other kinds of entities such as diseases"
+    },
+    "ga4ghPosition": {
+      "type": "object",
+      "properties": {
+        "position": {
+          "type": "string",
+          "format": "int64",
+          "description": "The 0-based offset from the start of the forward strand for that\n`Reference`. Genomic positions are non-negative integers less than\n`Reference` length."
+        },
+        "referenceName": {
+          "type": "string",
+          "format": "string",
+          "description": "The name of the `Reference` on which the `Position` is located."
+        },
+        "strand": {
+          "$ref": "#/definitions/ga4ghStrand",
+          "description": "Strand the position is associated with."
+        }
+      },
+      "description": "A `Position` is an unoriented base in some `Reference`. A `Position` is\nrepresented by a `Reference` name, and a base number on that `Reference`\n(0-based)."
+    },
+    "ga4ghProgram": {
+      "type": "object",
+      "properties": {
+        "commandLine": {
+          "type": "string",
+          "format": "string",
+          "description": "The command line used to run this program."
+        },
+        "id": {
+          "type": "string",
+          "format": "string",
+          "description": "The user specified ID of the program."
+        },
+        "name": {
+          "type": "string",
+          "format": "string",
+          "description": "The name of the program."
+        },
+        "prevProgramId": {
+          "type": "string",
+          "format": "string",
+          "description": "The ID of the program run before this one."
+        },
+        "version": {
+          "type": "string",
+          "format": "string",
+          "description": "The version of the program run."
+        }
+      },
+      "description": "A Program describes software used in data processing or analysis."
+    },
+    "ga4ghReadAlignment": {
+      "type": "object",
+      "properties": {
+        "alignedQuality": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "description": "The quality of the read sequence contained in this alignment message\n(equivalent to QUAL in SAM).\n\n`alignedSequence` and `alignedQuality` may be shorter than the full read\nsequence and quality. This will occur if the alignment is part of a\nchimeric alignment, or if the read was trimmed. When this occurs, the CIGAR\nfor this read will begin/end with a hard clip operator that will indicate\nthe length of the excised sequence."
+        },
+        "alignedSequence": {
+          "type": "string",
+          "format": "string",
+          "description": "The bases of the read sequence contained in this alignment record\n(equivalent to SEQ in SAM).\n\n`alignedSequence` and `alignedQuality` may be shorter than the full read\nsequence and quality. This will occur if the alignment is part of a\nchimeric alignment, or if the read was trimmed. When this occurs, the CIGAR\nfor this read will begin/end with a hard clip operator that will indicate\nthe length of the excised sequence."
+        },
+        "alignment": {
+          "$ref": "#/definitions/ga4ghLinearAlignment",
+          "description": "The alignment for this alignment message. This field will be null if the\nread is unmapped."
+        },
+        "duplicateFragment": {
+          "type": "boolean",
+          "format": "boolean",
+          "description": "The fragment is a PCR or optical duplicate (SAM flag 0x400)."
+        },
+        "failedVendorQualityChecks": {
+          "type": "boolean",
+          "format": "boolean",
+          "description": "The read fails platform or vendor quality checks (SAM flag 0x200)."
+        },
+        "fragmentLength": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The observed length of the fragment, equivalent to TLEN in SAM."
+        },
+        "fragmentName": {
+          "type": "string",
+          "format": "string",
+          "description": "The fragment name. Equivalent to QNAME (query template name) in SAM."
+        },
+        "id": {
+          "type": "string",
+          "format": "string",
+          "description": "The read alignment ID. This ID is unique within the read group this\nalignment belongs to.\n\nFor performance reasons, this field may be omitted by a backend.\nIf provided, its intended use is to make caching and UI display easier for\ngenome browsers and other lightweight clients."
+        },
+        "improperPlacement": {
+          "type": "boolean",
+          "format": "boolean",
+          "description": "The orientation and the distance between reads from the fragment are\ninconsistent with the sequencing protocol (inverse of SAM flag 0x2)."
+        },
+        "info": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/protobufListValue"
+          },
+          "description": "A map of additional read alignment information."
+        },
+        "nextMatePosition": {
+          "$ref": "#/definitions/ga4ghPosition",
+          "description": "The mapping of the primary alignment of the `(readNumber+1)%numberReads`\nread in the fragment. It replaces mate position and mate strand in SAM."
+        },
+        "numberReads": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The number of reads in the fragment (extension to SAM flag 0x1)."
+        },
+        "readGroupId": {
+          "type": "string",
+          "format": "string",
+          "title": "The ID of the read group this read belongs to.\n(Every read must belong to exactly one read group.)"
+        },
+        "readNumber": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The read ordinal in the fragment, 0-based and less than numberReads. This\nfield replaces SAM flag 0x40 and 0x80 and is intended to more cleanly\nrepresent multiple reads per fragment."
+        },
+        "secondaryAlignment": {
+          "type": "boolean",
+          "format": "boolean",
+          "description": "Whether this alignment is secondary. Equivalent to SAM flag 0x100.\nA secondary alignment represents an alternative to the primary alignment\nfor this read. Aligners may return secondary alignments if a read can map\nambiguously to multiple coordinates in the genome.\n\nBy convention, each read has one and only one alignment where both\nsecondaryAlignment and supplementaryAlignment are false."
+        },
+        "supplementaryAlignment": {
+          "type": "boolean",
+          "format": "boolean",
+          "description": "Whether this alignment is supplementary. Equivalent to SAM flag 0x800.\nSupplementary alignments are used in the representation of a chimeric\nalignment. In a chimeric alignment, a read is split into multiple\nlinear alignments that map to different reference contigs. The first\nlinear alignment in the read will be designated as the representative\nalignment; the remaining linear alignments will be designated as\nsupplementary alignments. These alignments may have different mapping\nquality scores.\n\nIn each linear alignment in a chimeric alignment, the read will be hard\nclipped. The `alignedSequence` and `alignedQuality` fields in the alignment\nmessage will only represent the bases for its respective linear alignment."
+        }
+      },
+      "description": "Each read alignment describes an alignment with additional information\nabout the fragment and the read. A read alignment object is equivalent to a\nline in a SAM file."
+    },
+    "ga4ghReadGroup": {
+      "type": "object",
+      "properties": {
+        "bioSampleId": {
+          "type": "string",
+          "format": "string",
+          "description": "The BioSample this read group's data was generated from."
+        },
+        "created": {
+          "type": "string",
+          "format": "int64",
+          "description": "The time at which this read group was created in milliseconds from the\nepoch."
+        },
+        "datasetId": {
+          "type": "string",
+          "format": "string",
+          "description": "The ID of the dataset this read group belongs to."
+        },
+        "description": {
+          "type": "string",
+          "format": "string",
+          "description": "The read group description."
+        },
+        "experiment": {
+          "$ref": "#/definitions/ga4ghExperiment",
+          "description": "The experiment used to generate this read group."
+        },
+        "id": {
+          "type": "string",
+          "format": "string",
+          "description": "The read group ID."
+        },
+        "info": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/protobufListValue"
+          },
+          "description": "A map of additional read group information."
+        },
+        "name": {
+          "type": "string",
+          "format": "string",
+          "description": "The read group name."
+        },
+        "predictedInsertSize": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The predicted insert size of this read group."
+        },
+        "programs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ga4ghProgram"
+          },
+          "description": "Program can be used to track the provenance of how read data was generated."
+        },
+        "referenceSetId": {
+          "type": "string",
+          "format": "string",
+          "description": "The ID of the reference set to which the reads in this read group are\naligned. Required if there are any read alignments."
+        },
+        "sampleName": {
+          "type": "string",
+          "format": "string",
+          "description": "A name for the sample this read group's data were generated from.\nThis field contains an arbitrary string, typically\ncorresponding to the SM tag in a BAM file."
+        },
+        "stats": {
+          "$ref": "#/definitions/ga4ghReadStats",
+          "description": "Statistical data on reads in this read group."
+        },
+        "updated": {
+          "type": "string",
+          "format": "int64",
+          "description": "The time at which this read group was last updated in milliseconds\nfrom the epoch."
+        }
+      },
+      "description": "A ReadGroup is a set of reads derived from one physical sequencing process."
+    },
+    "ga4ghReadGroupSet": {
+      "type": "object",
+      "properties": {
+        "datasetId": {
+          "type": "string",
+          "format": "string",
+          "description": "The ID of the dataset this read group set belongs to."
+        },
+        "id": {
+          "type": "string",
+          "format": "string",
+          "description": "The read group set ID."
+        },
+        "name": {
+          "type": "string",
+          "format": "string",
+          "description": "The read group set name."
+        },
+        "readGroups": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ga4ghReadGroup"
+          },
+          "description": "The read groups in this set."
+        },
+        "stats": {
+          "$ref": "#/definitions/ga4ghReadStats",
+          "description": "Statistical data on reads in this read group set."
+        }
+      },
+      "description": "A ReadGroupSet is a logical collection of ReadGroups. Typically one\nReadGroupSet represents all the reads from one experimental sample."
+    },
+    "ga4ghReadStats": {
+      "type": "object",
+      "properties": {
+        "alignedReadCount": {
+          "type": "string",
+          "format": "int64",
+          "description": "The number of aligned reads."
+        },
+        "baseCount": {
+          "type": "string",
+          "format": "int64",
+          "description": "The total number of bases.\nThis is equivalent to the sum of `alignedSequence.length` for all reads."
+        },
+        "unalignedReadCount": {
+          "type": "string",
+          "format": "int64",
+          "description": "The number of unaligned reads."
+        }
+      },
+      "description": "ReadStats can be used to provide summary statistics about read data."
+    },
+    "ga4ghReference": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "string",
+          "description": "The reference ID. Unique within the repository."
+        },
+        "isDerived": {
+          "type": "boolean",
+          "format": "boolean",
+          "description": "A sequence X is said to be derived from source sequence Y, if X and Y\nare of the same length and the per-base sequence divergence at A/C/G/T\nbases\nis sufficiently small. Two sequences derived from the same official\nsequence share the same coordinates and annotations, and\ncan be replaced with the official sequence for certain use cases."
+        },
+        "length": {
+          "type": "string",
+          "format": "int64",
+          "description": "The length of this reference's sequence."
+        },
+        "md5checksum": {
+          "type": "string",
+          "format": "string",
+          "description": "The MD5 checksum uniquely representing this `Reference` as a lower-case\nhexadecimal string, calculated as the MD5 of the upper-case sequence\nexcluding all whitespace characters (this is equivalent to SQ:M5 in SAM)."
+        },
+        "name": {
+          "type": "string",
+          "format": "string",
+          "description": "The name of this reference. (e.g. '22')."
+        },
+        "ncbiTaxonId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "ID from http://www.ncbi.nlm.nih.gov/taxonomy (e.g. 9606-\u003ehuman)."
+        },
+        "sourceAccessions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "string"
+          },
+          "description": "All known corresponding accession IDs in INSDC (GenBank/ENA/DDBJ) which\nmust include\na version number, e.g. `GCF_000001405.26`."
+        },
+        "sourceDivergence": {
+          "type": "number",
+          "format": "float",
+          "description": "The `sourceDivergence` is the fraction of non-indel bases that do not match\nthe\nreference this message was derived from."
+        },
+        "sourceUri": {
+          "type": "string",
+          "format": "string",
+          "description": "The URI from which the sequence was obtained. Specifies a FASTA format\nfile/string with one name, sequence pair. In most cases, clients should\ncall\nthe `getReferenceBases()` method to obtain sequence bases for a `Reference`\ninstead of attempting to retrieve this URI."
+        }
+      },
+      "description": "A `Reference` is a canonical assembled contig, intended to act as a\nreference coordinate space for other genomic annotations. A single\n`Reference` might represent the human chromosome 1, for instance.\n\n`Reference` s are designed to be immutable."
+    },
+    "ga4ghReferenceSet": {
+      "type": "object",
+      "properties": {
+        "assemblyId": {
+          "type": "string",
+          "format": "string",
+          "description": "Public id of this reference set, such as `GRCh37`."
+        },
+        "description": {
+          "type": "string",
+          "format": "string",
+          "description": "Optional free text description of this reference set."
+        },
+        "id": {
+          "type": "string",
+          "format": "string",
+          "description": "The reference set ID. Unique in the repository."
+        },
+        "isDerived": {
+          "type": "boolean",
+          "format": "boolean",
+          "description": "A reference set may be derived from a source if it contains\nadditional sequences, or some of the sequences within it are derived\n(see the definition of `isDerived` in `Reference`)."
+        },
+        "md5checksum": {
+          "type": "string",
+          "format": "string",
+          "description": "Order-independent MD5 checksum which identifies this `ReferenceSet`.\n\nTo compute this checksum, make a list of `Reference.md5checksum` for all\n`Reference` s in this set. Then sort that list, and take the MD5 hash of\nall the strings concatenated together. Express the hash as a lower-case\nhexadecimal string."
+        },
+        "name": {
+          "type": "string",
+          "format": "string",
+          "description": "The reference set name."
+        },
+        "ncbiTaxonId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "ID from http://www.ncbi.nlm.nih.gov/taxonomy (e.g. 9606-\u003ehuman) indicating\nthe species which this assembly is intended to model. Note that contained\n`Reference` s may specify a different `ncbiTaxonId`, as assemblies may\ncontain reference sequences which do not belong to the modeled species,\ne.g.\nEBV in a human reference genome."
+        },
+        "sourceAccessions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "string"
+          },
+          "description": "All known corresponding accession IDs in INSDC (GenBank/ENA/DDBJ) ideally\nwith a version number, e.g. `NC_000001.11`."
+        },
+        "sourceUri": {
+          "type": "string",
+          "format": "string",
+          "description": "Specifies a FASTA format file/string."
+        }
+      },
+      "description": "A `ReferenceSet` is a set of `Reference` s which typically comprise a\nreference assembly, such as `GRCh38`. A `ReferenceSet` defines a common\ncoordinate space for comparing reference-aligned experimental data."
+    },
+    "ga4ghRnaQuantification": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string",
+          "format": "string",
+          "title": "Description"
+        },
+        "featureSetIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "string"
+          },
+          "description": "List of annotation sets used."
+        },
+        "id": {
+          "type": "string",
+          "format": "string",
+          "description": "The unique ID assigned to the results of running the described programs\non the specified reads and assignment to the listed annotation."
+        },
+        "name": {
+          "type": "string",
+          "format": "string",
+          "title": "Name"
+        },
+        "programs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ga4ghProgram"
+          },
+          "description": "Programs can be used to track the provenance of how read data was quantified."
+        },
+        "readGroupIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "string"
+          },
+          "description": "ID(s) of the ReadGroup(s) providing the reads for the analysis."
+        },
+        "rnaQuantificationSetId": {
+          "type": "string",
+          "format": "string",
+          "description": "ID of the containing RnaQuantificationSet."
+        }
+      },
+      "title": "Top level identifying information"
+    },
+    "ga4ghRnaQuantificationSet": {
+      "type": "object",
+      "properties": {
+        "datasetId": {
+          "type": "string",
+          "format": "string",
+          "description": "The ID of the dataset this RNA Quantification set belongs to."
+        },
+        "id": {
+          "type": "string",
+          "format": "string",
+          "description": "The RNA quantification set ID."
+        },
+        "name": {
+          "type": "string",
+          "format": "string",
+          "description": "The RNA quantification set name."
+        }
+      },
+      "description": "A collection of associated RNAQuantifications.  Typically this will be all\nthe Quantifications of samples from an experiment.  For example, a time\ncourse experiment would be described by a RnaQuantificationSet with the\nindividual RNASeq experiments of the time point being represented as the\nmember RnaQuantifications."
+    },
+    "ga4ghSearchBioSamplesRequest": {
+      "type": "object",
+      "properties": {
+        "datasetId": {
+          "type": "string",
+          "format": "string",
+          "description": "Optionally specify the dataset to search within."
+        },
+        "individualId": {
+          "type": "string",
+          "format": "string",
+          "description": "Returns BioSamples for the provided individual ID."
+        },
+        "name": {
+          "type": "string",
+          "format": "string",
+          "description": "Returns BioSamples with the given name found by case-sensitive string matching."
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Specifies the maximum number of results to return in a single page.\nIf unspecified, a system default will be used."
+        },
+        "pageToken": {
+          "type": "string",
+          "format": "string",
+          "description": "The continuation token, which is used to page through large result sets.\nTo get the next page of results, set this parameter to the value of\n`nextPageToken` from the previous response."
+        }
+      }
+    },
+    "ga4ghSearchBioSamplesResponse": {
+      "type": "object",
+      "properties": {
+        "biosamples": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ga4ghBioSample"
+          },
+          "description": "The list of biosamples."
+        },
+        "nextPageToken": {
+          "type": "string",
+          "format": "string",
+          "description": "The continuation token, which is used to page through large result sets.\nProvide this value in a subsequent request to return the next page of\nresults. This field will be empty if there aren't any additional results."
+        }
+      }
+    },
+    "ga4ghSearchCallSetsRequest": {
+      "type": "object",
+      "properties": {
+        "bioSampleId": {
+          "type": "string",
+          "format": "string",
+          "description": "Return only call sets generated from the provided BioSample ID."
+        },
+        "name": {
+          "type": "string",
+          "format": "string",
+          "description": "Only return call sets with this name (case-sensitive, exact match)."
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Specifies the maximum number of results to return in a single page.\nIf unspecified, a system default will be used."
+        },
+        "pageToken": {
+          "type": "string",
+          "format": "string",
+          "description": "The continuation token, which is used to page through large result sets.\nTo get the next page of results, set this parameter to the value of\n`nextPageToken` from the previous response."
+        },
+        "variantSetId": {
+          "type": "string",
+          "format": "string",
+          "description": "The VariantSet to search."
+        }
+      },
+      "description": "******************  /callsets  *********************\nThis request maps to the body of `POST /callsets/search` as JSON."
+    },
+    "ga4ghSearchCallSetsResponse": {
+      "type": "object",
+      "properties": {
+        "callSets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ga4ghCallSet"
+          },
+          "description": "The list of matching call sets."
+        },
+        "nextPageToken": {
+          "type": "string",
+          "format": "string",
+          "description": "The continuation token, which is used to page through large result sets.\nProvide this value in a subsequent request to return the next page of\nresults. This field will be empty if there aren't any additional results."
+        }
+      },
+      "description": "This is the response from `POST /callsets/search` expressed as JSON."
+    },
+    "ga4ghSearchDatasetsRequest": {
+      "type": "object",
+      "properties": {
+        "pageSize": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Specifies the maximum number of results to return in a single page.\nIf unspecified, a system default will be used."
+        },
+        "pageToken": {
+          "type": "string",
+          "format": "string",
+          "description": "The continuation token, which is used to page through large result sets.\nTo get the next page of results, set this parameter to the value of\n`nextPageToken` from the previous response."
+        }
+      },
+      "description": "This request maps to the body of `POST /datasets/search` as JSON."
+    },
+    "ga4ghSearchDatasetsResponse": {
+      "type": "object",
+      "properties": {
+        "datasets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ga4ghDataset"
+          },
+          "description": "The list of datasets."
+        },
+        "nextPageToken": {
+          "type": "string",
+          "format": "string",
+          "description": "The continuation token, which is used to page through large result sets.\nProvide this value in a subsequent request to return the next page of\nresults. This field will be empty if there aren't any additional results."
+        }
+      },
+      "description": "This is the response from `POST /datasets/search` expressed as JSON."
+    },
+    "ga4ghSearchExpressionLevelsRequest": {
+      "type": "object",
+      "properties": {
+        "featureIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "string"
+          },
+          "description": "Only return expressions with any of the specified featureIds."
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Specifies the maximum number of results to return in a single page.\nIf unspecified, a system default will be used."
+        },
+        "pageToken": {
+          "type": "string",
+          "format": "string",
+          "description": "The continuation token, which is used to page through large result sets.\nTo get the next page of results, set this parameter to the value of\n'nextPageToken' from the previous response."
+        },
+        "rnaQuantificationId": {
+          "type": "string",
+          "format": "string",
+          "description": "The rnaQuantification to restrict search to."
+        },
+        "threshold": {
+          "type": "number",
+          "format": "float",
+          "title": "Only return ExpressionLevel records with expressions exceeding\nthis value.  (Defaults to 0.0)"
+        }
+      },
+      "description": "****************  /expressionlevels/search  *******************\nThis request maps to the body of 'POST /expressionlevels/search'\nas JSON."
+    },
+    "ga4ghSearchExpressionLevelsResponse": {
+      "type": "object",
+      "properties": {
+        "expressionLevels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ga4ghExpressionLevel"
+          },
+          "description": "The list of matching quantifications."
+        },
+        "nextPageToken": {
+          "type": "string",
+          "format": "string",
+          "description": "The continuation token, which is used to page through large result sets.\nTo get the next page of results, set this parameter to the value of\n'nextPageToken' from the previous response."
+        }
+      },
+      "description": "This is the response from 'POST /expressionlevels/search' expressed as JSON."
+    },
+    "ga4ghSearchFeatureSetsRequest": {
+      "type": "object",
+      "properties": {
+        "datasetId": {
+          "type": "string",
+          "format": "string",
+          "description": "The `Dataset` to search."
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Specifies the maximum number of results to return in a single page.\nIf unspecified, a system default will be used."
+        },
+        "pageToken": {
+          "type": "string",
+          "format": "string",
+          "description": "The continuation token, which is used to page through large result sets.\nTo get the next page of results, set this parameter to the value of\n`nextPageToken` from the previous response."
+        }
+      },
+      "description": "* This request maps to the body of `POST /featuresets/search` as JSON."
+    },
+    "ga4ghSearchFeatureSetsResponse": {
+      "type": "object",
+      "properties": {
+        "featureSets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ga4ghFeatureSet"
+          },
+          "description": "The list of matching feature sets."
+        },
+        "nextPageToken": {
+          "type": "string",
+          "format": "string",
+          "description": "The continuation token, which is used to page through large result sets.\nProvide this value in a subsequent request to return the next page of\nresults. This field will be empty if there aren't any additional results."
+        }
+      },
+      "description": "This is the response from `POST /featuresets/search` expressed as JSON."
+    },
+    "ga4ghSearchFeaturesRequest": {
+      "type": "object",
+      "properties": {
+        "end": {
+          "type": "string",
+          "format": "int64",
+          "description": "Required, if name or symbol not provided.\nThe end of the window (0-based, exclusive) for which overlapping\nfeatures should be returned."
+        },
+        "featureSetId": {
+          "type": "string",
+          "format": "string",
+          "description": "The annotation set to search within. Either `featureSetId` or\n`parent_id` must be non-empty."
+        },
+        "featureTypes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "string"
+          },
+          "description": "TODO: To be replaced with a fully featured ontology search\nonce the Metadata definitions are rounded out.\nIf specified, this query matches only annotations whose `feature_type`\nmatches one of the provided ontology terms."
+        },
+        "geneSymbol": {
+          "type": "string",
+          "format": "string",
+          "description": "Only return features with matching the provided gene symbol\n(case-sensitive, exact match).\nThis field may be replaced with a more generic representation\nin a future version."
+        },
+        "name": {
+          "type": "string",
+          "format": "string",
+          "description": "Only returns features with this name (case-sensitive, exact match)."
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Specifies the maximum number of results to return in a single page.\nIf unspecified, a system default will be used."
+        },
+        "pageToken": {
+          "type": "string",
+          "format": "string",
+          "description": "The continuation token, which is used to page through large result sets.\nTo get the next page of results, set this parameter to the value of\n`nextPageToken` from the previous response."
+        },
+        "parentId": {
+          "type": "string",
+          "format": "string",
+          "description": "Restricts the search to direct children of the given parent `feature`\nID. Either `featureSetId` or `parent_id` must be non-empty."
+        },
+        "referenceName": {
+          "type": "string",
+          "format": "string",
+          "description": "Only return features on the reference with this name\n(matched to literal reference name as imported from the GFF3)."
+        },
+        "start": {
+          "type": "string",
+          "format": "int64",
+          "description": "Required, if name or symbol not provided.\nThe beginning of the window (0-based, inclusive) for which\noverlapping features should be returned.  Genomic positions are\nnon-negative integers less than reference length.  Requests spanning the\njoin of circular genomes are represented as two requests one on each side\nof the join (position 0)."
+        }
+      },
+      "description": "This request maps to the body of `POST /features/search` as JSON."
+    },
+    "ga4ghSearchFeaturesResponse": {
+      "type": "object",
+      "properties": {
+        "features": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ga4ghFeature"
+          },
+          "description": "The list of matching annotations, sorted by start position. Annotations\nwhich share a start position are returned in a deterministic order."
+        },
+        "nextPageToken": {
+          "type": "string",
+          "format": "string",
+          "description": "The continuation token, which is used to page through large result sets.\nProvide this value in a subsequent request to return the next page of\nresults. This field will be empty if there aren't any additional results."
+        }
+      },
+      "description": "This is the response from `POST /features/search` expressed as JSON."
+    },
+    "ga4ghSearchIndividualsRequest": {
+      "type": "object",
+      "properties": {
+        "datasetId": {
+          "type": "string",
+          "format": "string",
+          "description": "Optionally specify the dataset to search within."
+        },
+        "name": {
+          "type": "string",
+          "format": "string",
+          "description": "Returns Individuals with the given name found by case-sensitive string matching."
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Specifies the maximum number of results to return in a single page.\nIf unspecified, a system default will be used."
+        },
+        "pageToken": {
+          "type": "string",
+          "format": "string",
+          "description": "The continuation token, which is used to page through large result sets.\nTo get the next page of results, set this parameter to the value of\n`nextPageToken` from the previous response."
+        }
+      },
+      "description": "*********************  /individuals ********************************\nThis request maps to the body of `POST /individuals/search` as JSON."
+    },
+    "ga4ghSearchIndividualsResponse": {
+      "type": "object",
+      "properties": {
+        "individuals": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ga4ghIndividual"
+          },
+          "description": "The list of individuals."
+        },
+        "nextPageToken": {
+          "type": "string",
+          "format": "string",
+          "description": "The continuation token, which is used to page through large result sets.\nProvide this value in a subsequent request to return the next page of\nresults. This field will be empty if there aren't any additional results."
+        }
+      },
+      "description": "This is the response from `POST /individuals/search` expressed as JSON."
+    },
+    "ga4ghSearchPhenotypeAssociationSetsRequest": {
+      "type": "object",
+      "properties": {
+        "datasetId": {
+          "type": "string",
+          "format": "string",
+          "title": "The `Dataset` to search. Mandatory"
+        },
+        "pageSize": {
+          "type": "string",
+          "format": "int64",
+          "description": "Specifies the maximum number of results to return in a single page.\nIf unspecified, a system default will be used."
+        },
+        "pageToken": {
+          "type": "string",
+          "format": "string",
+          "description": "The continuation token, which is used to page through large result sets.\nTo get the next page of results, set this parameter to the value of\n`nextPageToken` from the previous response."
+        }
+      },
+      "description": "This request maps to the body of `POST /phenotypeassociationsets/search` as JSON."
+    },
+    "ga4ghSearchPhenotypeAssociationSetsResponse": {
+      "type": "object",
+      "properties": {
+        "nextPageToken": {
+          "type": "string",
+          "format": "string",
+          "description": "The continuation token, which is used to page through large result sets.\nProvide this value in a subsequent request to return the next page of\nresults. This field will be empty if there aren't any additional results."
+        },
+        "phenotypeAssociationSets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ga4ghPhenotypeAssociationSet"
+          },
+          "description": "The list of matching phenotype association sets."
+        }
+      },
+      "description": "This is the response from `POST /phenotypeassociationsets/search` expressed as JSON."
+    },
+    "ga4ghSearchPhenotypesRequest": {
+      "type": "object",
+      "properties": {
+        "ageOfOnset": {
+          "$ref": "#/definitions/ga4ghOntologyTerm",
+          "title": "Only return results that match this age of onset"
+        },
+        "description": {
+          "type": "string",
+          "format": "string",
+          "title": "The system may support regex. https://www.w3.org/TR/xpath-functions/#regex-syntax"
+        },
+        "id": {
+          "type": "string",
+          "format": "string",
+          "title": "Phenotype ID\nTODO remove if a get-by-phenotype ID endpoint is added"
+        },
+        "pageSize": {
+          "type": "string",
+          "format": "int64",
+          "description": "Specifies the maximum number of results to return in a single page.\nIf unspecified, a system default will be used."
+        },
+        "pageToken": {
+          "type": "string",
+          "format": "string",
+          "description": "The continuation token, which is used to page through large result sets.\nTo get the next page of results, set this parameter to the value of\n`nextPageToken` from the previous response."
+        },
+        "phenotypeAssociationSetId": {
+          "type": "string",
+          "format": "string",
+          "title": "The `PhenotypeAssociationSet` to search. Mandatory"
+        },
+        "qualifiers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ga4ghOntologyTerm"
+          },
+          "title": "terms should be OR'd together. e.g. (severe OR abnormal)"
+        },
+        "type": {
+          "$ref": "#/definitions/ga4ghOntologyTerm",
+          "title": "Only return results that match this type"
+        }
+      }
+    },
+    "ga4ghSearchPhenotypesResponse": {
+      "type": "object",
+      "properties": {
+        "nextPageToken": {
+          "type": "string",
+          "format": "string",
+          "description": "The continuation token, which is used to page through large result sets.\nProvide this value in a subsequent request to return the next page of\nresults. This field will be empty if there aren't any additional results."
+        },
+        "phenotypes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ga4ghPhenotypeInstance"
+          },
+          "description": "The list of matching PhenotypeInstances."
+        }
+      },
+      "description": "This is the response from `POST /phenotypes/search` expressed as JSON."
+    },
+    "ga4ghSearchReadGroupSetsRequest": {
+      "type": "object",
+      "properties": {
+        "bioSampleId": {
+          "type": "string",
+          "format": "string",
+          "description": "Specifying the id of a BioSample record will return only readgroups\n with the given bioSampleId."
+        },
+        "datasetId": {
+          "type": "string",
+          "format": "string",
+          "description": "The dataset to search."
+        },
+        "name": {
+          "type": "string",
+          "format": "string",
+          "description": "Only return read group sets with this name (case-sensitive, exact match)."
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Specifies the maximum number of results to return in a single page.\nIf unspecified, a system default will be used."
+        },
+        "pageToken": {
+          "type": "string",
+          "format": "string",
+          "description": "The continuation token, which is used to page through large result sets.\nTo get the next page of results, set this parameter to the value of\n`nextPageToken` from the previous response."
+        }
+      },
+      "description": "This request maps to the body of `POST /readgroupsets/search` as JSON.\n\nTODO: Factor this out to a common API patterns section.\n- If searching by a resource ID, and that resource is not found, the method\n  will return a `404` HTTP status code (`NOT_FOUND`).\n- If searching by other attributes, e.g. `name`, and no matches are found, the\n  method will return a `200` HTTP status code (`OK`) with an empty result list."
+    },
+    "ga4ghSearchReadGroupSetsResponse": {
+      "type": "object",
+      "properties": {
+        "nextPageToken": {
+          "type": "string",
+          "format": "string",
+          "description": "The continuation token, which is used to page through large result sets.\nProvide this value in a subsequent request to return the next page of\nresults. This field will be empty if there aren't any additional results."
+        },
+        "readGroupSets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ga4ghReadGroupSet"
+          },
+          "description": "The list of matching read group sets."
+        }
+      },
+      "description": "This is the response from `POST /readgroupsets/search` expressed as JSON."
+    },
+    "ga4ghSearchReadsRequest": {
+      "type": "object",
+      "properties": {
+        "end": {
+          "type": "string",
+          "format": "int64",
+          "description": "The end position (0-based, exclusive) of this query.\nIf a reference is specified, this defaults to the\nreference's length."
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Specifies the maximum number of results to return in a single page.\nIf unspecified, a system default will be used."
+        },
+        "pageToken": {
+          "type": "string",
+          "format": "string",
+          "description": "The continuation token, which is used to page through large result sets.\nTo get the next page of results, set this parameter to the value of\n`nextPageToken` from the previous response."
+        },
+        "readGroupIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "string"
+          },
+          "description": "The ReadGroups to search. At least one id must be specified."
+        },
+        "referenceId": {
+          "type": "string",
+          "format": "string",
+          "description": "The reference to query. Leaving blank returns results from all\nreferences, including unmapped reads - this could be very large."
+        },
+        "start": {
+          "type": "string",
+          "format": "int64",
+          "description": "The start position (0-based) of this query.\nIf a reference is specified, this defaults to 0.\nGenomic positions are non-negative integers less than reference length.\nRequests spanning the join of circular genomes are represented as\ntwo requests one on each side of the join (position 0)."
+        }
+      },
+      "description": "******************  /reads  *********************\nThis request maps to the body of `POST /reads/search` as JSON.\n\nIf a reference is specified, all queried `ReadGroup`s must be aligned\nto `ReferenceSet`s containing that same `Reference`. If no reference is\nspecified, all `ReadGroup`s must be aligned to the same `ReferenceSet`."
+    },
+    "ga4ghSearchReadsResponse": {
+      "type": "object",
+      "properties": {
+        "alignments": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ga4ghReadAlignment"
+          },
+          "description": "The list of matching alignment messages, sorted by position.\nUnmapped reads, which have no position, are returned last."
+        },
+        "nextPageToken": {
+          "type": "string",
+          "format": "string",
+          "description": "The continuation token, which is used to page through large result sets.\nProvide this value in a subsequent request to return the next page of\nresults. This field will be empty if there aren't any additional results."
+        }
+      },
+      "description": "This is the response from `POST /reads/search` expressed as JSON."
+    },
+    "ga4ghSearchReferenceSetsRequest": {
+      "type": "object",
+      "properties": {
+        "accession": {
+          "type": "string",
+          "format": "string",
+          "description": "If unset, return the reference sets for which the `accession`\nmatches this string (case-sensitive, exact match)."
+        },
+        "assemblyId": {
+          "type": "string",
+          "format": "string",
+          "description": "If unset, return the reference sets for which the `assemblyId`\nmatches this string (case-sensitive, exact match)."
+        },
+        "md5checksum": {
+          "type": "string",
+          "format": "string",
+          "description": "If unset, return the reference sets for which the\n`md5checksum` matches this string (case-sensitive, exact match).\nSee `ReferenceSet::md5checksum` for details."
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Specifies the maximum number of results to return in a single page.\nIf unspecified, a system default will be used."
+        },
+        "pageToken": {
+          "type": "string",
+          "format": "string",
+          "description": "The continuation token, which is used to page through large result sets.\nTo get the next page of results, set this parameter to the value of\n`nextPageToken` from the previous response."
+        }
+      },
+      "description": "****************  /referencesets  *******************\nThis request maps to the body of `POST /referencesets/search` as JSON."
+    },
+    "ga4ghSearchReferenceSetsResponse": {
+      "type": "object",
+      "properties": {
+        "nextPageToken": {
+          "type": "string",
+          "format": "string",
+          "description": "The continuation token, which is used to page through large result sets.\nProvide this value in a subsequent request to return the next page of\nresults. This field will be empty if there aren't any additional results."
+        },
+        "referenceSets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ga4ghReferenceSet"
+          },
+          "description": "The list of matching reference sets."
+        }
+      },
+      "description": "This is the response from `POST /referencesets/search` expressed as JSON."
+    },
+    "ga4ghSearchReferencesRequest": {
+      "type": "object",
+      "properties": {
+        "accession": {
+          "type": "string",
+          "format": "string",
+          "description": "If specified, return the references for which the `accession`\nmatches this string (case-sensitive, exact match)."
+        },
+        "md5checksum": {
+          "type": "string",
+          "format": "string",
+          "description": "If specified, return the references for which the\n`md5checksum` matches this string (case-sensitive, exact match).\nSee `ReferenceSet::md5checksum` for details."
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Specifies the maximum number of results to return in a single page.\nIf unspecified, a system default will be used."
+        },
+        "pageToken": {
+          "type": "string",
+          "format": "string",
+          "description": "The continuation token, which is used to page through large result sets.\nTo get the next page of results, set this parameter to the value of\n`nextPageToken` from the previous response."
+        },
+        "referenceSetId": {
+          "type": "string",
+          "format": "string",
+          "description": "The `ReferenceSet` to search."
+        }
+      },
+      "description": "****************  /references  *******************\nThis request maps to the body of `POST /references/search` as JSON."
+    },
+    "ga4ghSearchReferencesResponse": {
+      "type": "object",
+      "properties": {
+        "nextPageToken": {
+          "type": "string",
+          "format": "string",
+          "description": "The continuation token, which is used to page through large result sets.\nProvide this value in a subsequent request to return the next page of\nresults. This field will be empty if there aren't any additional results."
+        },
+        "references": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ga4ghReference"
+          },
+          "description": "The list of matching references."
+        }
+      },
+      "description": "This is the response from `POST /references/search` expressed as JSON."
+    },
+    "ga4ghSearchRnaQuantificationSetsRequest": {
+      "type": "object",
+      "properties": {
+        "datasetId": {
+          "type": "string",
+          "format": "string",
+          "description": "The `Dataset` to search."
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Specifies the maximum number of results to return in a single page.\nIf unspecified, a system default will be used."
+        },
+        "pageToken": {
+          "type": "string",
+          "format": "string",
+          "description": "The continuation token, which is used to page through large result sets.\nTo get the next page of results, set this parameter to the value of\n'nextPageToken' from the previous response."
+        }
+      },
+      "description": "This request maps to the body of 'POST /rnaquantificationsets/search'\nas JSON."
+    },
+    "ga4ghSearchRnaQuantificationSetsResponse": {
+      "type": "object",
+      "properties": {
+        "nextPageToken": {
+          "type": "string",
+          "format": "string",
+          "description": "The continuation token, which is used to page through large result sets.\nTo get the next page of results, set this parameter to the value of\n'nextPageToken' from the previous response."
+        },
+        "rnaQuantificationSets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ga4ghRnaQuantificationSet"
+          },
+          "description": "The list of matching quantification sets."
+        }
+      },
+      "description": "This is the response from 'POST /rnaquantificationsets/search' expressed as JSON."
+    },
+    "ga4ghSearchRnaQuantificationsRequest": {
+      "type": "object",
+      "properties": {
+        "pageSize": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Specifies the maximum number of results to return in a single page.\nIf unspecified, a system default will be used."
+        },
+        "pageToken": {
+          "type": "string",
+          "format": "string",
+          "description": "The continuation token, which is used to page through large result sets.\nTo get the next page of results, set this parameter to the value of\n'nextPageToken' from the previous response."
+        },
+        "rnaQuantificationSetId": {
+          "type": "string",
+          "format": "string",
+          "description": "Return only Rna Quantifications which belong to this set.\nMust be specified."
+        }
+      },
+      "description": "This request maps to the body of 'POST /rnaquantifications/search'\nas JSON."
+    },
+    "ga4ghSearchRnaQuantificationsResponse": {
+      "type": "object",
+      "properties": {
+        "nextPageToken": {
+          "type": "string",
+          "format": "string",
+          "description": "The continuation token, which is used to page through large result sets.\nTo get the next page of results, set this parameter to the value of\n'nextPageToken' from the previous response."
+        },
+        "rnaQuantifications": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ga4ghRnaQuantification"
+          },
+          "description": "The list of matching quantifications."
+        }
+      },
+      "description": "This is the response from 'POST /rnaquantifications/search' expressed as JSON."
+    },
+    "ga4ghSearchVariantAnnotationSetsRequest": {
+      "type": "object",
+      "properties": {
+        "pageSize": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Specifies the maximum number of results to return in a single page. If\nunspecified, a system default will be used."
+        },
+        "pageToken": {
+          "type": "string",
+          "format": "string",
+          "description": "The continuation token, which is used to page through large result sets.\nTo get the next page of results, set this parameter to the value of\n`nextPageToken` from the previous response."
+        },
+        "variantSetId": {
+          "type": "string",
+          "format": "string",
+          "description": "Required. The `VariantSet` to search."
+        }
+      },
+      "description": "This request maps to the body of `POST /variantannotationsets/search` as\nJSON."
+    },
+    "ga4ghSearchVariantAnnotationSetsResponse": {
+      "type": "object",
+      "properties": {
+        "nextPageToken": {
+          "type": "string",
+          "format": "string",
+          "description": "The continuation token, which is used to page through large result sets.\nProvide this value in a subsequent request to return the next page of\nresults. This field will be empty if there aren't any additional results."
+        },
+        "variantAnnotationSets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ga4ghVariantAnnotationSet"
+          },
+          "description": "The list of matching variant annotation sets."
+        }
+      },
+      "description": "This is the response from `POST /variantannotationsets/search` expressed as\nJSON."
+    },
+    "ga4ghSearchVariantAnnotationsRequest": {
+      "type": "object",
+      "properties": {
+        "effects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ga4ghOntologyTerm"
+          },
+          "description": "This filter allows variant, transcript combinations to be extracted by\neffect type(s). Only return variant annotations including any of these\neffects and only return transcript effects including any of these\neffects. Exact matching across all fields of the Sequence Ontology\nOntologyTerm is required. (A transcript effect may have multiple SO\neffects which will all be reported.) If empty, return all variant\nannotations."
+        },
+        "end": {
+          "type": "string",
+          "format": "int64",
+          "description": "Required if referenceName or referenceId supplied. The end of the window\n(0-based, exclusive) for which variants with overlapping reference\nalleles should be returned."
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Specifies the maximum number of results to return in a single page. If\nunspecified, a system default will be used."
+        },
+        "pageToken": {
+          "type": "string",
+          "format": "string",
+          "description": "The continuation token, which is used to page through large result sets.\nTo get the next page of results, set this parameter to the value of\n`nextPageToken` from the previous response."
+        },
+        "referenceId": {
+          "type": "string",
+          "format": "string",
+          "description": "Only return variants with reference alleles on the reference with this\nID. One of this field or `referenceName` is required."
+        },
+        "referenceName": {
+          "type": "string",
+          "format": "string",
+          "description": "Only return variants with reference alleles on the reference with this\nname. One of this field or `referenceId` is required."
+        },
+        "start": {
+          "type": "string",
+          "format": "int64",
+          "description": "Required if referenceName or referenceId supplied. The beginning of the\nwindow (0-based, inclusive) for which variants with overlapping reference\nalleles should be returned. Genomic positions are non-negative integers\nless than reference length. Requests spanning the join of circular\ngenomes are represented as two requests one on each side of the join\n(position 0)."
+        },
+        "variantAnnotationSetId": {
+          "type": "string",
+          "format": "string",
+          "description": "Required. The ID of the variant annotation set to search over."
+        }
+      },
+      "description": "This request maps to the body of `POST /variantannotations/search` as JSON."
+    },
+    "ga4ghSearchVariantAnnotationsResponse": {
+      "type": "object",
+      "properties": {
+        "nextPageToken": {
+          "type": "string",
+          "format": "string",
+          "description": "The continuation token, which is used to page through large result sets.\nProvide this value in a subsequent request to return the next page of\nresults. This field will be empty if there aren't any additional results."
+        },
+        "variantAnnotations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ga4ghVariantAnnotation"
+          },
+          "description": "The list of matching variant annotations."
+        }
+      },
+      "description": "This is the response from `POST /variantannotations/search` expressed as\nJSON."
+    },
+    "ga4ghSearchVariantSetsRequest": {
+      "type": "object",
+      "properties": {
+        "datasetId": {
+          "type": "string",
+          "format": "string",
+          "description": "The `Dataset` to search."
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Specifies the maximum number of results to return in a single page.\nIf unspecified, a system default will be used."
+        },
+        "pageToken": {
+          "type": "string",
+          "format": "string",
+          "description": "The continuation token, which is used to page through large result sets. To\nget the next page of results, set this parameter to the value of\n`nextPageToken` from the previous response."
+        }
+      },
+      "description": "******************  /variantsets  *********************\nThis request maps to the body of `POST /variantsets/search` as JSON."
+    },
+    "ga4ghSearchVariantSetsResponse": {
+      "type": "object",
+      "properties": {
+        "nextPageToken": {
+          "type": "string",
+          "format": "string",
+          "description": "The continuation token, which is used to page through large result sets.\nProvide this value in a subsequent request to return the next page of\nresults. This field will be empty if there aren't any additional results."
+        },
+        "variantSets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ga4ghVariantSet"
+          },
+          "description": "The list of matching variant sets."
+        }
+      },
+      "description": "This is the response from `POST /variantsets/search` expressed as JSON."
+    },
+    "ga4ghSearchVariantsRequest": {
+      "type": "object",
+      "properties": {
+        "callSetIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "string"
+          },
+          "description": "Only return variant calls which belong to call sets with these IDs.\nIf unspecified, return all variants and no variant call objects."
+        },
+        "end": {
+          "type": "string",
+          "format": "int64",
+          "description": "Required. The end of the window (0-based, exclusive) for which overlapping\nvariants should be returned."
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Specifies the maximum number of results to return in a single page.\nIf unspecified, a system default will be used."
+        },
+        "pageToken": {
+          "type": "string",
+          "format": "string",
+          "description": "The continuation token, which is used to page through large result sets.\nTo get the next page of results, set this parameter to the value of\n`nextPageToken` from the previous response."
+        },
+        "referenceName": {
+          "type": "string",
+          "format": "string",
+          "description": "Required. Only return variants on this reference."
+        },
+        "start": {
+          "type": "string",
+          "format": "int64",
+          "description": "Required. The beginning of the window (0-based, inclusive) for\nwhich overlapping variants should be returned.\nGenomic positions are non-negative integers less than reference length.\nRequests spanning the join of circular genomes are represented as\ntwo requests one on each side of the join (position 0)."
+        },
+        "variantSetId": {
+          "type": "string",
+          "format": "string",
+          "description": "The `VariantSet` to search."
+        }
+      },
+      "description": "******************  /variants  *********************\nThis request maps to the body of `POST /variants/search` as JSON."
+    },
+    "ga4ghSearchVariantsResponse": {
+      "type": "object",
+      "properties": {
+        "nextPageToken": {
+          "type": "string",
+          "format": "string",
+          "description": "The continuation token, which is used to page through large result sets.\nProvide this value in a subsequent request to return the next page of\nresults. This field will be empty if there aren't any additional results."
+        },
+        "variants": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ga4ghVariant"
+          },
+          "description": "The list of matching variants.\nIf the `callSetId` field on the returned calls is not present,\nthe ordering of the call sets from a `SearchCallSetsRequest`\nover the parent `VariantSet` is guaranteed to match the ordering\nof the calls on each `Variant`. The number of results will also be\nthe same."
+        }
+      },
+      "description": "This is the response from `POST /variants/search` expressed as JSON."
+    },
+    "ga4ghStrand": {
+      "type": "string",
+      "enum": [
+        "STRAND_UNSPECIFIED",
+        "NEG_STRAND",
+        "POS_STRAND"
+      ],
+      "default": "STRAND_UNSPECIFIED",
+      "description": "Indicates the associated DNA strand for some data item.\n\n - STRAND_UNSPECIFIED: If no strand data is available.\n - NEG_STRAND: The negative (-) strand.\n - POS_STRAND: The postive (+) strand."
+    },
+    "ga4ghTranscriptEffect": {
+      "type": "object",
+      "properties": {
+        "alternateBases": {
+          "type": "string",
+          "format": "string",
+          "description": "Alternate allele - a variant may have more than one alternate allele,\neach of which will have distinct annotation."
+        },
+        "analysisResults": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ga4ghAnalysisResult"
+          },
+          "description": "Output from prediction packages such as SIFT."
+        },
+        "cdnaLocation": {
+          "$ref": "#/definitions/ga4ghAlleleLocation",
+          "description": "Change relative to cDNA."
+        },
+        "cdsLocation": {
+          "$ref": "#/definitions/ga4ghAlleleLocation",
+          "description": "Change relative to coding sequence."
+        },
+        "effects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ga4ghOntologyTerm"
+          },
+          "description": "Effect of variant on this feature."
+        },
+        "featureId": {
+          "type": "string",
+          "format": "string",
+          "description": "The id of the transcript feature the annotation is relative to."
+        },
+        "hgvsAnnotation": {
+          "$ref": "#/definitions/ga4ghHGVSAnnotation",
+          "description": "Human Genome Variation Society variant descriptions."
+        },
+        "id": {
+          "type": "string",
+          "format": "string",
+          "title": "The ID of the transcript effect record"
+        },
+        "info": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/protobufListValue"
+          },
+          "description": "Additional data in key-value pairs."
+        },
+        "proteinLocation": {
+          "$ref": "#/definitions/ga4ghAlleleLocation",
+          "description": "Change relative to protein."
+        }
+      }
+    },
+    "ga4ghVariant": {
+      "type": "object",
+      "properties": {
+        "alternateBases": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "string"
+          },
+          "description": "The bases that appear instead of the reference bases. Multiple alternate\nalleles are possible."
+        },
+        "calls": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ga4ghCall"
+          },
+          "description": "The variant calls for this particular variant. Each one represents the\ndetermination of genotype with respect to this variant. `Call`s in this\narray are implicitly associated with this `Variant`."
+        },
+        "created": {
+          "type": "string",
+          "format": "int64",
+          "description": "The date this variant was created in milliseconds from the epoch."
+        },
+        "end": {
+          "type": "string",
+          "format": "int64",
+          "description": "The end position (exclusive), resulting in [start, end) closed-open\ninterval.\nThis is typically calculated by `start + referenceBases.length`."
+        },
+        "id": {
+          "type": "string",
+          "format": "string",
+          "description": "The variant ID."
+        },
+        "info": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/protobufListValue"
+          },
+          "description": "A map of additional variant information."
+        },
+        "names": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "string"
+          },
+          "description": "Names for the variant, for example a RefSNP ID."
+        },
+        "referenceBases": {
+          "type": "string",
+          "format": "string",
+          "description": "The reference bases for this variant. They start at the given start\nposition."
+        },
+        "referenceName": {
+          "type": "string",
+          "format": "string",
+          "title": "The reference on which this variant occurs.\n(e.g. `chr20` or `X`)"
+        },
+        "start": {
+          "type": "string",
+          "format": "int64",
+          "description": "The start position at which this variant occurs (0-based).\nThis corresponds to the first base of the string of reference bases.\nGenomic positions are non-negative integers less than reference length.\nVariants spanning the join of circular genomes are represented as\ntwo variants one on each side of the join (position 0)."
+        },
+        "updated": {
+          "type": "string",
+          "format": "int64",
+          "description": "The time at which this variant was last updated in\nmilliseconds from the epoch."
+        },
+        "variantSetId": {
+          "type": "string",
+          "format": "string",
+          "description": "The ID of the `VariantSet` this variant belongs to. This transitively\ndefines\nthe `ReferenceSet` against which the `Variant` is to be interpreted."
+        }
+      },
+      "description": "A `Variant` represents a change in DNA sequence relative to some reference.\nFor example, a variant could represent a SNP or an insertion.\nVariants belong to a `VariantSet`.\nThis is equivalent to a row in VCF."
+    },
+    "ga4ghVariantAnnotation": {
+      "type": "object",
+      "properties": {
+        "created": {
+          "type": "string",
+          "format": "string",
+          "description": "The time at which this record was created, in ISO 8601 format."
+        },
+        "id": {
+          "type": "string",
+          "format": "string",
+          "description": "The ID of this VariantAnnotation."
+        },
+        "info": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/protobufListValue"
+          },
+          "description": "Additional annotation data in key-value pairs."
+        },
+        "transcriptEffects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ga4ghTranscriptEffect"
+          },
+          "description": "The transcript effect annotation for the alleles of this variant. Each\none represents the effect of a single allele on a single transcript."
+        },
+        "variantAnnotationSetId": {
+          "type": "string",
+          "format": "string",
+          "description": "The ID of the variant annotation set this record belongs to."
+        },
+        "variantId": {
+          "type": "string",
+          "format": "string",
+          "description": "The variant ID."
+        }
+      },
+      "description": "A `VariantAnnotation` record represents the result of comparing a variant to\na set of reference data."
+    },
+    "ga4ghVariantAnnotationSet": {
+      "type": "object",
+      "properties": {
+        "analysis": {
+          "$ref": "#/definitions/ga4ghAnalysis",
+          "description": "Analysis details. It is essential to supply versions for all software and\nreference data used."
+        },
+        "id": {
+          "type": "string",
+          "format": "string",
+          "title": "The ID of the variant annotation set record"
+        },
+        "name": {
+          "type": "string",
+          "format": "string",
+          "description": "The variant annotation set name."
+        },
+        "variantSetId": {
+          "type": "string",
+          "format": "string",
+          "title": "The ID of the variant set to which this annotation set belongs"
+        }
+      }
+    },
+    "ga4ghVariantSet": {
+      "type": "object",
+      "properties": {
+        "datasetId": {
+          "type": "string",
+          "format": "string",
+          "description": "The ID of the dataset this variant set belongs to."
+        },
+        "id": {
+          "type": "string",
+          "format": "string",
+          "description": "The variant set ID."
+        },
+        "metadata": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ga4ghVariantSetMetadata"
+          },
+          "description": "Optional metadata associated with this variant set.\nThis array can be used to store information about the variant set, such as\ninformation found in VCF header fields, that isn't already available in\nfirst class fields such as \"name\"."
+        },
+        "name": {
+          "type": "string",
+          "format": "string",
+          "description": "The variant set name."
+        },
+        "referenceSetId": {
+          "type": "string",
+          "format": "string",
+          "description": "The ID of the reference set that describes the sequences used by the\nvariants in this set."
+        }
+      },
+      "description": "A VariantSet is a collection of variants and variant calls intended to be\nanalyzed together."
+    },
+    "ga4ghVariantSetMetadata": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string",
+          "format": "string",
+          "description": "A textual description of this metadata."
+        },
+        "id": {
+          "type": "string",
+          "format": "string",
+          "title": "User-provided ID field, not enforced by this API.\nTwo or more pieces of structured metadata with identical\nid and key fields are considered equivalent.\nFIXME: If it's not enforced, then why can't it be null?"
+        },
+        "info": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/protobufListValue"
+          },
+          "description": "Remaining structured metadata key-value pairs."
+        },
+        "key": {
+          "type": "string",
+          "format": "string",
+          "description": "The top-level key."
+        },
+        "number": {
+          "type": "string",
+          "format": "string",
+          "description": "The number of values that can be included in a field described by this\nmetadata."
+        },
+        "type": {
+          "type": "string",
+          "format": "string",
+          "description": "The type of data."
+        },
+        "value": {
+          "type": "string",
+          "format": "string",
+          "description": "The value field for simple metadata."
+        }
+      },
+      "description": "This metadata represents VCF header information."
+    },
+    "protobufListValue": {
+      "type": "object",
+      "properties": {
+        "values": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufValue"
+          },
+          "description": "Repeated field of dynamically typed values."
+        }
+      },
+      "description": "`ListValue` is a wrapper around a repeated field of values.\n\nThe JSON representation for `ListValue` is JSON array."
+    },
+    "protobufNullValue": {
+      "type": "string",
+      "enum": [
+        "NULL_VALUE"
+      ],
+      "default": "NULL_VALUE",
+      "description": "`NullValue` is a singleton enumeration to represent the null value for the\n`Value` type union.\n\n The JSON representation for `NullValue` is JSON `null`.\n\n - NULL_VALUE: Null value."
+    },
+    "protobufStruct": {
+      "type": "object",
+      "properties": {
+        "fields": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/protobufValue"
+          },
+          "description": "Map of dynamically typed values."
+        }
+      },
+      "description": "`Struct` represents a structured data value, consisting of fields\nwhich map to dynamically typed values. In some languages, `Struct`\nmight be supported by a native representation. For example, in\nscripting languages like JS a struct is represented as an\nobject. The details of that representation are described together\nwith the proto support for the language.\n\nThe JSON representation for `Struct` is JSON object."
+    },
+    "protobufValue": {
+      "type": "object",
+      "properties": {
+        "bool_value": {
+          "type": "boolean",
+          "format": "boolean",
+          "description": "Represents a boolean value."
+        },
+        "list_value": {
+          "$ref": "#/definitions/protobufListValue",
+          "description": "Represents a repeated `Value`."
+        },
+        "null_value": {
+          "$ref": "#/definitions/protobufNullValue",
+          "description": "Represents a null value."
+        },
+        "number_value": {
+          "type": "number",
+          "format": "double",
+          "description": "Represents a double value."
+        },
+        "string_value": {
+          "type": "string",
+          "format": "string",
+          "description": "Represents a string value."
+        },
+        "struct_value": {
+          "$ref": "#/definitions/protobufStruct",
+          "description": "Represents a structured value."
+        }
+      },
+      "description": "`Value` represents a dynamically typed value which can be either\nnull, a number, a string, a boolean, a recursive struct value, or a\nlist of values. A producer of value is expected to set one of that\nvariants, absence of any variant indicates an error.\n\nThe JSON representation for `Value` is JSON value."
+    }
+  }
+}
+

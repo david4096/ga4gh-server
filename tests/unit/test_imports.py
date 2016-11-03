@@ -177,7 +177,6 @@ class ImportGraphLayerChecker(object):
                       'ga4gh/configtest.py'],
         'protocol': ['ga4gh/protocol.py',
                      ],
-        'config': ['ga4gh/serverconfig.py'],
         'repo': ['ga4gh/repo/rnaseq2ga.py'],
     }
 
@@ -191,7 +190,6 @@ class ImportGraphLayerChecker(object):
         ['datamodel'],
         ['repo'],
         ['exceptions'],
-        ['config'],
         ['protocol'],
     ]
 

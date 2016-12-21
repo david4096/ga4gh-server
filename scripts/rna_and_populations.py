@@ -45,6 +45,8 @@ import ga4gh.server.datamodel.bio_metadata as biodata  # NOQA
 import ga4gh.server.datamodel.rna_quantification as rna_quantification  # NOQA
 import ga4gh.server.repo.rnaseq2ga as rnaseq2ga  # NOQA
 
+import multiprocessing as mp
+
 # save_files_locally()
 # Requires wget
 def save_files_locally(data):
@@ -198,9 +200,9 @@ def main():
     variant_set.populateFromDirectory(vcf_directory)
     #variant_set.checkConsistency()
     for call_set in variant_set.getCallSets():
-	  for bio_sample in new_bio_samples:
-		  if bio_sample.getLocalId() == call_set.getLocalId():
-			  call_set.setBioSampleId(bio_sample.getId())
+        for bio_sample in new_bio_samples:
+            if bio_sample.getLocalId() == call_set.getLocalId():
+                call_set.setBioSampleId(bio_sample.getId())
     repo.insertVariantSet(variant_set)
     name = "functional-annotation"
     variant_set2 = variants.HtslibVariantSet(dataset, name)
@@ -209,33 +211,34 @@ def main():
     #variant_set2.checkConsistency()
     repo.insertVariantSet(variant_set2)
     for annotation_set in variant_set2.getVariantAnnotationSets():
-	    annotation_set.setOntology(seq_ontology)
-	    repo.insertVariantAnnotationSet(annotation_set)
+        annotation_set.setOntology(seq_ontology)
+        repo.insertVariantAnnotationSet(annotation_set)
     repo.commit()
-    print("Load list of read group sets")
-    with open (index_list_path) as merged:
-        data = json.load(merged)
-        print("Found {} read group sets".format(len(data)))
-        if download_indexes:
-          save_files_locally(data)
-        # TODO might have to do something smart about pointing to different index locations
-        for row in data:
-            print("Adding {}".format(row['name']))
-            download_url = make_address(row['name'], os.path.basename(row['dataUrl']))
-            name = row['name']
-            read_group_set = reads.HtslibReadGroupSet(dataset, name)
-            # read_group_set.populateFromFile(download_url, os.path.join(base, 'indexes', row['indexUrl']))
-            # could optimize by storing biodata in a name:value dictionary
-            #for read_group in read_group_set.getReadGroups():
-            #  for bio_sample in new_bio_samples:
-            #      if bio_sample.getLocalId() == read_group.getSampleName():
-            #          read_group.setBioSampleId(bio_sample.getId())
-            read_group_set.setReferenceSet(reference_set)
-            try:
-                repo.insertReadGroupSet(read_group_set)
-                repo.commit()
-            except Exception as e:
-                print("already had it {}".format(e))
+
+
+    # with open(index_list_path) as merged:
+    #     data = json.load(merged)
+    #     print("Found {} read group sets".format(len(data)))
+    #     if download_indexes:
+    #       save_files_locally(data)
+    #     # TODO might have to do something smart about pointing to different index locations
+    #     for row in data:
+    #         print("Adding {}".format(row['name']))
+    #         download_url = make_address(row['name'], os.path.basename(row['dataUrl']))
+    #         name = row['name']
+    #         read_group_set = reads.HtslibReadGroupSet(dataset, name)
+    #         # read_group_set.populateFromFile(download_url, os.path.join(base, 'indexes', row['indexUrl']))
+    #         # could optimize by storing biodata in a name:value dictionary
+    #         #for read_group in read_group_set.getReadGroups():
+    #         #  for bio_sample in new_bio_samples:
+    #         #      if bio_sample.getLocalId() == read_group.getSampleName():
+    #         #          read_group.setBioSampleId(bio_sample.getId())
+    #         read_group_set.setReferenceSet(reference_set)
+    #         try:
+    #             repo.insertReadGroupSet(read_group_set)
+    #             repo.commit()
+    #         except Exception as e:
+    #             print("already had it {}".format(e))
     rna_base = rna_quantification_set_location
     quant_location = os.path.join(rna_base, 'sqlite/rnaseq.db')
     kallisto_location = os.path.join(rna_base, 'kallisto')

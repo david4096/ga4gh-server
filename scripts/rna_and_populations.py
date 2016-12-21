@@ -299,7 +299,7 @@ def main():
         print ("Loaded {}".format(x))
         x = rnadone.get()
     rnaQuantificationSet = rna_quantification.SqliteRnaQuantificationSet(dataset, "E-GEUV-1 RNA Quantification")
-    rnaQuantificationSet.setReferenceSet(gencode)
+    rnaQuantificationSet.setReferenceSet(reference_set)
     rnaQuantificationSet.populateFromFile(quant_location)
     repo.insertRnaQuantificationSet(rnaQuantificationSet)
     repo.commit()

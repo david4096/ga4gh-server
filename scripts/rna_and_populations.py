@@ -96,7 +96,7 @@ def load_tsv(
 
     -- then load some data into it
     -- the TSV needs to have head its first line of column names removed
-    .separator '\t'
+    .separator '{separator}'
     .import {location} tsvdump
 
     insert into RnaQuantification (
@@ -130,7 +130,8 @@ def load_tsv(
                 directory=name,
                 bio_sample_id=bio_sample_id,
                 description=description,
-                feature_set_ids=feature_set_ids))
+                feature_set_ids=feature_set_ids,
+                separator="\t"))
 
 
 # save_files_locally()
@@ -362,7 +363,8 @@ def main():
                  bio_sample_id=dataset.getBioSampleByName(directory).getLocalId(),
                  feature_set_ids=gencode.getId(),
                  rna_quantification_id=directory,
-                 dblocation=quant_location)
+                 dblocation=quant_location,
+                 name=directory)
     rnaQuantificationSet = rna_quantification.SqliteRnaQuantificationSet(dataset, "E-GEUV-1 RNA Quantification")
     rnaQuantificationSet.setReferenceSet(reference_set)
     rnaQuantificationSet.populateFromFile(quant_location)

@@ -199,10 +199,13 @@ def main():
     variant_set.setReferenceSet(reference_set)
     variant_set.populateFromDirectory(vcf_directory)
     #variant_set.checkConsistency()
+    name_biosample_id_map = {}
+    for bio_sample in new_bio_samples:
+        name_biosample_id_map[bio_sample.getLocalId()] = bio_sample.getId()
     for call_set in variant_set.getCallSets():
-        for bio_sample in new_bio_samples:
-            if bio_sample.getLocalId() == call_set.getLocalId():
-                call_set.setBioSampleId(bio_sample.getId())
+        bio_sample_id = name_biosample_id_map.get(call_set.getLocalId(), None)
+        if bio_sample_id:
+            call_set.setBioSampleId(bio_sample_id)
     repo.insertVariantSet(variant_set)
     name = "functional-annotation"
     variant_set2 = variants.HtslibVariantSet(dataset, name)

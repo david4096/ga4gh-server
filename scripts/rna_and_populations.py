@@ -255,6 +255,8 @@ def main():
     processes = []
 
     featureNameIdMap = {}
+
+    @utils.Timed()
     def add_directory(directory):
         print("Adding RNA for {}".format(directory))
         filename_location = os.path.join(kallisto_location, directory,
@@ -270,34 +272,8 @@ def main():
             bioSampleId=dataset.getBioSampleByName(directory).getLocalId(),
             featureNameIdMap=featureNameIdMap)
 
-
-    def add_quant(todo, done):
-        directory = todo.get()
-        while directory is not None:
-            add_directory(directory)
-            done.put(directory)
-            directory = todo.get()
-        else:
-            return
-
-
-
     for directory in directory_contents:
-        rnadirs.put(directory)
-
-    featureNameIdMap = add_directory(rnadirs.get())
-
-    for w in xrange(workers):
-        p = mp.Process(target=add_quant, args=(rnadirs, rnadone))
-        p.start()
-        processes.append(p)
-        rnadirs.put(None) # Stop sentinel
-    for p in processes:
-        p.join()
-    x = rnadone.get()
-    while x:
-        print ("Loaded {}".format(x))
-        x = rnadone.get()
+        add_directory(directory)
     rnaQuantificationSet = rna_quantification.SqliteRnaQuantificationSet(dataset, "E-GEUV-1 RNA Quantification")
     rnaQuantificationSet.setReferenceSet(reference_set)
     rnaQuantificationSet.populateFromFile(quant_location)

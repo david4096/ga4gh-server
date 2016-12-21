@@ -96,8 +96,8 @@ def load_tsv(
 
     -- then load some data into it
     -- the TSV needs to have head its first line of column names removed
-    .separator '{separator}'
-    .import {location} tsvdump
+    .separator '{separator}';
+    .import {location} tsvdump;
 
     insert into RnaQuantification (
                            id,
@@ -230,6 +230,8 @@ def main():
     repo.commit()
     print("Inserting individuals")
     new_individuals= []
+
+    @utils.Timed()
     for individual in individuals:
       new_individual = biodata.Individual(dataset, individual['name'])
       new_individual.populateFromJson(json.dumps(individual))
@@ -238,6 +240,8 @@ def main():
     repo.commit()
     print("Inserting biosamples")
     new_bio_samples = []
+
+    @utils.Timed()
     for bio_sample in bio_samples:
       new_bio_sample = biodata.BioSample(dataset, bio_sample['name'])
       new_bio_sample.populateFromJson(json.dumps(bio_sample))

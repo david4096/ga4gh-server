@@ -45,7 +45,93 @@ import ga4gh.server.datamodel.bio_metadata as biodata  # NOQA
 import ga4gh.server.datamodel.rna_quantification as rna_quantification  # NOQA
 import ga4gh.server.repo.rnaseq2ga as rnaseq2ga  # NOQA
 
-import multiprocessing as mp
+def init_database(location):
+    os.system("""echo "
+    CREATE TABLE RnaQuantification (
+                           id TEXT NOT NULL PRIMARY KEY,
+                           feature_set_ids TEXT,
+                           description TEXT,
+                           name TEXT,
+                           read_group_ids TEXT,
+                           programs TEXT,
+                           bio_sample_id TEXT);
+
+    -- Then create the expression table if it doesn't exist
+    CREATE TABLE Expression (
+                           id TEXT NOT NULL PRIMARY KEY,
+                           rna_quantification_id TEXT,
+                           name TEXT,
+                           feature_id TEXT,
+                           expression REAL,
+                           is_normalized BOOLEAN,
+                           raw_read_count REAL,
+                           score REAL,
+                           units INTEGER,
+                           conf_low REAL,
+                           conf_hi REAL);
+
+    " > out
+    sqlite3 {location} < out
+    """.format(location))
+
+def load_tsv(
+        dblocation="rnaseq.db",
+        location="/home/david/data/rna_quantifications/kallisto/HG00096/abundance.tsv",
+        rna_quantification_id="rnaid",
+        name="HG00096",
+        bio_sample_id="bsid",
+        description="desc",
+        feature_set_ids="fsid"):
+    os.system("""
+    echo "
+
+    -- make a table for the TSV, this will throw an error if it doesn't exist
+    drop table tsvdump;
+    create table tsvdump(
+                            target_id text,
+                            length int,
+                            eff_length real,
+                            est_counts real,
+                            tpm real);
+
+    -- then load some data into it
+    -- the TSV needs to have head its first line of column names removed
+    .separator '\t'
+    .import {location} tsvdump
+
+    insert into RnaQuantification (
+                           id,
+                           feature_set_ids,
+                           description,
+                           name,
+                           read_group_ids,
+                           programs,
+                           bio_sample_id) VALUES('{rna_quantification_id}','{feature_set_ids}','{description}','{directory}','','','{bio_sample_id}');
+
+    -- Then insert the new things into our table
+    insert into Expression select
+                           target_id as id,
+                           '{rna_quantification_id}' as rna_quantification_id,
+                           target_id as name,
+                           target_id as feature_id,
+                           est_counts as expression,
+                           1 as is_normalized,
+                           est_counts as raw_read_count,
+                           target_id as score,
+                           2 as units,
+                           0 as conf_low,
+                           0 as conf_hi from tsvdump;
+    " > out
+    sqlite3 {dblocation} < out
+    """.format(
+                dblocation=dblocation,
+                location=location,
+                rna_quantification_id=rna_quantification_id,
+                directory=name,
+                bio_sample_id=bio_sample_id,
+                description=description,
+                feature_set_ids=feature_set_ids))
+
 
 # save_files_locally()
 # Requires wget
@@ -249,11 +335,6 @@ def main():
     store.createTables()
     directory_contents = os.listdir(kallisto_location)
 
-    rnadirs = mp.Queue()
-    rnadone = mp.Queue()
-    workers = 3
-    processes = []
-
     featureNameIdMap = {}
 
     @utils.Timed()
@@ -274,6 +355,15 @@ def main():
 
     for directory in directory_contents:
         add_directory(directory)
+        filename_location = os.path.join(kallisto_location, directory,
+                                         'abundance.tsv')
+        load_tsv(location=filename_location,
+                 description='RNA seq data from lymphoblastoid cell lines in the 1000 Genome Project, '
+                             'http://www.ebi.ac.uk/arrayexpress/experiments/E-GEUV-1/samples/',
+                 bio_sample_id=dataset.getBioSampleByName(directory).getLocalId(),
+                 feature_set_ids=gencode.getId(),
+                 rna_quantification_id=directory,
+                 dblocation=quant_location)
     rnaQuantificationSet = rna_quantification.SqliteRnaQuantificationSet(dataset, "E-GEUV-1 RNA Quantification")
     rnaQuantificationSet.setReferenceSet(reference_set)
     rnaQuantificationSet.populateFromFile(quant_location)

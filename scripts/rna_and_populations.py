@@ -25,7 +25,7 @@ import glue
 
 glue.ga4ghImportGlue()
 
-base = "/home/david/data"
+base = "/media/data"
 reference_set_location = base + "/hs37d5.fa.gz"
 feature_set_location = base + "/gencode_v24lift37.db"
 ontology_location = base + "/so-xp.obo"
@@ -138,7 +138,7 @@ def main():
     dataset = datasets.Dataset("1kgenomes")
     dataset.setDescription("Variants from the 1000 Genomes project and GENCODE genes annotations")
     repo.insertDataset(dataset)
-     
+    repo.commit()
     print("Inserting individuals")
     new_individuals= []
     for individual in individuals:
@@ -146,7 +146,7 @@ def main():
       new_individual.populateFromJson(json.dumps(individual))
       repo.insertIndividual(new_individual)
       new_individuals.append(new_individual)
-    
+    repo.commit()
     print("Inserting biosamples")
     new_bio_samples = []
     for bio_sample in bio_samples:
@@ -158,7 +158,7 @@ def main():
       repo.insertBioSample(new_bio_sample)
       dataset.addBioSample(new_bio_sample)
       new_bio_samples.append(new_bio_sample)
-
+    repo.commit()
     print("Adding reference set (takes a while)")
     reference_set = references.HtslibReferenceSet("NCBI37")
     reference_set.populateFromFile(reference_set_path)
@@ -175,6 +175,7 @@ def main():
         #reference.setSourceAccessions(
         #    refMetadata['sourceAccessions'])
     repo.insertReferenceSet(reference_set)
+    repo.commit()
     vcf_directory = variant_set_location
     annotation_directory = variant_annotation_set_location
 	#TODO add ontology, gencode, and variantSet 
@@ -210,7 +211,7 @@ def main():
     for annotation_set in variant_set2.getVariantAnnotationSets():
 	    annotation_set.setOntology(seq_ontology)
 	    repo.insertVariantAnnotationSet(annotation_set)
- 
+    repo.commit()
     print("Load list of read group sets")
     with open (index_list_path) as merged:
         data = json.load(merged)
@@ -223,14 +224,15 @@ def main():
             download_url = make_address(row['name'], os.path.basename(row['dataUrl']))
             name = row['name']
             read_group_set = reads.HtslibReadGroupSet(dataset, name)
-            #read_group_set.populateFromFile(download_url, os.path.join('/run/shm/1000Genomes/bamIndexes', row['indexUrl']))
+            # read_group_set.populateFromFile(download_url, os.path.join(base, 'indexes', row['indexUrl']))
             # could optimize by storing biodata in a name:value dictionary
             #for read_group in read_group_set.getReadGroups():
             #  for bio_sample in new_bio_samples:
             #      if bio_sample.getLocalId() == read_group.getSampleName():
             #          read_group.setBioSampleId(bio_sample.getId())
-            #read_group_set.setReferenceSet(reference_set)
-            #repo.insertReadGroupSet(read_group_set)
+            read_group_set.setReferenceSet(reference_set)
+            repo.insertReadGroupSet(read_group_set)
+    repo.commit()
     rna_base = rna_quantification_set_location
     quant_location = os.path.join(rna_base, 'sqlite/rnaseq.db')
     kallisto_location = os.path.join(rna_base, 'kallisto')
@@ -250,7 +252,7 @@ def main():
             featureSetNames='gencode_v24lift37',
             readGroupSetNames=None,
             bioSampleId=dataset.getBioSampleByName(directory).getLocalId())
-    rnaQuantificationSet = rna_quantification.SqliteRnaQuantificationSet(dataset, "E-GEUV-1 1000 Genomes RNA Quantification")
+    rnaQuantificationSet = rna_quantification.SqliteRnaQuantificationSet(dataset, "E-GEUV-1 RNA Quantification")
     rnaQuantificationSet.setReferenceSet(gencode)
     rnaQuantificationSet.populateFromFile(quant_location)
     repo.insertRnaQuantificationSet(rnaQuantificationSet)

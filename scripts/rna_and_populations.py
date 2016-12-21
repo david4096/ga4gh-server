@@ -231,8 +231,11 @@ def main():
             #      if bio_sample.getLocalId() == read_group.getSampleName():
             #          read_group.setBioSampleId(bio_sample.getId())
             read_group_set.setReferenceSet(reference_set)
-            repo.insertReadGroupSet(read_group_set)
-    repo.commit()
+            try:
+                repo.insertReadGroupSet(read_group_set)
+                repo.commit()
+            except Exception as e:
+                print("already had it {}".format(e))
     rna_base = rna_quantification_set_location
     quant_location = os.path.join(rna_base, 'sqlite/rnaseq.db')
     kallisto_location = os.path.join(rna_base, 'kallisto')

@@ -254,28 +254,39 @@ def main():
     workers = 3
     processes = []
 
+    featureNameIdMap = {}
+    def add_directory(directory):
+        print("Adding RNA for {}".format(directory))
+        filename_location = os.path.join(kallisto_location, directory,
+                                         'abundance.tsv')
+        return rnaseq2ga.rnaseq2ga(
+            filename_location, quant_location, directory,
+            'kallisto', dataset=dataset, featureType='transcript',
+            description='RNA seq data from lymphoblastoid cell lines in the 1000 Genome Project, '
+                        'http://www.ebi.ac.uk/arrayexpress/experiments/E-GEUV-1/samples/',
+            programs=None,
+            featureSetNames='gencode_v24lift37',
+            readGroupSetNames=None,
+            bioSampleId=dataset.getBioSampleByName(directory).getLocalId(),
+            featureNameIdMap=featureNameIdMap)
+
 
     def add_quant(todo, done):
         directory = todo.get()
         while directory is not None:
-            print("Adding RNA for {}".format(directory))
-            filename_location = os.path.join(kallisto_location, directory, 'abundance.tsv')
-            rnaseq2ga.rnaseq2ga(
-                filename_location, quant_location, directory,
-                'kallisto', dataset=dataset, featureType='transcript',
-                description='RNA seq data from lymphoblastoid cell lines in the 1000 Genome Project, '
-                                 'http://www.ebi.ac.uk/arrayexpress/experiments/E-GEUV-1/samples/',
-                programs=None,
-                featureSetNames='gencode_v24lift37',
-                readGroupSetNames=None,
-                bioSampleId=dataset.getBioSampleByName(directory).getLocalId())
+            add_directory(directory)
             done.put(directory)
             directory = todo.get()
         else:
             return
 
+
+
     for directory in directory_contents:
         rnadirs.put(directory)
+
+    featureNameIdMap = add_directory(rnadirs.get())
+
     for w in xrange(workers):
         p = mp.Process(target=add_quant, args=(rnadirs, rnadone))
         p.start()

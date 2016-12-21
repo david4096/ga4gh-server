@@ -88,7 +88,7 @@ class AbstractWriter(object):
     """
     Base class to use for the rna quantification writers
     """
-    def __init__(self, rnaDB, featureType="gene", dataset=None):
+    def __init__(self, rnaDB, featureType="gene", dataset=None, featureNameIdMap={}):
         self._db = rnaDB
         self._isNormalized = None
         self._units = 0  # EXPRESSION_UNIT_UNSPECIFIED
@@ -102,6 +102,8 @@ class AbstractWriter(object):
         self._dataRepo = None
         self._dataset = dataset
         self._featureType = featureType
+        self._featureNameIdMap = featureNameIdMap
+        self._builtFeatureNameIdMap = {}
 
     def setUnits(self, units):
         if units == "fpkm":
@@ -142,8 +144,8 @@ class AbstractWriter(object):
                     score = (confidenceLow + confidenceHi)/2
 
                 featureName = expression[self._featureCol]
-                featureId = ""
-                if featureSets is not None:
+                featureId = self._featureNameIdMap.get(featureName, "")
+                if featureSets is not None and featureId == "":
                     for featureSet in featureSets:
                         if featureId == "":
                             for feature in featureSet.getFeatures(
@@ -152,6 +154,7 @@ class AbstractWriter(object):
                                 break
                         else:
                             break
+                self._builtFeatureNameIdMap[featureName] = featureId
                 datafields = (expressionId, rnaQuantificationId, name,
                               featureId, expressionLevel, isNormalized,
                               rawCount, score, units, confidenceLow,
@@ -170,9 +173,9 @@ class CufflinksWriter(AbstractWriter):
         gene_short_name    tss_id    locus    length    coverage    FPKM
         FPKM_conf_lo    FPKM_conf_hi    FPKM_status
     """
-    def __init__(self, rnaDB, featureType, units="fpkm", dataset=None):
+    def __init__(self, rnaDB, featureType, units="fpkm", dataset=None, featureNameIdMap={}):
         super(CufflinksWriter, self).__init__(
-            rnaDB, featureType, dataset=dataset)
+            rnaDB, featureType, dataset=dataset, featureNameIdMap={})
         self._isNormalized = True
         self._expressionLevelCol = "FPKM"
         self._idCol = "tracking_id"
@@ -202,9 +205,9 @@ class RsemWriter(AbstractWriter):
     IsoPct_from_pme_TPM    TPM_ci_lower_bound    TPM_ci_upper_bound
     FPKM_ci_lower_bound    FPKM_ci_upper_bound
     """
-    def __init__(self, rnaDB, featureType, units="tpm", dataset=None):
+    def __init__(self, rnaDB, featureType, units="tpm", dataset=None, featureNameIdMap={}):
         super(RsemWriter, self).__init__(
-            rnaDB, featureType=featureType, dataset=dataset)
+            rnaDB, featureType=featureType, dataset=dataset, featureNameIdMap={})
         self._isNormalized = True
         self._expressionLevelCol = "TPM"
         self._featureCol = "gene_id"
@@ -227,9 +230,9 @@ class KallistoWriter(AbstractWriter):
     kallisto header:
         target_id    length    eff_length    est_counts    tpm
     """
-    def __init__(self, rnaDB, featureType, units="tpm", dataset=None):
+    def __init__(self, rnaDB, featureType, units="tpm", dataset=None, featureNameIdMap={}):
         super(KallistoWriter, self).__init__(
-            rnaDB, featureType, dataset=dataset)
+            rnaDB, featureType, dataset=dataset, featureNameIdMap={})
         self._isNormalized = True
         self._expressionLevelCol = "tpm"
         self._idCol = "target_id"
@@ -258,7 +261,8 @@ def writeExpressionTable(writer, data, featureSetNames=None):
 
 def rnaseq2ga(quantificationFilename, sqlFilename, localName, rnaType,
               dataset=None, featureType="gene", description="", programs="",
-              featureSetNames="", readGroupSetNames="", bioSampleId=""):
+              featureSetNames="", readGroupSetNames="", bioSampleId="",
+              featureNameIdMap={}):
     """
     Reads RNA Quantification data in one of several formats and stores the data
     in a sqlite database for use by the GA4GH reference server.
@@ -287,11 +291,11 @@ def rnaseq2ga(quantificationFilename, sqlFilename, localName, rnaType,
         raise exceptions.UnsupportedFormatException(rnaType)
     rnaDB = RnaSqliteStore(sqlFilename)
     if rnaType == "cufflinks":
-        writer = CufflinksWriter(rnaDB, featureType, dataset=dataset)
+        writer = CufflinksWriter(rnaDB, featureType, dataset=dataset, featureNameIdMap=featureNameIdMap)
     elif rnaType == "kallisto":
-        writer = KallistoWriter(rnaDB, featureType, dataset=dataset)
+        writer = KallistoWriter(rnaDB, featureType, dataset=dataset, featureNameIdMap=featureNameIdMap)
     elif rnaType == "rsem":
-        writer = RsemWriter(rnaDB, featureType, dataset=dataset)
+        writer = RsemWriter(rnaDB, featureType, dataset=dataset, featureNameIdMap=featureNameIdMap)
     writeRnaseqTable(rnaDB, [localName], description,
                      featureSetIds,
                      readGroupId=readGroupIds, programs=programs,
@@ -299,3 +303,4 @@ def rnaseq2ga(quantificationFilename, sqlFilename, localName, rnaType,
     writeExpressionTable(
         writer, [(localName, quantificationFilename)],
         featureSetNames=featureSetNames)
+    return writer._builtFeatureNameIdMap

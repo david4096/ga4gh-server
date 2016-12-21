@@ -354,7 +354,6 @@ def main():
             featureNameIdMap=featureNameIdMap)
 
     for directory in directory_contents:
-        add_directory(directory)
         filename_location = os.path.join(kallisto_location, directory,
                                          'abundance.tsv')
         load_tsv(location=filename_location,

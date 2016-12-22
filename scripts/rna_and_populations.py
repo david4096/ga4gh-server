@@ -95,7 +95,7 @@ create table tsvdump(
 
     -- then load some data into it
     -- the TSV needs to have had its first line of column names removed
-.separator '{separator}'
+.separator \"{separator}\"
 .import {location} tsvdump
 
 insert into RnaQuantification (
@@ -132,7 +132,7 @@ drop table tsvdump;
                 bio_sample_id=bio_sample_id,
                 description=description,
                 feature_set_ids=feature_set_ids,
-                separator="\\t"))
+                separator="\134\164"))
 
 
 # save_files_locally()

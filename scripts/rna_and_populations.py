@@ -133,7 +133,7 @@ drop table tsvdump;
                 description=description,
                 feature_set_ids=feature_set_ids,
                 separator="\134\164"))
-
+    print("Added RNA for {}".format(name))
 
 # save_files_locally()
 # Requires wget

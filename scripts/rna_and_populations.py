@@ -85,21 +85,20 @@ def load_tsv(
     os.system("""
     echo "
 
-    -- make a table for the TSV, this will throw an error if it doesn't exist
-    drop table tsvdump;
-    create table tsvdump(
-                            target_id text,
-                            length int,
-                            eff_length real,
-                            est_counts real,
-                            tpm real);
+    -- make a table for the TSV
+create table tsvdump(
+                        target_id text,
+                        length int,
+                        eff_length real,
+                        est_counts real,
+                        tpm real);
 
     -- then load some data into it
     -- the TSV needs to have had its first line of column names removed
 .separator '{separator}'
 .import {location} tsvdump
 
-    insert into RnaQuantification (
+insert into RnaQuantification (
                            id,
                            feature_set_ids,
                            description,
@@ -109,8 +108,8 @@ def load_tsv(
                            bio_sample_id) VALUES('{rna_quantification_id}','{feature_set_ids}','{description}','{directory}','','','{bio_sample_id}');
 
     -- Then insert the new things into our table
-    insert into Expression select
-                           target_id as id,
+insert into Expression select
+                           target_id || '{directory} as id,
                            '{rna_quantification_id}' as rna_quantification_id,
                            target_id as name,
                            target_id as feature_id,
@@ -121,6 +120,8 @@ def load_tsv(
                            2 as units,
                            0 as conf_low,
                            0 as conf_hi from tsvdump;
+    --, this will throw an error if it doesn't exist
+drop table tsvdump;
     " > out
     sqlite3 {dblocation} < out
     """.format(

@@ -96,8 +96,8 @@ def load_tsv(
 
     -- then load some data into it
     -- the TSV needs to have had its first line of column names removed
-    .separator '{separator}'
-    .import {location} tsvdump
+.separator '{separator}'
+.import {location} tsvdump
 
     insert into RnaQuantification (
                            id,

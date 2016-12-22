@@ -74,6 +74,7 @@ def init_database(location):
     sqlite3 {location} < out
     """.format(location))
 
+@utils.Timed()
 def load_tsv(
         dblocation="rnaseq.db",
         location="/home/david/data/rna_quantifications/kallisto/HG00096/abundance.tsv",
@@ -364,7 +365,7 @@ def main():
         load_tsv(location=filename_location,
                  description='RNA seq data from lymphoblastoid cell lines in the 1000 Genome Project, '
                              'http://www.ebi.ac.uk/arrayexpress/experiments/E-GEUV-1/samples/',
-                 bio_sample_id=dataset.getBioSampleByName(directory).getLocalId(),
+                 bio_sample_id=dataset.getBioSampleByName(directory).getId(),
                  feature_set_ids=gencode.getId(),
                  rna_quantification_id=directory,
                  dblocation=quant_location,

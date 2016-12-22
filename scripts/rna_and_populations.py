@@ -95,7 +95,7 @@ create table tsvdump(
 
     -- then load some data into it
     -- the TSV needs to have had its first line of column names removed
-.separator \"{separator}\"
+.separator \42{separator}\42
 .import {location} tsvdump
 
 insert into RnaQuantification (

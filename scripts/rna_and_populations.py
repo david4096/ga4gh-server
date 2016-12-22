@@ -72,7 +72,7 @@ def init_database(location):
 
     " > out
     sqlite3 {location} < out
-    """.format(location))
+    """.format(location=location))
 
 @utils.Timed()
 def load_tsv(
@@ -334,10 +334,10 @@ def main():
     rna_base = rna_quantification_set_location
     quant_location = os.path.join(rna_base, 'sqlite/rnaseq.db')
     kallisto_location = os.path.join(rna_base, 'kallisto')
-    store = rnaseq2ga.RnaSqliteStore(quant_location)
-    store.createTables()
+    # store = rnaseq2ga.RnaSqliteStore(quant_location)
+    # store.createTables()
     directory_contents = os.listdir(kallisto_location)
-
+    init_database(quant_location)
     featureNameIdMap = {}
 
     @utils.Timed()

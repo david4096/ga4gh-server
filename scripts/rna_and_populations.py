@@ -231,7 +231,6 @@ def main():
     print("Inserting individuals")
     new_individuals= []
 
-    @utils.Timed()
     for individual in individuals:
       new_individual = biodata.Individual(dataset, individual['name'])
       new_individual.populateFromJson(json.dumps(individual))
@@ -241,7 +240,7 @@ def main():
     print("Inserting biosamples")
     new_bio_samples = []
 
-    @utils.Timed()
+
     for bio_sample in bio_samples:
       new_bio_sample = biodata.BioSample(dataset, bio_sample['name'])
       new_bio_sample.populateFromJson(json.dumps(bio_sample))
@@ -271,8 +270,8 @@ def main():
     repo.commit()
     vcf_directory = variant_set_location
     annotation_directory = variant_annotation_set_location
-	#TODO add ontology, gencode, and variantSet 
-    seq_ontology = ontologies.Ontology("so-xp")	
+	#TODO add ontology, gencode, and variantSet
+    seq_ontology = ontologies.Ontology("so-xp")
     ontology_file_path = ontology_location
     seq_ontology.populateFromFile(ontology_file_path)
     seq_ontology._id = "so-xp"

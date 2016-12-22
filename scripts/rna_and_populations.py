@@ -109,7 +109,7 @@ insert into RnaQuantification (
 
     -- Then insert the new things into our table
 insert into Expression select
-                           target_id || '{directory} as id,
+                           target_id || '{directory}' as id,
                            '{rna_quantification_id}' as rna_quantification_id,
                            target_id as name,
                            target_id as feature_id,

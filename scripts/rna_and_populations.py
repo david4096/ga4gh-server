@@ -95,9 +95,9 @@ def load_tsv(
                             tpm real);
 
     -- then load some data into it
-    -- the TSV needs to have head its first line of column names removed
-    .separator '{separator}';
-    .import {location} tsvdump;
+    -- the TSV needs to have had its first line of column names removed
+    .separator '{separator}'
+    .import {location} tsvdump
 
     insert into RnaQuantification (
                            id,
@@ -131,7 +131,7 @@ def load_tsv(
                 bio_sample_id=bio_sample_id,
                 description=description,
                 feature_set_ids=feature_set_ids,
-                separator="\t"))
+                separator="\\t"))
 
 
 # save_files_locally()

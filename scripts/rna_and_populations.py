@@ -117,7 +117,7 @@ insert into Expression select
                            est_counts as expression,
                            1 as is_normalized,
                            est_counts as raw_read_count,
-                           target_id as score,
+                           0 as score,
                            2 as units,
                            0 as conf_low,
                            0 as conf_hi from tsvdump;

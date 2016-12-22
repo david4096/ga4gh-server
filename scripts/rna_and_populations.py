@@ -311,29 +311,26 @@ def main():
     repo.commit()
 
 
-    # with open(index_list_path) as merged:
-    #     data = json.load(merged)
-    #     print("Found {} read group sets".format(len(data)))
-    #     if download_indexes:
-    #       save_files_locally(data)
-    #     # TODO might have to do something smart about pointing to different index locations
-    #     for row in data:
-    #         print("Adding {}".format(row['name']))
-    #         download_url = make_address(row['name'], os.path.basename(row['dataUrl']))
-    #         name = row['name']
-    #         read_group_set = reads.HtslibReadGroupSet(dataset, name)
-    #         # read_group_set.populateFromFile(download_url, os.path.join(base, 'indexes', row['indexUrl']))
-    #         # could optimize by storing biodata in a name:value dictionary
-    #         #for read_group in read_group_set.getReadGroups():
-    #         #  for bio_sample in new_bio_samples:
-    #         #      if bio_sample.getLocalId() == read_group.getSampleName():
-    #         #          read_group.setBioSampleId(bio_sample.getId())
-    #         read_group_set.setReferenceSet(reference_set)
-    #         try:
-    #             repo.insertReadGroupSet(read_group_set)
-    #             repo.commit()
-    #         except Exception as e:
-    #             print("already had it {}".format(e))
+    with open(index_list_path) as merged:
+        data = json.load(merged)
+        print("Found {} read group sets".format(len(data)))
+        if download_indexes:
+          save_files_locally(data)
+        # TODO might have to do something smart about pointing to different index locations
+        for row in data:
+            print("Adding {}".format(row['name']))
+            download_url = make_address(row['name'], os.path.basename(row['dataUrl']))
+            name = row['name']
+            read_group_set = reads.HtslibReadGroupSet(dataset, name)
+            read_group_set.populateFromFile(download_url, os.path.join(base, 'indexes', row['indexUrl']))
+            for read_group in read_group_set.getReadGroups():
+                 read_group.setBioSampleId(dataset.getBioSampleByName(name).getId())
+            read_group_set.setReferenceSet(reference_set)
+            try:
+                repo.insertReadGroupSet(read_group_set)
+                repo.commit()
+            except Exception as e:
+                print("already had it {}".format(e))
     rna_base = rna_quantification_set_location
     quant_location = os.path.join(rna_base, 'sqlite/rnaseq.db')
     kallisto_location = os.path.join(rna_base, 'kallisto')

@@ -4,10 +4,6 @@
 # These requirements are read directly into setup.py, so specify them
 # in the order that they should be in in setup.py
 
-### This section is for dependencies of the libraries ###
-# these libraries are the set listed by pipdeptree -f -w
-# that are dependencies of libraries listed in the next section
-
 # Adding the constraints.txt allows you to choose a specific 
 # way to resolve our internal dependencies. During development,
 # the constraints file will point at the current master branch 

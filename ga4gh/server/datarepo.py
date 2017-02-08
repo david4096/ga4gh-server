@@ -1194,7 +1194,7 @@ class SqlDataRepository(AbstractDataRepository):
         performs a cascading removal of all items within this
         rnaQuantificationSet.
         """
-        q = m.Rnaquantificationset.delete.where(
+        q = m.Rnaquantificationset.delete().where(
             m.Rnaquantificationset.id == rnaQuantificationSet.getId())
         q.execute()
 

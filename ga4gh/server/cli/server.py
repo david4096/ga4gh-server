@@ -10,6 +10,9 @@ import requests
 import ga4gh.server.cli as cli
 import ga4gh.server.frontend as frontend
 
+import gunicorn.app.base
+
+
 import ga4gh.common.cli as common_cli
 
 
@@ -42,6 +45,7 @@ def getServerParser():
     return parser
 
 
+
 def server_main(args=None):
     parser = getServerParser()
     parsedArgs = parser.parse_args(args)
@@ -52,7 +56,26 @@ def server_main(args=None):
     sslContext = None
     if parsedArgs.tls or ("OIDC_PROVIDER" in frontend.app.config):
         sslContext = "adhoc"
-    frontend.app.run(
-        host=parsedArgs.host, port=parsedArgs.port,
-        use_reloader=not parsedArgs.dont_use_reloader,
-        ssl_context=sslContext)
+
+    class StandaloneApplication(gunicorn.app.base.BaseApplication):
+
+        def __init__(self, app, options=None):
+            self.options = options or {}
+            self.application = app
+            super(StandaloneApplication, self).__init__()
+
+        def load_config(self):
+            config = dict(
+                [(key, value) for key, value in self.options.iteritems()
+                 if key in self.cfg.settings and value is not None])
+            for key, value in config.iteritems():
+                self.cfg.set(key.lower(), value)
+
+        def load(self):
+            return self.application
+
+    options = {
+        'bind': '%s:%s' % (parsedArgs.host, parsedArgs.port),
+        'workers': 2,
+    }
+    StandaloneApplication(frontend.app, options).run()

@@ -221,9 +221,13 @@ class AbstractDataRepository(object):
                         sep="\t")
             print("\tVariantSets:")
             for variantSet in dataset.getVariantSets():
+                referenceSetName = ""
+                if variantSet.getReferenceSet() is not None:
+                    referenceSetName = \
+                        variantSet.getReferenceSet().getLocalId()
                 print(
                     "\t", variantSet.getLocalId(),
-                    variantSet.getReferenceSet().getLocalId(),
+                    referenceSetName,
                     variantSet.getId(),
                     sep="\t")
                 if variantSet.getNumVariantAnnotationSets() > 0:
@@ -235,17 +239,25 @@ class AbstractDataRepository(object):
                             vas.getOntology().getName(), sep="\t")
             print("\tFeatureSets:")
             for featureSet in dataset.getFeatureSets():
+                referenceSetName = ""
+                if featureSet.getReferenceSet() is not None:
+                    referenceSetName = \
+                        featureSet.getReferenceSet().getLocalId()
                 print(
                     "\t", featureSet.getLocalId(),
-                    featureSet.getReferenceSet().getLocalId(),
+                    referenceSetName,
                     featureSet.getOntology().getName(),
                     featureSet.getId(),
                     sep="\t")
             print("\tContinuousSets:")
             for continuousSet in dataset.getContinuousSets():
+                referenceSetName = ""
+                if continuousSet.getReferenceSet() is not None:
+                    referenceSetName = \
+                        continuousSet.getReferenceSet().getLocalId()
                 print(
                     "\t", continuousSet.getLocalId(),
-                    continuousSet.getReferenceSet().getLocalId(),
+                    referenceSetName,
                     continuousSet.getId(),
                     sep="\t")
             print("\tPhenotypeAssociationSets:")
@@ -1016,11 +1028,14 @@ class SqlDataRepository(AbstractDataRepository):
             [protocol.toJsonDict(metadata) for metadata in
              variantSet.getMetadata()])
         urlMapJson = json.dumps(variantSet.getReferenceToDataUrlIndexMap())
+        referenceSetId = None
+        if variantSet.getReferenceSet() is not None:
+            referenceSetId = variantSet.getReferenceSet().getId()
         try:
             m.Variantset.create(
                 id=variantSet.getId(),
                 datasetid=variantSet.getParentContainer().getId(),
-                referencesetid=variantSet.getReferenceSet().getId(),
+                referencesetid=referenceSetId,
                 name=variantSet.getLocalId(),
                 created=datetime.datetime.now(),
                 updated=datetime.datetime.now(),
@@ -1035,11 +1050,13 @@ class SqlDataRepository(AbstractDataRepository):
     def _readVariantSetTable(self):
         for variantSetRecord in m.Variantset.select():
             dataset = self.getDataset(variantSetRecord.datasetid.id)
-            referenceSet = self.getReferenceSet(
-                variantSetRecord.referencesetid.id)
             variantSet = variants.HtslibVariantSet(
                 dataset, variantSetRecord.name)
-            variantSet.setReferenceSet(referenceSet)
+            if variantSetRecord.referencesetid is not None:
+                referenceSet = self.getReferenceSet(
+                    variantSetRecord.referencesetid.id)
+                variantSet.setReferenceSet(referenceSet)
+
             variantSet.populateFromRow(variantSetRecord)
             assert variantSet.getId() == variantSetRecord.id
             # Insert the variantSet into the memory-based object model.

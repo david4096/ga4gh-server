@@ -275,16 +275,19 @@ class RepoManager(object):
         variantSet.populateFromFile(dataUrls, indexFiles)
         # Get the reference set that is associated with the variant set.
         referenceSetName = self._args.referenceSetName
-        if referenceSetName is None:
-            # Try to find a reference set name from the VCF header.
-            referenceSetName = variantSet.getVcfHeaderReferenceSetName()
-        if referenceSetName is None:
-            raise exceptions.RepoManagerException(
-                "Cannot infer the ReferenceSet from the VCF header. Please "
-                "specify the ReferenceSet to associate with this "
-                "VariantSet using the --referenceSetName option")
-        referenceSet = self._repo.getReferenceSetByName(referenceSetName)
-        variantSet.setReferenceSet(referenceSet)
+        referenceSet = None
+        if referenceSetName is not None:
+            referenceSet = self._repo.getReferenceSetByName(referenceSetName)
+        elif variantSet.getVcfHeaderReferenceSetName() is not None:
+            try:
+                referenceSet = self._repo.getReferenceSetByName(
+                    variantSet.getVcfHeaderReferenceSetName())
+            except exceptions.ReferenceSetNameNotFoundException as e:
+                # It's a lucky shot to get a reference set by name using the
+                # VCF header.
+                pass
+        if referenceSet is not None:
+            variantSet.setReferenceSet(referenceSet)
         variantSet.setAttributes(json.loads(self._args.attributes))
         # Now check for annotations
         annotationSets = []

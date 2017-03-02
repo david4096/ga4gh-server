@@ -12,6 +12,8 @@ import ga4gh.server.frontend as frontend
 
 import gunicorn.app.base
 
+import multiprocessing
+
 
 import ga4gh.common.cli as common_cli
 
@@ -44,6 +46,8 @@ def getServerParser():
     addServerOptions(parser)
     return parser
 
+def number_of_workers():
+    return (multiprocessing.cpu_count() * 2) + 1
 
 
 def server_main(args=None):
@@ -76,6 +80,6 @@ def server_main(args=None):
 
     options = {
         'bind': '%s:%s' % (parsedArgs.host, parsedArgs.port),
-        'workers': 2,
+        'workers': number_of_workers(),
     }
     StandaloneApplication(frontend.app, options).run()

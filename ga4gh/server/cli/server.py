@@ -6,6 +6,8 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 import requests
+from flask.ext.twisted import Twisted
+
 
 import ga4gh.server.cli as cli
 import ga4gh.server.frontend as frontend
@@ -52,6 +54,7 @@ def server_main(args=None):
     sslContext = None
     if parsedArgs.tls or ("OIDC_PROVIDER" in frontend.app.config):
         sslContext = "adhoc"
+    twisted = Twisted(frontend.app)
     frontend.app.run(
         host=parsedArgs.host, port=parsedArgs.port,
         use_reloader=not parsedArgs.dont_use_reloader,

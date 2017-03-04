@@ -214,7 +214,7 @@ class RepoManager(object):
         if referenceSetName is None:
             # Try to find a reference set name from the BAM header.
             referenceSetName = readGroupSet.getBamHeaderReferenceSetName()
-        referenceSet = self._repo.getReferenceSetByName(referenceSetName)
+        referenceSet = self.safeGetReferenceSetByName(referenceSetName)
         readGroupSet.setReferenceSet(referenceSet)
         readGroupSet.setAttributes(json.loads(self._args.attributes))
         self._updateRepo(self._repo.insertReadGroupSet, readGroupSet)
@@ -277,17 +277,16 @@ class RepoManager(object):
         referenceSetName = self._args.referenceSetName
         referenceSet = None
         if referenceSetName is not None:
-            referenceSet = self._repo.getReferenceSetByName(referenceSetName)
+            referenceSet = self.safeGetReferenceSetByName(referenceSetName)
         elif variantSet.getVcfHeaderReferenceSetName() is not None:
             try:
                 referenceSet = self._repo.getReferenceSetByName(
                     variantSet.getVcfHeaderReferenceSetName())
             except exceptions.ReferenceSetNameNotFoundException as e:
-                # It's a lucky shot to get a reference set by name using the
-                # VCF header.
+                # It's a lucky shot to get a reference set
+                # by name using the VCF header.
                 pass
-        if referenceSet is not None:
-            variantSet.setReferenceSet(referenceSet)
+        variantSet.setReferenceSet(referenceSet)
         variantSet.setAttributes(json.loads(self._args.attributes))
         # Now check for annotations
         annotationSets = []
@@ -405,10 +404,9 @@ class RepoManager(object):
         featureSet = sequence_annotations.Gff3DbFeatureSet(
             dataset, name)
         referenceSetName = self._args.referenceSetName
-        if referenceSetName is None:
-            raise exceptions.RepoManagerException(
-                "A reference set name must be provided")
-        referenceSet = self._repo.getReferenceSetByName(referenceSetName)
+        referenceSet = None
+        if referenceSetName:
+            referenceSet = self.safeGetReferenceSetByName(referenceSetName)
         featureSet.setReferenceSet(referenceSet)
         ontologyName = self._args.ontologyName
         if ontologyName is None:
@@ -444,10 +442,9 @@ class RepoManager(object):
         name = getNameFromPath(self._args.filePath)
         continuousSet = continuous.FileContinuousSet(dataset, name)
         referenceSetName = self._args.referenceSetName
-        if referenceSetName is None:
-            raise exceptions.RepoManagerException(
-                "A reference set name must be provided")
-        referenceSet = self._repo.getReferenceSetByName(referenceSetName)
+        referenceSet = None
+        if referenceSetName:
+            referenceSet = self.safeGetReferenceSetByName(referenceSetName)
         continuousSet.setReferenceSet(referenceSet)
         continuousSet.populateFromFile(filePath)
         self._updateRepo(self._repo.insertContinuousSet, continuousSet)
@@ -568,12 +565,6 @@ class RepoManager(object):
             name = self._args.name
         rnaQuantificationSet = rna_quantification.SqliteRnaQuantificationSet(
             dataset, name)
-        referenceSetName = self._args.referenceSetName
-        if referenceSetName is None:
-            raise exceptions.RepoManagerException(
-                "A reference set name must be provided")
-        referenceSet = self._repo.getReferenceSetByName(referenceSetName)
-        rnaQuantificationSet.setReferenceSet(referenceSet)
         rnaQuantificationSet.populateFromFile(self._args.filePath)
         rnaQuantificationSet.setAttributes(json.loads(self._args.attributes))
         self._updateRepo(
@@ -593,6 +584,18 @@ class RepoManager(object):
                              rnaQuantSet)
         self._confirmDelete(
             "RnaQuantificationSet", rnaQuantSet.getLocalId(), func)
+
+    def safeGetReferenceSetByName(self, referenceSetName):
+        """
+        Gets a reference set by name from the repository throwing a useful
+        exception if it is not found.
+        """
+        try:
+            referenceSet = self._repo.getReferenceSetByName(referenceSetName)
+        except Exception as e:
+            raise exceptions.ReferenceSetNameNotFoundException(
+                referenceSetName)
+        return referenceSet
 
     #
     # Methods to simplify adding common arguments to the parser.

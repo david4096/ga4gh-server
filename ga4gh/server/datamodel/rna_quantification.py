@@ -92,7 +92,6 @@ class AbstractRnaQuantificationSet(datamodel.DatamodelObject):
         super(AbstractRnaQuantificationSet, self).__init__(
             parentContainer, localId)
         self._name = localId
-        self._referenceSet = None
         self._rnaQuantificationIdMap = {}
         self._rnaQuantificationIds = []
 
@@ -119,19 +118,6 @@ class AbstractRnaQuantificationSet(datamodel.DatamodelObject):
     def getRnaQuantifications(self):
         return [self._rnaQuantificationIdMap[id_] for
                 id_ in self._rnaQuantificationIds]
-
-    def getReferenceSet(self):
-        """
-        Returns the reference set associated with this RnaQuantificationSet.
-        """
-        return self._referenceSet
-
-    def setReferenceSet(self, referenceSet):
-        """
-        Sets the reference set associated with this RnaQuantificationSet to the
-        specified value.
-        """
-        self._referenceSet = referenceSet
 
     def addRnaQuantification(self, rnaQuantification):
         """
@@ -212,7 +198,6 @@ class AbstractRnaQuantification(datamodel.DatamodelObject):
         self._description = ""
         self._name = localId
         self._readGroupIds = []
-        self._referenceSet = None
         self._programs = []
         self._biosampleId = ""
 
@@ -253,19 +238,6 @@ class AbstractRnaQuantification(datamodel.DatamodelObject):
             # Need to use program Id's here to generate a list of Programs
             # for now set to empty
             self._programs = []
-
-    def getReferenceSet(self):
-        """
-        Returns the reference set associated with this RnaQuantification.
-        """
-        return self._referenceSet
-
-    def setReferenceSet(self, referenceSet):
-        """
-        Sets the reference set associated with this RnaQuantification to the
-        specified value.
-        """
-        self._referenceSet = referenceSet
 
     def setBiosampleId(self, biosampleId):
         """

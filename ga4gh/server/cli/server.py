@@ -56,6 +56,10 @@ def addServerOptions(parser):
     parser.add_argument(
         "--dont-use-reloader", default=False, action="store_true",
         help="Don't use the flask reloader")
+    parser.add_argument(
+        "--gunicorn", "-g", action='store_true', default=False,
+        help="Runs the server using the gunicorn web server "
+             "http://gunicorn.org/")
     cli.addVersionArgument(parser)
     cli.addDisableUrllibWarningsArgument(parser)
 
@@ -88,5 +92,9 @@ def server_main(args=None):
         sslContext = None
         if parsedArgs.tls or ("OIDC_PROVIDER" in frontend.app.config):
             sslContext = "adhoc"
-        
+        frontend.app.run(host = parsedArgs.host,
+                         port = parsedArgs.port,
+                         use_reloader = not parsedArgs.dont_use_reloader,
+                         ssl_context = sslContext)
+
 

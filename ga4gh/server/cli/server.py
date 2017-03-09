@@ -18,6 +18,25 @@ import multiprocessing
 import ga4gh.common.cli as common_cli
 
 
+class StandaloneApplication(gunicorn.app.base.BaseApplication):
+    def __init__(self, app, options=None):
+        self.options = options or {}
+        self.application = app
+        super(StandaloneApplication, self).__init__()
+
+    def load_config(self):
+        config = dict(
+            [(key, value) for key, value in self.options.iteritems()
+             if key in self.cfg.settings and value is not None])
+        for key, value in config.iteritems():
+            self.cfg.set(key.lower(), value)
+
+    def load(self):
+        return self.application
+
+
+
+
 def addServerOptions(parser):
     parser.add_argument(
         "--port", "-P", default=8000, type=int,
@@ -40,6 +59,12 @@ def addServerOptions(parser):
     cli.addVersionArgument(parser)
     cli.addDisableUrllibWarningsArgument(parser)
 
+def runGunicornServer(parsedArgs):
+    options = {
+        'bind': '%s:%s' % (parsedArgs.host, parsedArgs.port),
+        'workers': number_of_workers(),
+    }
+    StandaloneApplication(frontend.app, options).run()
 
 def getServerParser():
     parser = common_cli.createArgumentParser("GA4GH reference server")
@@ -57,29 +82,11 @@ def server_main(args=None):
         requests.packages.urllib3.disable_warnings()
     frontend.configure(
         parsedArgs.config_file, parsedArgs.config, parsedArgs.port)
-    sslContext = None
-    if parsedArgs.tls or ("OIDC_PROVIDER" in frontend.app.config):
-        sslContext = "adhoc"
+    if parsedArgs.gunicorn:
+        runGunicornServer(parsedArgs)
+    else:
+        sslContext = None
+        if parsedArgs.tls or ("OIDC_PROVIDER" in frontend.app.config):
+            sslContext = "adhoc"
+        
 
-    class StandaloneApplication(gunicorn.app.base.BaseApplication):
-
-        def __init__(self, app, options=None):
-            self.options = options or {}
-            self.application = app
-            super(StandaloneApplication, self).__init__()
-
-        def load_config(self):
-            config = dict(
-                [(key, value) for key, value in self.options.iteritems()
-                 if key in self.cfg.settings and value is not None])
-            for key, value in config.iteritems():
-                self.cfg.set(key.lower(), value)
-
-        def load(self):
-            return self.application
-
-    options = {
-        'bind': '%s:%s' % (parsedArgs.host, parsedArgs.port),
-        'workers': number_of_workers(),
-    }
-    StandaloneApplication(frontend.app, options).run()

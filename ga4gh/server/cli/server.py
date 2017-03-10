@@ -32,8 +32,6 @@ class StandaloneApplication(gunicorn.app.base.BaseApplication):
         return self.application
 
 
-
-
 def addServerOptions(parser):
     parser.add_argument(
         "--port", "-P", default=8000, type=int,
@@ -59,6 +57,7 @@ def addServerOptions(parser):
     cli.addVersionArgument(parser)
     cli.addDisableUrllibWarningsArgument(parser)
 
+
 def runGunicornServer(parsedArgs):
     options = {
         'bind': '%s:%s' % (parsedArgs.host, parsedArgs.port),
@@ -66,7 +65,10 @@ def runGunicornServer(parsedArgs):
         'accesslog': '-',  # Puts the access log on stdout
         'errorlog': '-'    # Puts the error log on stdout
     }
-    StandaloneApplication(frontend.app, options).run()
+    app = StandaloneApplication(frontend.app, options)
+    app.run()
+    return app
+
 
 def getServerParser():
     """
@@ -75,6 +77,7 @@ def getServerParser():
     parser = common_cli.createArgumentParser("GA4GH reference server")
     addServerOptions(parser)
     return parser
+
 
 def number_of_workers():
     return (multiprocessing.cpu_count() * 2) + 1
@@ -97,4 +100,3 @@ def server_main(args=None):
                          ssl_context=sslContext)
     else:
         runGunicornServer(parsedArgs)
-
